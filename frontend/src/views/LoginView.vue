@@ -16,7 +16,11 @@
         />
         <label for="password">password</label>
       </span>
-      <Button label="login" class="float-right p-button-primary mr-8" />
+      <Button
+        label="login"
+        class="float-right p-button-primary mr-8"
+        @click="loginUser()"
+      />
     </div>
   </div>
 </template>
@@ -26,7 +30,13 @@ import { ref } from "vue";
 import InputText from "primevue/inputtext";
 import Password from "primevue/password";
 import Button from "primevue/button";
+import { useUserStore } from "@/stores/user";
 
+const userStore = useUserStore();
 const name = ref();
 const password = ref();
+
+async function loginUser() {
+  await userStore.loginUser({ name: name.value, password: password.value });
+}
 </script>

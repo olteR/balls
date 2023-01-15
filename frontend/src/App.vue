@@ -1,4 +1,5 @@
 <template>
+  <Toast />
   <RouterView />
 </template>
 
@@ -6,6 +7,7 @@
 import { RouterView, useRouter } from "vue-router";
 import { useUserStore } from "@/stores/user";
 import { onMounted } from "vue";
+import Toast from "primevue/toast";
 
 const userStore = useUserStore();
 const router = useRouter();
