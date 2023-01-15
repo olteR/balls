@@ -12,7 +12,7 @@ export const useUserStore = defineStore("user", () => {
   const getUser = computed(() => user);
 
   const urls = {
-    login: "http://localhost:8080/api/users/login",
+    login: "http://localhost:3000/api/users/login",
   };
 
   async function loginUser(login) {
