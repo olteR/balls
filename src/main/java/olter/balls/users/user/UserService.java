@@ -31,13 +31,13 @@ public class UserService implements UserDetailsService {
         if (!passwordEncoder.matches(loginRequest.getPassword(), user.getPassword())) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid password");
         }
-        return ResponseEntity.ok().body(new LoginResponse(user.getId(), user.getName(), jwtHandler.generateJwt(user.getEmail(), new HashMap<>())));
+        return ResponseEntity.ok().body(new LoginResponse(user.getId(), user.getName(), jwtHandler.generateJwt(user.getName(), new HashMap<>())));
     }
 
     public ResponseEntity<LoginResponse> refreshUser(String jwt) {
         try {
             UserEntity user = userRepository.findByName(jwtHandler.getUsernameFromToken(jwt)).orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "User not found with this name"));
-            return ResponseEntity.ok().body(new LoginResponse(user.getId(), user.getName(), jwtHandler.generateJwt(user.getEmail(), new HashMap<>())));
+            return ResponseEntity.ok().body(new LoginResponse(user.getId(), user.getName(), jwtHandler.generateJwt(user.getName(), new HashMap<>())));
         } catch (Exception e) {
             if (e.getMessage().contains("JWT expired")) {
                 return ResponseEntity.ok().body(new LoginResponse(null, null, "INVALID"));

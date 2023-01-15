@@ -1,10 +1,10 @@
 <template>
-  <span>HomeView</span>
+  <span>Campaigns</span>
 </template>
 
 <script setup>
-
 </script>
 
 <style scoped>
+
 </style>
