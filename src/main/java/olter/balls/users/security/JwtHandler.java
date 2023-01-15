@@ -16,8 +16,8 @@ public class JwtHandler {
     private final int JWT_EXP_TIME = 1200000;
     @Value("${jwt.secret}")
     private final String SECRET = "secret";
-    private final String ISSUER = "Spaceship_Security";
-    private final String AUDIENCE = "Spaceships";
+    private final String ISSUER = "Balls_Security";
+    private final String AUDIENCE = "Balls";
     private static final SignatureAlgorithm ALGORITHM = SignatureAlgorithm.HS512;
 
     public String generateJwt(String username, Map<String, Object> data) {
