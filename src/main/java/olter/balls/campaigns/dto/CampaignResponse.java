@@ -8,7 +8,6 @@ import olter.balls.users.dto.UserResponse;
 public class CampaignResponse {
     private Integer id;
     private String name;
-    private String shortName;
     private RulesetResponse ruleset;
     private UserResponse gameMaster;
 }

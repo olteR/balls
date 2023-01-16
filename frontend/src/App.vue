@@ -37,7 +37,6 @@ const items = ref([
 ]);
 
 onMounted(() => {
-  console.log(userStore.getJwt)
   if (!userStore.isLoggedIn) {
     if (userStore.getUser != null) {
       toast.add({

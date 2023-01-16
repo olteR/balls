@@ -8,7 +8,7 @@ export const useCampaignStore = defineStore("campaign", () => {
 
   const campaigns = ref([]);
 
-  const getCampaigns = computed(() => campaigns);
+  const getCampaigns = computed(() => campaigns.value);
 
   const urls = {
     campaigns: "http://localhost:3000/api/campaigns",
