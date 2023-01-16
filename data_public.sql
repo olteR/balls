@@ -5,8 +5,8 @@ INSERT INTO users (id, email, name, display_name, password) VALUES (1, 'admin@tt
                                                                    (5, 'marci@ttrpg-balls.com', 'Marci', 'Marci', '$2a$10$tdw06E/BpPfwMAvNhzVy1O5vmP.n8E3iVphkV8UG3yKkZmsG.8u.S'),
                                                                    (6, 'tiniky@ttrpg-balls.com', 'Tiniky', 'Tiniky', '$2a$10$yPtASJuJQfVNVmdkg8547.7B4MYZ4zDi.aaNLCCVScI6YDRj1Wtxq'),
                                                                    (7, 'ogike@ttrpg-balls.com', 'ogike', 'ogike', '$2a$10$ZDY9MGgRwl9fdXHyUM/y3OZDQ7ZFTI2m/ViJxNd7gHcx7oyU7UKY.');
-INSERT INTO rulesets (id, core_dice, name) VALUES (8, 20, 'Dungeons & Dragons 5E'),
-                                                  (9, 20, 'Pathfinder 2E');
+INSERT INTO rulesets (id, core_dice, name, short_name) VALUES (8, 20, 'Dungeons & Dragons 5E', 'dnd5e'),
+                                                              (9, 20, 'Pathfinder 2E', 'pf2e');
 INSERT INTO campaigns (id, name, game_master_id, ruleset_id) VALUES (10, 'D&VE', 4, 8),
                                                                     (11, 'not dave', 5, 8),
                                                                     (12, 'C4RL', 2, 8);

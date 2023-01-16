@@ -1,9 +1,9 @@
-package olter.balls.users.user;
+package olter.balls.users;
 
 import lombok.RequiredArgsConstructor;
 import olter.balls.users.security.JwtHandler;
-import olter.balls.users.security.dtos.LoginRequest;
-import olter.balls.users.security.dtos.LoginResponse;
+import olter.balls.users.security.dto.LoginRequest;
+import olter.balls.users.security.dto.LoginResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.GrantedAuthority;
@@ -15,7 +15,6 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.Optional;
 
 
 @Service

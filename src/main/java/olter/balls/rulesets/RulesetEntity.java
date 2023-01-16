@@ -17,6 +17,7 @@ public class RulesetEntity {
     private Integer id;
     @Column(unique = true)
     private String name;
+    private String shortName;
     private Integer coreDice;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "ruleset")

@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 import olter.balls.characters.CharacterEntity;
 import olter.balls.rulesets.RulesetEntity;
-import olter.balls.users.user.UserEntity;
+import olter.balls.users.UserEntity;
 
 import java.util.Set;
 
@@ -22,7 +22,7 @@ public class CampaignEntity {
     @JoinColumn(name = "game_master_id")
     private UserEntity gameMaster;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(
             name = "campaign_characters",
             joinColumns = {@JoinColumn(name = "campaign_id")},

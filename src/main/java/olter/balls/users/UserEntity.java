@@ -1,4 +1,4 @@
-package olter.balls.users.user;
+package olter.balls.users;
 
 import jakarta.persistence.*;
 import lombok.*;
