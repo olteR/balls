@@ -1,6 +1,5 @@
 package olter.balls.users;
 
-import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import olter.balls.users.security.dto.LoginRequest;
 import olter.balls.users.security.dto.LoginResponse;
@@ -19,11 +18,6 @@ public class UserController {
     @PostMapping("/users/login")
     public ResponseEntity<LoginResponse> loginUser(@RequestBody LoginRequest loginRequest) {
         return userService.loginUser(loginRequest);
-    }
-
-    @PostMapping("/users/refresh")
-    public ResponseEntity<LoginResponse> refreshUser(@RequestBody String jwt) {
-        return userService.refreshUser(jwt);
     }
 }
 
