@@ -34,3 +34,4 @@ build/
 
 ### Others ###
 frontend/balls/node_modules
+data_private.sql

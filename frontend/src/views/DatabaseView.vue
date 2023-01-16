@@ -1,5 +1,5 @@
 <template>
-  <span>campaigns wip</span>
+  <span>database wip</span>
 </template>
 
 <script setup>

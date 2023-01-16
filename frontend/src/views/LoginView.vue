@@ -1,7 +1,7 @@
 <template>
   <div class="flex h-screen">
     <div class="m-auto justify-items-center">
-      <h1 class="text-9xl text-center">balls</h1>
+      <h1 class="text-9xl text-center select-none">balls.</h1>
       <span class="p-float-label m-8">
         <InputText id="name" type="text" v-model="name" class="w-full" />
         <label for="name">username</label>

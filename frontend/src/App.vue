@@ -1,7 +1,8 @@
 <template>
   <Toast />
   <div class="card">
-    <TabMenu v-if="isLoggedIn" :model="items" />
+    <TabMenu v-if="isLoggedIn" :model="items" class="inline"/>
+    <span v-if="isLoggedIn" class="tab-menu-profile">logged in as {{ userStore.getUser.value.name }}. <i class="pi pi-user"></i></span>
     <RouterView />
   </div>
 </template>
@@ -40,3 +41,12 @@ onMounted(() => {
   }
 });
 </script>
+
+<style>
+  .tab-menu-profile {
+    position: fixed;
+    top: 0;
+    right: 0;
+    padding: 0.75rem 1.25rem;
+  }
+</style>

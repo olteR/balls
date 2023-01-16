@@ -20,8 +20,13 @@ export const useUserStore = defineStore("user", () => {
     try {
       const response = await axios.post(urls.login, login);
       await handleLoginResponse(response);
+      toast.add({
+        severity: "success",
+        summary: "success.",
+        detail: "successful login.",
+        life: 3000,
+      });
     } catch (error) {
-      console.log(error);
       toast.add({
         severity: "error",
         summary: "Hiba!",
@@ -37,18 +42,18 @@ export const useUserStore = defineStore("user", () => {
       if (response.data.id == null) {
         toast.add({
           severity: "error",
-          summary: "Hiba!",
-          detail: "Bejelentkezés lejárt. Lépj be újra.",
+          summary: "login expired.",
+          detail: "please log in again.",
           life: 3000,
         });
+        await router.push("/login");
       } else {
         await handleLoginResponse(response);
       }
     } catch (error) {
-      console.log(error);
       toast.add({
         severity: "error",
-        summary: "Hiba!",
+        summary: "error.",
         detail: error,
         life: 3000,
       });

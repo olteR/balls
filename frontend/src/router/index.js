@@ -1,6 +1,8 @@
 import { createRouter, createWebHistory } from "vue-router";
 import LoginView from "../views/LoginView.vue";
-import HomeView from "../views/HomeView.vue";
+import CampaignsView from "../views/CampaignsView.vue";
+import CharactersView from "../views/CharactersView.vue";
+import DatabaseView from "../views/DatabaseView.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -11,9 +13,25 @@ const router = createRouter({
       component: LoginView,
     },
     {
-      path: "/",
-      name: "home",
-      component: HomeView,
+      path: "/campaigns",
+      name: "campaigns",
+      component: CampaignsView,
+    },
+    {
+      path: "/characters",
+      name: "characters",
+      component: CharactersView,
+    },
+    {
+      path: "/database",
+      name: "database",
+      component: DatabaseView,
+    },
+    {
+      path: '/',
+      redirect: to => {
+        return 'campaigns'
+      },
     },
   ],
 });

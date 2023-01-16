@@ -1,5 +1,5 @@
 <template>
-  <span>campaigns wip</span>
+  <span>characters wip</span>
 </template>
 
 <script setup>
