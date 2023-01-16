@@ -2,6 +2,7 @@
   <div class="container mx-auto my-4">
     <Panel v-for="campaign in campaignStore.campaigns" :key="campaign.id" :header="campaign.name" toggleable collapsed class="my-4">
       <div class="mb-4">game master: {{ campaign.gameMaster.name }}</div>
+      <div class="mb-4">players: <span v-for="character in campaign.characters">{{ character.owner.name }} as {{ character.name }}<span v-if="campaign.characters.indexOf(character) !== campaign.characters.length - 1">, </span> </span></div>
       <div>
         <Button label="play"></Button>
         <Button label="campaign hub"></Button>
