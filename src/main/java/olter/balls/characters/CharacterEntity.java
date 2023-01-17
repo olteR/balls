@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 import olter.balls.campaigns.CampaignEntity;
 import olter.balls.rulesets.RulesetEntity;
-import olter.balls.users.user.UserEntity;
+import olter.balls.users.UserEntity;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -27,6 +27,6 @@ public class CharacterEntity {
     @JoinColumn(name = "owner_id")
     private UserEntity owner;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "characters", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<CampaignEntity> campaigns = new HashSet<>();
 }

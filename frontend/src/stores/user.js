@@ -3,17 +3,33 @@ import { defineStore } from "pinia";
 import { useToast } from "primevue/usetoast";
 import axios from "axios";
 import router from "@/router";
+import jwtDecode from "jwt-decode";
 
 export const useUserStore = defineStore("user", () => {
   const toast = useToast();
 
   const user = ref();
+  const jwt = ref(
+    localStorage.getItem("jwt") ? localStorage.getItem("jwt") : null
+  );
 
-  const getUser = computed(() => user);
+  const getUser = computed(() =>
+    user.value
+      ? user.value
+      : jwt.value
+      ? {
+          id: jwtDecode(jwt.value).uid,
+          name: jwtDecode(jwt.value).sub,
+        }
+      : null
+  );
+  const getJwt = computed(() => jwt.value);
+  const isLoggedIn = computed(() =>
+    jwt.value ? Date.now() < jwtDecode(jwt.value).exp * 1000 : false
+  );
 
   const urls = {
     login: "http://localhost:3000/api/users/login",
-    refresh: "http://localhost:3000/api/users/refresh",
   };
 
   async function loginUser(login) {
@@ -36,30 +52,6 @@ export const useUserStore = defineStore("user", () => {
     }
   }
 
-  async function refreshUser(jwt) {
-    try {
-      const response = await axios.post(urls.refresh, jwt);
-      if (response.data.id == null) {
-        toast.add({
-          severity: "error",
-          summary: "login expired.",
-          detail: "please log in again.",
-          life: 3000,
-        });
-        await router.push("/login");
-      } else {
-        await handleLoginResponse(response);
-      }
-    } catch (error) {
-      toast.add({
-        severity: "error",
-        summary: "error.",
-        detail: error,
-        life: 3000,
-      });
-    }
-  }
-
   async function handleLoginResponse(response) {
     localStorage.setItem("jwt", response.data.token);
     axios.defaults.headers.common["Authorization"] =
@@ -68,5 +60,5 @@ export const useUserStore = defineStore("user", () => {
     await router.push("/");
   }
 
-  return { user, getUser, loginUser, refreshUser };
+  return { user, getUser, getJwt, isLoggedIn, loginUser };
 });

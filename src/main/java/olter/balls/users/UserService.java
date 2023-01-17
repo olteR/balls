@@ -1,9 +1,9 @@
-package olter.balls.users.user;
+package olter.balls.users;
 
 import lombok.RequiredArgsConstructor;
 import olter.balls.users.security.JwtHandler;
-import olter.balls.users.security.dtos.LoginRequest;
-import olter.balls.users.security.dtos.LoginResponse;
+import olter.balls.users.security.dto.LoginRequest;
+import olter.balls.users.security.dto.LoginResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.GrantedAuthority;
@@ -15,7 +15,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.Optional;
+import java.util.Map;
 
 
 @Service
@@ -31,18 +31,7 @@ public class UserService implements UserDetailsService {
         if (!passwordEncoder.matches(loginRequest.getPassword(), user.getPassword())) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid password");
         }
-        return ResponseEntity.ok().body(new LoginResponse(user.getId(), user.getName(), jwtHandler.generateJwt(user.getName(), new HashMap<>())));
-    }
-
-    public ResponseEntity<LoginResponse> refreshUser(String jwt) {
-        try {
-            UserEntity user = userRepository.findByName(jwtHandler.getUsernameFromToken(jwt)).orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "User not found with this name"));
-            return ResponseEntity.ok().body(new LoginResponse(user.getId(), user.getName(), jwtHandler.generateJwt(user.getName(), new HashMap<>())));
-        } catch (Exception e) {
-            if (e.getMessage().contains("JWT expired")) {
-                return ResponseEntity.ok().body(new LoginResponse(null, null, "INVALID"));
-            } else throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Authorization failed");
-        }
+        return ResponseEntity.ok().body(new LoginResponse(user.getId(), user.getName(), jwtHandler.generateJwt(user.getName(), Map.of("uid", user.getId()))));
     }
 
     @Override

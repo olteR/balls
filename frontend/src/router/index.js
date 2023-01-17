@@ -28,9 +28,9 @@ const router = createRouter({
       component: DatabaseView,
     },
     {
-      path: '/',
-      redirect: to => {
-        return 'campaigns'
+      path: "/",
+      redirect: () => {
+        return "campaigns";
       },
     },
   ],

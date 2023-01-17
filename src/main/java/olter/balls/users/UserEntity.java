@@ -1,7 +1,7 @@
-package olter.balls.users.user;
+package olter.balls.users;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.Data;
 import olter.balls.campaigns.CampaignEntity;
 import olter.balls.characters.CharacterEntity;
 

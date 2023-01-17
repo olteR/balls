@@ -7,6 +7,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 
+import java.time.ZonedDateTime;
 import java.util.Date;
 import java.util.Map;
 import java.util.function.Function;
@@ -21,12 +22,11 @@ public class JwtHandler {
     private static final SignatureAlgorithm ALGORITHM = SignatureAlgorithm.HS512;
 
     public String generateJwt(String username, Map<String, Object> data) {
-        long now = System.currentTimeMillis();
         JwtBuilder jwtBuilder = Jwts.builder()
                 .addClaims(data)
-                .setNotBefore(new Date(now))
-                .setIssuedAt(new Date(now))
-                .setExpiration(new Date(now + JWT_EXP_TIME))
+                .setNotBefore(Date.from(ZonedDateTime.now().toInstant()))
+                .setIssuedAt(Date.from(ZonedDateTime.now().toInstant()))
+                .setExpiration(Date.from(ZonedDateTime.now().plusHours(24).toInstant()))
                 .setIssuer(ISSUER)
                 .setAudience(AUDIENCE)
                 .signWith(ALGORITHM, SECRET);

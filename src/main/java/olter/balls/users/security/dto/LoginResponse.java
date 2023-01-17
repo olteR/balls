@@ -1,4 +1,4 @@
-package olter.balls.users.security.dtos;
+package olter.balls.users.security.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

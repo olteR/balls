@@ -1,5 +1,4 @@
-package olter.balls.users.user;
-
+package olter.balls.users;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
