@@ -3,7 +3,7 @@
   <div class="card">
     <TabMenu v-if="userStore.isLoggedIn" :model="items" class="inline" />
     <span v-if="userStore.isLoggedIn" class="tab-menu-profile"
-      >logged in as {{ userStore.getUser.name }}. <i class="pi pi-user"></i
+      >logged in as {{ userStore.getUser.name }}. <i class="fa fa-user"></i
     ></span>
     <RouterView />
   </div>
@@ -47,10 +47,9 @@ onMounted(() => {
       });
     }
     router.push("/login");
-  }
-  else {
+  } else {
     axios.defaults.headers.common["Authorization"] =
-        "Bearer " + userStore.getJwt;
+      "Bearer " + userStore.getJwt;
   }
 });
 </script>
