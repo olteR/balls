@@ -2,7 +2,14 @@ package olter.balls.database.dnd.races;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import olter.balls.database.dnd.core.embeddables.AbilityScoreIncreaseEmbeddable;
+import olter.balls.database.dnd.core.embeddables.FeatureEmbeddable;
+import olter.balls.database.dnd.core.enums.RaceTypeEnum;
 import olter.balls.database.dnd.core.enums.SizeEnum;
+import olter.balls.database.dnd.source_books.SourceBookEntity;
+import org.hibernate.annotations.Type;
+
+import java.util.List;
 
 @Entity
 @Data
@@ -12,10 +19,36 @@ public class RaceEntity {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "balls_generator")
     @SequenceGenerator(name = "balls_generator", sequenceName = "balls_id_seq", initialValue = 1000000, allocationSize = 1)
     private Integer id;
+    String name;
+    @Lob
+    @Column(columnDefinition="TEXT")
+    String description;
+    @Lob
+    @Column(columnDefinition="TEXT")
     String age;
+    @Lob
+    @Column(columnDefinition="TEXT")
     String alignment;
+    @Lob
+    @Column(columnDefinition="TEXT")
+    String size;
     Integer speed;
 
+    @ManyToOne
+    @JoinColumn(name="source_book_id", nullable=false)
+    SourceBookEntity sourceBook;
+
     @Enumerated(EnumType.STRING)
-    SizeEnum size;
+    RaceTypeEnum type;
+
+    @Enumerated(EnumType.STRING)
+    SizeEnum sizeType;
+
+    @ElementCollection
+    @CollectionTable(name = "ability_score_increases", joinColumns = @JoinColumn(name = "source_id"))
+    List<AbilityScoreIncreaseEmbeddable> abilityScoreIncreases;
+
+    @ElementCollection
+    @CollectionTable(name = "features", joinColumns = @JoinColumn(name = "owner_id"))
+    List<FeatureEmbeddable> features;
 }

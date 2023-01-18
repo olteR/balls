@@ -19,7 +19,7 @@ public class CampaignEntity {
     private String name;
 
     @ManyToOne
-    @JoinColumn(name = "game_master_id")
+    @JoinColumn(name = "game_master_id", nullable = false)
     private UserEntity gameMaster;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
