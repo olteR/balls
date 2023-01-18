@@ -2,6 +2,7 @@ package olter.balls.database.dnd.races;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import olter.balls.characters.CharacterEntity;
 import olter.balls.database.dnd.core.embeddables.AbilityScoreIncreaseEmbeddable;
 import olter.balls.database.dnd.core.embeddables.FeatureEmbeddable;
 import olter.balls.database.dnd.core.enums.RaceTypeEnum;
@@ -20,16 +21,12 @@ public class RaceEntity {
     @SequenceGenerator(name = "balls_generator", sequenceName = "balls_id_seq", initialValue = 1000000, allocationSize = 1)
     private Integer id;
     String name;
-    @Lob
     @Column(columnDefinition="TEXT")
     String description;
-    @Lob
     @Column(columnDefinition="TEXT")
     String age;
-    @Lob
     @Column(columnDefinition="TEXT")
     String alignment;
-    @Lob
     @Column(columnDefinition="TEXT")
     String size;
     Integer speed;
@@ -51,4 +48,7 @@ public class RaceEntity {
     @ElementCollection
     @CollectionTable(name = "features", joinColumns = @JoinColumn(name = "owner_id"))
     List<FeatureEmbeddable> features;
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "race")
+    List<CharacterEntity> characters;
 }

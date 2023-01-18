@@ -3,6 +3,9 @@ package olter.balls.characters;
 import jakarta.persistence.*;
 import lombok.Data;
 import olter.balls.campaigns.CampaignEntity;
+import olter.balls.database.dnd.backgrounds.BackgroundEntity;
+import olter.balls.database.dnd.classes.ClassEntity;
+import olter.balls.database.dnd.races.RaceEntity;
 import olter.balls.rulesets.RulesetEntity;
 import olter.balls.users.UserEntity;
 
@@ -26,6 +29,18 @@ public class CharacterEntity {
     @ManyToOne
     @JoinColumn(name = "owner_id", nullable = false)
     private UserEntity owner;
+
+    @ManyToOne
+    @JoinColumn(name = "background_id")
+    private BackgroundEntity background;
+
+    @ManyToOne
+    @JoinColumn(name = "class_id")
+    private ClassEntity characterClass;
+
+    @ManyToOne
+    @JoinColumn(name = "race_id")
+    private RaceEntity race;
 
     @ManyToMany(mappedBy = "characters", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<CampaignEntity> campaigns = new HashSet<>();
