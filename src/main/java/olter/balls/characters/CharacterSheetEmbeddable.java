@@ -1,4 +1,4 @@
-package olter.balls.database.dnd.core.embeddables;
+package olter.balls.characters;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;

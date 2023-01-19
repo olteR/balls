@@ -3,6 +3,7 @@ package olter.balls.database.dnd.backgrounds;
 import jakarta.persistence.*;
 import lombok.Data;
 import olter.balls.characters.CharacterEntity;
+import olter.balls.common.BaseEntity;
 import olter.balls.database.dnd.races.RaceEntity;
 import olter.balls.database.dnd.source_books.SourceBookEntity;
 
@@ -11,11 +12,7 @@ import java.util.List;
 @Entity
 @Data
 @Table(name = "dnddb_backgrounds")
-public class BackgroundEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "balls_generator")
-    @SequenceGenerator(name = "balls_generator", sequenceName = "balls_id_seq", initialValue = 1000000, allocationSize = 1)
-    private Integer id;
+public class BackgroundEntity extends BaseEntity {
     private String name;
 
     @Column(columnDefinition="TEXT")

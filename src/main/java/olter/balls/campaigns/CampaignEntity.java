@@ -2,32 +2,20 @@ package olter.balls.campaigns;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import olter.balls.characters.CharacterEntity;
+import olter.balls.common.BaseEntity;
+import olter.balls.connections.campaign_users.CampaignUserEntity;
 import olter.balls.rulesets.RulesetEntity;
-import olter.balls.users.UserEntity;
 
-import java.util.Set;
+import java.util.List;
 
 @Entity
 @Data
 @Table(name = "campaigns")
-public class CampaignEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "balls_generator")
-    @SequenceGenerator(name = "balls_generator", sequenceName = "balls_id_seq", initialValue = 1000000, allocationSize = 1)
-    private Integer id;
+public class CampaignEntity extends BaseEntity {
     private String name;
 
-    @ManyToOne
-    @JoinColumn(name = "game_master_id", nullable = false)
-    private UserEntity gameMaster;
-
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(
-            name = "campaign_characters",
-            joinColumns = {@JoinColumn(name = "campaign_id")},
-            inverseJoinColumns = {@JoinColumn(name = "character_id")})
-    private Set<CharacterEntity> characters;
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "campaign")
+    private List<CampaignUserEntity> relatedUsers;
 
     @ManyToOne
     @JoinColumn(name = "ruleset_id")

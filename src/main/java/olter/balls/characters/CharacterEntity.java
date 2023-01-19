@@ -2,7 +2,8 @@ package olter.balls.characters;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import olter.balls.campaigns.CampaignEntity;
+import olter.balls.common.BaseEntity;
+import olter.balls.connections.campaign_users.CampaignUserEntity;
 import olter.balls.database.dnd.backgrounds.BackgroundEntity;
 import olter.balls.database.dnd.classes.ClassEntity;
 import olter.balls.database.dnd.races.RaceEntity;
@@ -10,16 +11,13 @@ import olter.balls.rulesets.RulesetEntity;
 import olter.balls.users.UserEntity;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
 @Data
 @Table(name = "characters")
-public class CharacterEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "balls_generator")
-    @SequenceGenerator(name = "balls_generator", sequenceName = "balls_id_seq", initialValue = 1000000, allocationSize = 1)
-    private Integer id;
+public class CharacterEntity extends BaseEntity {
     private String name;
 
     @ManyToOne
@@ -43,5 +41,5 @@ public class CharacterEntity {
     private RaceEntity race;
 
     @ManyToMany(mappedBy = "characters", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<CampaignEntity> campaigns = new HashSet<>();
+    private List<CampaignUserEntity> campaigns;
 }

@@ -7,5 +7,4 @@ import olter.balls.users.dto.UserResponse;
 public class CharacterResponse {
     private Integer id;
     private String name;
-    private UserResponse owner;
 }

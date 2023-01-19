@@ -3,6 +3,7 @@ package olter.balls.database.dnd.races;
 import jakarta.persistence.*;
 import lombok.Data;
 import olter.balls.characters.CharacterEntity;
+import olter.balls.common.BaseEntity;
 import olter.balls.database.dnd.core.embeddables.AbilityScoreIncreaseEmbeddable;
 import olter.balls.database.dnd.core.embeddables.FeatureEmbeddable;
 import olter.balls.database.dnd.core.enums.RaceTypeEnum;
@@ -15,11 +16,7 @@ import java.util.List;
 @Entity
 @Data
 @Table(name = "dnddb_races")
-public class RaceEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "balls_generator")
-    @SequenceGenerator(name = "balls_generator", sequenceName = "balls_id_seq", initialValue = 1000000, allocationSize = 1)
-    private Integer id;
+public class RaceEntity extends BaseEntity {
     String name;
     @Column(columnDefinition="TEXT")
     String description;
