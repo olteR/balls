@@ -19,14 +19,14 @@ public class BackgroundEntity extends BaseEntity {
     private String name;
 
     @Column(columnDefinition="TEXT")
-    String description;
+    private String description;
 
     //TODO: EQUIPMENT
 
     @ManyToOne
     @JoinColumn(name="source_book_id", nullable=false)
-    SourceBookEntity sourceBook;
+    private SourceBookEntity sourceBook;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "background")
-    List<CharacterEntity> characters;
+    private List<CharacterEntity> characters;
 }

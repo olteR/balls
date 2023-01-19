@@ -1,4 +1,4 @@
-package olter.balls.database.dnd.core.enums;
+package olter.balls.database.dnd.races;
 
 public enum RaceTypeEnum {
     COMMON("common"),

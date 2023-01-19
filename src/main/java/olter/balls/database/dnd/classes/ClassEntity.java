@@ -20,5 +20,5 @@ public class ClassEntity extends BaseEntity {
     //TODO: everything...
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "characterClass")
-    List<CharacterEntity> characters;
+    private List<CharacterEntity> characters;
 }

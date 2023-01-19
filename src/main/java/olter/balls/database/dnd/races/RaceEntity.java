@@ -8,10 +8,8 @@ import olter.balls.characters.CharacterEntity;
 import olter.balls.common.BaseEntity;
 import olter.balls.database.dnd.core.embeddables.AbilityScoreIncreaseEmbeddable;
 import olter.balls.database.dnd.core.embeddables.FeatureEmbeddable;
-import olter.balls.database.dnd.core.enums.RaceTypeEnum;
 import olter.balls.database.dnd.core.enums.SizeEnum;
 import olter.balls.database.dnd.source_books.SourceBookEntity;
-import org.hibernate.annotations.Type;
 
 import java.util.List;
 
@@ -21,35 +19,35 @@ import java.util.List;
 @RequiredArgsConstructor
 @Table(name = "dnddb_races")
 public class RaceEntity extends BaseEntity {
-    String name;
+    private String name;
     @Column(columnDefinition="TEXT")
-    String description;
+    private String description;
     @Column(columnDefinition="TEXT")
-    String age;
+    private String age;
     @Column(columnDefinition="TEXT")
-    String alignment;
+    private String alignment;
     @Column(columnDefinition="TEXT")
-    String size;
-    Integer speed;
+    private String size;
+    private Integer speed;
 
     @ManyToOne
     @JoinColumn(name="source_book_id", nullable=false)
-    SourceBookEntity sourceBook;
+    private SourceBookEntity sourceBook;
 
     @Enumerated(EnumType.STRING)
-    RaceTypeEnum type;
+    private RaceTypeEnum type;
 
     @Enumerated(EnumType.STRING)
-    SizeEnum sizeType;
+    private SizeEnum sizeType;
 
     @ElementCollection
     @CollectionTable(name = "ability_score_increases", joinColumns = @JoinColumn(name = "source_id"))
-    List<AbilityScoreIncreaseEmbeddable> abilityScoreIncreases;
+    private List<AbilityScoreIncreaseEmbeddable> abilityScoreIncreases;
 
     @ElementCollection
     @CollectionTable(name = "features", joinColumns = @JoinColumn(name = "owner_id"))
-    List<FeatureEmbeddable> features;
+    private List<FeatureEmbeddable> features;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "race")
-    List<CharacterEntity> characters;
+    private List<CharacterEntity> characters;
 }

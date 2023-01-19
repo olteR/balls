@@ -12,7 +12,7 @@ import java.util.Set;
 @Setter
 @RequiredArgsConstructor
 public class CampaignUserResponse {
-    UserResponse user;
-    Set<CharacterResponse> characters;
-    CampaignUserConnectionEnum role;
+    private UserResponse user;
+    private Set<CharacterResponse> characters;
+    private CampaignUserConnectionEnum role;
 }

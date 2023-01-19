@@ -14,6 +14,6 @@ import olter.balls.database.dnd.core.enums.AbilityScoreEnum;
 @Embeddable
 public class AbilityScoreIncreaseEmbeddable {
     @Enumerated(EnumType.STRING)
-    AbilityScoreEnum abilityScore;
-    Integer amount;
+    private AbilityScoreEnum abilityScore;
+    private Integer amount;
 }

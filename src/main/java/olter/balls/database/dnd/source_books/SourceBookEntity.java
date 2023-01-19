@@ -18,8 +18,8 @@ public class SourceBookEntity extends BaseEntity {
     private String name;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "sourceBook")
-    List<RaceEntity> races;
+    private List<RaceEntity> races;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "sourceBook")
-    List<RaceEntity> backgrounds;
+    private List<RaceEntity> backgrounds;
 }

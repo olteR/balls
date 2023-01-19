@@ -34,5 +34,5 @@ public class CampaignUserEntity extends BaseEntity {
     private List<CharacterEntity> characters;
 
     @Enumerated(EnumType.STRING)
-    CampaignUserConnectionEnum role;
+    private CampaignUserConnectionEnum role;
 }
