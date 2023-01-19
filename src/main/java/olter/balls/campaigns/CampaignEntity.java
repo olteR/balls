@@ -1,7 +1,9 @@
 package olter.balls.campaigns;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import olter.balls.common.BaseEntity;
 import olter.balls.connections.campaign_users.CampaignUserEntity;
 import olter.balls.rulesets.RulesetEntity;
@@ -9,7 +11,9 @@ import olter.balls.rulesets.RulesetEntity;
 import java.util.List;
 
 @Entity
-@Data
+@Getter
+@Setter
+@RequiredArgsConstructor
 @Table(name = "campaigns")
 public class CampaignEntity extends BaseEntity {
     private String name;

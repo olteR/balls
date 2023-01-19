@@ -1,7 +1,9 @@
 package olter.balls.users;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.RequiredArgsConstructor;
 import olter.balls.characters.CharacterEntity;
 import olter.balls.common.BaseEntity;
 import olter.balls.connections.campaign_users.CampaignUserEntity;
@@ -11,7 +13,9 @@ import java.util.List;
 import java.util.Set;
 
 @Entity
-@Data
+@Getter
+@Setter
+@RequiredArgsConstructor
 @Table(name = "users")
 public class UserEntity extends BaseEntity {
     @Column(unique = true)

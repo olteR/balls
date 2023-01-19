@@ -1,7 +1,9 @@
 package olter.balls.database.dnd.races;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.RequiredArgsConstructor;
 import olter.balls.characters.CharacterEntity;
 import olter.balls.common.BaseEntity;
 import olter.balls.database.dnd.core.embeddables.AbilityScoreIncreaseEmbeddable;
@@ -14,7 +16,9 @@ import org.hibernate.annotations.Type;
 import java.util.List;
 
 @Entity
-@Data
+@Getter
+@Setter
+@RequiredArgsConstructor
 @Table(name = "dnddb_races")
 public class RaceEntity extends BaseEntity {
     String name;

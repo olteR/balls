@@ -1,7 +1,12 @@
 package olter.balls.connections.campaign_users;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.RequiredArgsConstructor;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import olter.balls.campaigns.CampaignEntity;
 import olter.balls.characters.CharacterEntity;
 import olter.balls.common.BaseEntity;
@@ -10,7 +15,9 @@ import olter.balls.users.UserEntity;
 import java.util.List;
 
 @Entity
-@Data
+@Getter
+@Setter
+@RequiredArgsConstructor
 @Table(name = "campaign_users")
 public class CampaignUserEntity extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)

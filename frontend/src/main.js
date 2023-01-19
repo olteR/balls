@@ -6,8 +6,8 @@ import router from "./router";
 import PrimeVue from "primevue/config";
 import ToastService from "primevue/toastservice";
 
-import "@fortawesome/fontawesome-free/css/fontawesome.css"
-import "@fortawesome/fontawesome-free/css/solid.css"
+import "@fortawesome/fontawesome-free/css/fontawesome.css";
+import "@fortawesome/fontawesome-free/css/solid.css";
 import "./index.css";
 import "./theme.css";
 import "primevue/resources/primevue.min.css";

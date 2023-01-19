@@ -66,8 +66,8 @@
           <Card class="w-full">
             <template #header>
               <span
-                  class="fa fa-spaghetti-monster-flying text-center w-full my-8"
-                  style="font-size: 10rem"
+                class="fa fa-spaghetti-monster-flying text-center w-full my-8"
+                style="font-size: 10rem"
               ></span>
             </template>
             <template #title>
@@ -111,8 +111,8 @@
           <Card class="w-full">
             <template #header>
               <span
-                  class="fa fa-face-dizzy text-center w-full my-8"
-                  style="font-size: 10rem"
+                class="fa fa-face-dizzy text-center w-full my-8"
+                style="font-size: 10rem"
               ></span>
             </template>
             <template #title>

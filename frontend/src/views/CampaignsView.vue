@@ -9,14 +9,31 @@
       class="my-4"
     >
       <div class="pt-2 mb-4">
-        game master: {{ campaign.relatedUsers.find(user => user.role === 'GAME_MASTER').user.displayName
+        game master:
+        {{
+          campaign.relatedUsers.find((user) => user.role === "GAME_MASTER").user
+            .displayName
         }}<span class="ml-8">ruleset: {{ campaign.ruleset.shortName }}</span>
       </div>
       <div class="mb-4">
         players:
-        <span v-for="user in campaign.relatedUsers.filter(user => user.role === 'PLAYER')" :key="user.id"
-          >{{ user.user.displayName }} as {{ user.characters[0].name
-          }}<span
+        <span
+          v-for="user in campaign.relatedUsers.filter(
+            (user) => user.role === 'PLAYER'
+          )"
+          :key="user.id"
+          >{{ user.user.displayName }} as
+          <span v-for="character in user.characters" :key="character.id"
+            >{{ character.name
+            }}<span
+              v-if="
+                user.characters.indexOf(character) !==
+                user.characters.length - 1
+              "
+            >
+              &
+            </span></span
+          ><span
             v-if="
               campaign.relatedUsers.indexOf(user) !==
               campaign.relatedUsers.length - 1

@@ -1,16 +1,19 @@
 package olter.balls.database.dnd.backgrounds;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import olter.balls.characters.CharacterEntity;
 import olter.balls.common.BaseEntity;
-import olter.balls.database.dnd.races.RaceEntity;
 import olter.balls.database.dnd.source_books.SourceBookEntity;
 
 import java.util.List;
 
 @Entity
-@Data
+@Getter
+@Setter
+@RequiredArgsConstructor
 @Table(name = "dnddb_backgrounds")
 public class BackgroundEntity extends BaseEntity {
     private String name;
