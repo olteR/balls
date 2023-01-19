@@ -5,8 +5,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import olter.balls.characters.CharacterEntity;
-import olter.balls.common.BaseEntity;
-import olter.balls.database.dnd.source_books.SourceBookEntity;
+import olter.balls.database.dnd.core.SourcedEntity;
 
 import java.util.List;
 
@@ -15,17 +14,13 @@ import java.util.List;
 @Setter
 @RequiredArgsConstructor
 @Table(name = "dnddb_backgrounds")
-public class BackgroundEntity extends BaseEntity {
+public class BackgroundEntity extends SourcedEntity {
     private String name;
 
     @Column(columnDefinition="TEXT")
     private String description;
 
     //TODO: EQUIPMENT
-
-    @ManyToOne
-    @JoinColumn(name="source_book_id", nullable=false)
-    private SourceBookEntity sourceBook;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "background")
     private List<CharacterEntity> characters;

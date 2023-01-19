@@ -5,11 +5,14 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.RequiredArgsConstructor;
 import olter.balls.characters.CharacterEntity;
-import olter.balls.common.BaseEntity;
+import olter.balls.database.dnd.core.SourcedEntity;
 import olter.balls.database.dnd.core.embeddables.AbilityScoreIncreaseEmbeddable;
 import olter.balls.database.dnd.core.embeddables.FeatureEmbeddable;
+import olter.balls.database.dnd.core.enums.LanguageEnum;
 import olter.balls.database.dnd.core.enums.SizeEnum;
-import olter.balls.database.dnd.source_books.SourceBookEntity;
+import olter.balls.database.dnd.core.enums.SkillEnum;
+import olter.balls.database.dnd.items.ArmorEntity;
+import olter.balls.database.dnd.items.WeaponEntity;
 
 import java.util.List;
 
@@ -18,7 +21,7 @@ import java.util.List;
 @Setter
 @RequiredArgsConstructor
 @Table(name = "dnddb_races")
-public class RaceEntity extends BaseEntity {
+public class RaceEntity extends SourcedEntity {
     private String name;
     @Column(columnDefinition="TEXT")
     private String description;
@@ -30,10 +33,6 @@ public class RaceEntity extends BaseEntity {
     private String size;
     private Integer speed;
 
-    @ManyToOne
-    @JoinColumn(name="source_book_id", nullable=false)
-    private SourceBookEntity sourceBook;
-
     @Enumerated(EnumType.STRING)
     private RaceTypeEnum type;
 
@@ -41,11 +40,38 @@ public class RaceEntity extends BaseEntity {
     private SizeEnum sizeType;
 
     @ElementCollection
-    @CollectionTable(name = "ability_score_increases", joinColumns = @JoinColumn(name = "source_id"))
+    private List<SkillEnum> skillProficiencies;
+
+    @ElementCollection
+    private List<LanguageEnum> languageProficiencies;
+
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "race_weapon_proficiencies",
+            joinColumns = {@JoinColumn(name = "race_id")},
+            inverseJoinColumns = {@JoinColumn(name = "weapon_id")})
+    private List<WeaponEntity> weaponProficiencies;
+
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "race_armor_proficiencies",
+            joinColumns = {@JoinColumn(name = "race_id")},
+            inverseJoinColumns = {@JoinColumn(name = "armor_id")})
+    private List<ArmorEntity> armorProficiencies;
+
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "race_tool_proficiencies",
+            joinColumns = {@JoinColumn(name = "race_id")},
+            inverseJoinColumns = {@JoinColumn(name = "item_id")})
+    private List<ArmorEntity> toolProficiencies;
+
+    @ElementCollection
+    @CollectionTable(name = "dnddb_ability_score_increases", joinColumns = @JoinColumn(name = "source_id"))
     private List<AbilityScoreIncreaseEmbeddable> abilityScoreIncreases;
 
     @ElementCollection
-    @CollectionTable(name = "features", joinColumns = @JoinColumn(name = "owner_id"))
+    @CollectionTable(name = "dnddb_race_features", joinColumns = @JoinColumn(name = "owner_id"))
     private List<FeatureEmbeddable> features;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "race")

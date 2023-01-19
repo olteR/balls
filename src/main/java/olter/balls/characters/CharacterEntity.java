@@ -4,9 +4,6 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.RequiredArgsConstructor;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 import olter.balls.common.BaseEntity;
 import olter.balls.connections.campaign_users.CampaignUserEntity;
 import olter.balls.database.dnd.backgrounds.BackgroundEntity;
@@ -15,9 +12,7 @@ import olter.balls.database.dnd.races.RaceEntity;
 import olter.balls.rulesets.RulesetEntity;
 import olter.balls.users.UserEntity;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Getter

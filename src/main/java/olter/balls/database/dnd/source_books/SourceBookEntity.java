@@ -16,10 +16,4 @@ import java.util.List;
 @Table(name = "dnddb_source_books")
 public class SourceBookEntity extends BaseEntity {
     private String name;
-
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "sourceBook")
-    private List<RaceEntity> races;
-
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "sourceBook")
-    private List<RaceEntity> backgrounds;
 }
