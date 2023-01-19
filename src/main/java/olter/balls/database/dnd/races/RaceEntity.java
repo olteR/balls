@@ -40,34 +40,15 @@ public class RaceEntity extends SourcedEntity {
     private SizeEnum sizeType;
 
     @ElementCollection
+    @CollectionTable(name = "dnddb_race_skill_proficiencies", joinColumns = @JoinColumn(name = "source_id"))
     private List<SkillEnum> skillProficiencies;
 
     @ElementCollection
+    @CollectionTable(name = "dnddb_race_language_proficiencies", joinColumns = @JoinColumn(name = "source_id"))
     private List<LanguageEnum> languageProficiencies;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(
-            name = "race_weapon_proficiencies",
-            joinColumns = {@JoinColumn(name = "race_id")},
-            inverseJoinColumns = {@JoinColumn(name = "weapon_id")})
-    private List<WeaponEntity> weaponProficiencies;
-
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(
-            name = "race_armor_proficiencies",
-            joinColumns = {@JoinColumn(name = "race_id")},
-            inverseJoinColumns = {@JoinColumn(name = "armor_id")})
-    private List<ArmorEntity> armorProficiencies;
-
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(
-            name = "race_tool_proficiencies",
-            joinColumns = {@JoinColumn(name = "race_id")},
-            inverseJoinColumns = {@JoinColumn(name = "item_id")})
-    private List<ArmorEntity> toolProficiencies;
-
     @ElementCollection
-    @CollectionTable(name = "dnddb_ability_score_increases", joinColumns = @JoinColumn(name = "source_id"))
+    @CollectionTable(name = "dnddb_race_ability_score_increases", joinColumns = @JoinColumn(name = "source_id"))
     private List<AbilityScoreIncreaseEmbeddable> abilityScoreIncreases;
 
     @ElementCollection
@@ -76,4 +57,25 @@ public class RaceEntity extends SourcedEntity {
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "race")
     private List<CharacterEntity> characters;
+
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "dnddb_race_weapon_proficiencies",
+            joinColumns = {@JoinColumn(name = "race_id")},
+            inverseJoinColumns = {@JoinColumn(name = "weapon_id")})
+    private List<WeaponEntity> weaponProficiencies;
+
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "dnddb_race_armor_proficiencies",
+            joinColumns = {@JoinColumn(name = "race_id")},
+            inverseJoinColumns = {@JoinColumn(name = "armor_id")})
+    private List<ArmorEntity> armorProficiencies;
+
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "dnddb_race_tool_proficiencies",
+            joinColumns = {@JoinColumn(name = "race_id")},
+            inverseJoinColumns = {@JoinColumn(name = "item_id")})
+    private List<ArmorEntity> toolProficiencies;
 }

@@ -15,6 +15,7 @@ import java.util.List;
 @Table(name = "dnddb_armors")
 public class ArmorEntity extends BaseItemEntity {
     private Integer armorClass;
+    @Enumerated(EnumType.STRING)
     private ArmorTypeEnum type;
     private boolean stealthDisadvantage;
     private Integer strengthRequirement;
