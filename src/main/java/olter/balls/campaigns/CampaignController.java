@@ -15,6 +15,6 @@ public class CampaignController {
 
     @GetMapping("/campaigns/{userId}")
     public ResponseEntity<List<CampaignResponse>> getRelatedCampaigns(@PathVariable Integer userId) {
-        return campaignService.getRelatedCampaigns(userId);
+        return ResponseEntity.ok().body(campaignService.getRelatedCampaigns(userId));
     }
 }
