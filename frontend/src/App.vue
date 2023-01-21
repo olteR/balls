@@ -39,6 +39,7 @@ const items = ref([
 onMounted(() => {
   if (!userStore.isLoggedIn) {
     if (userStore.getUser != null) {
+      userStore.logoutUser();
       toast.add({
         severity: "error",
         summary: "login expired",

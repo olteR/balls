@@ -107,7 +107,7 @@ INSERT INTO characters (id, name, owner_id, race_id, ruleset_id) VALUES (13, 'Ra
                                                                         (21, 'Elise', 5, 58, 8), (22, 'Fence', 4, null, 8), (23, 'Lex', 3, 58, 8), (24, 'Rowern', 6, 53, 8);
 INSERT INTO character_class (id, level, character_id, character_class_id) VALUES (103, 5, 13, 91), (104, 5, 14, 90), (105, 5, 15, 99), (106, 5, 16, 95),
                                                                                  (107, 6, 17, 93), (108, 6, 18, 97), (109, 4, 19, 102), (110, 2, 19, 95), (111, 6, 20, 101),
-                                                                                 (112, 3, 21, 100), (113, 1, 21, 95), (114, 4, 22, 99), (115, 4, 23, 97), (116, 4, 24, 112);
+                                                                                 (112, 3, 21, 100), (113, 1, 21, 95), (114, 4, 22, 99), (115, 4, 23, 97), (116, 4, 24, 101);
 INSERT INTO campaign_users(id, role, campaign_id, user_id) VALUES (60, 'GAME_MASTER', 10, 4), (61, 'PLAYER', 10, 2), (62, 'PLAYER', 10, 3), (63, 'PLAYER', 10, 5), (64, 'PLAYER', 10, 7),
                                                                   (65, 'GAME_MASTER', 11, 5), (66, 'PLAYER', 11, 2), (67, 'PLAYER', 11, 3), (68, 'PLAYER', 11, 4), (69, 'PLAYER', 11, 7),
                                                                   (70, 'GAME_MASTER', 12, 2), (71, 'PLAYER', 12, 3), (72, 'PLAYER', 12, 4), (73, 'PLAYER', 12, 5), (74, 'PLAYER', 12, 6);
