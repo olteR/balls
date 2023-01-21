@@ -6,6 +6,7 @@ import lombok.Setter;
 import lombok.RequiredArgsConstructor;
 import olter.balls.common.BaseEntity;
 import olter.balls.connections.campaign_users.CampaignUserEntity;
+import olter.balls.connections.character_classes.CharacterClassEntity;
 import olter.balls.database.dnd.backgrounds.BackgroundEntity;
 import olter.balls.database.dnd.classes.ClassEntity;
 import olter.balls.database.dnd.races.RaceEntity;
@@ -34,9 +35,8 @@ public class CharacterEntity extends BaseEntity {
     @JoinColumn(name = "background_id")
     private BackgroundEntity background;
 
-    @ManyToOne
-    @JoinColumn(name = "class_id")
-    private ClassEntity characterClass;
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "character")
+    private List<CharacterClassEntity> classes;
 
     @ManyToOne
     @JoinColumn(name = "race_id")

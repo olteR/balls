@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import olter.balls.database.dnd.classes.ClassEntity;
-import olter.balls.database.dnd.core.embeddables.DamageDieEmbeddable;
+import olter.balls.database.dnd.classes.ItemChoiceEntity;
 import olter.balls.database.dnd.races.RaceEntity;
 
 import java.util.List;
@@ -14,19 +14,14 @@ import java.util.List;
 @Getter
 @Setter
 @RequiredArgsConstructor
-@Table(name = "dnddb_weapons")
-public class WeaponEntity extends ItemEntity {
-    @Embedded
-    private DamageDieEmbeddable damage;
-    private boolean martial;
-    private boolean ranged;
-    @ElementCollection
-    @CollectionTable(name = "dnddb_weapon_properties", joinColumns = @JoinColumn(name = "source_id"))
-    private List<WeaponPropertyEmbeddable> properties;
-
+@Table(name = "dnddb_items")
+public class MundaneItemEntity extends ItemEntity {
     @ManyToMany(mappedBy = "weaponProficiencies", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<RaceEntity> racesWithProficiency;
 
     @ManyToMany(mappedBy = "weaponProficiencies", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<ClassEntity> classesWithProficiency;
+
+    @ManyToMany(mappedBy = "itemChoices", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<ItemChoiceEntity> classesWithStartingItemChoice;
 }

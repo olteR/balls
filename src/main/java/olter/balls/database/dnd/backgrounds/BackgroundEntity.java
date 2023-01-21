@@ -6,7 +6,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import olter.balls.characters.CharacterEntity;
 import olter.balls.database.dnd.core.SourcedEntity;
-import olter.balls.database.dnd.items.ItemEntity;
+import olter.balls.database.dnd.items.MundaneItemEntity;
 
 import java.util.List;
 
@@ -26,7 +26,7 @@ public class BackgroundEntity extends SourcedEntity {
             name = "dnddb_background_starter_items",
             joinColumns = {@JoinColumn(name = "background_id")},
             inverseJoinColumns = {@JoinColumn(name = "item_id")})
-    List<ItemEntity> startingItems;
+    List<MundaneItemEntity> startingItems;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "background")
     private List<CharacterEntity> characters;

@@ -12,4 +12,5 @@ import olter.balls.common.BaseEntity;
 @MappedSuperclass
 public class SourcedEntity extends BaseEntity {
     private Integer sourceBookId;
+    private Integer page;
 }

@@ -12,6 +12,7 @@ import olter.balls.database.dnd.core.enums.LanguageEnum;
 import olter.balls.database.dnd.core.enums.SizeEnum;
 import olter.balls.database.dnd.core.enums.SkillEnum;
 import olter.balls.database.dnd.items.ArmorEntity;
+import olter.balls.database.dnd.items.MundaneItemEntity;
 import olter.balls.database.dnd.items.WeaponEntity;
 
 import java.util.List;
@@ -52,7 +53,7 @@ public class RaceEntity extends SourcedEntity {
     private List<AbilityScoreIncreaseEmbeddable> abilityScoreIncreases;
 
     @ElementCollection
-    @CollectionTable(name = "dnddb_race_features", joinColumns = @JoinColumn(name = "owner_id"))
+    @CollectionTable(name = "dnddb_race_features", joinColumns = @JoinColumn(name = "source_id"))
     private List<FeatureEmbeddable> features;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "race")
@@ -77,5 +78,5 @@ public class RaceEntity extends SourcedEntity {
             name = "dnddb_race_tool_proficiencies",
             joinColumns = {@JoinColumn(name = "race_id")},
             inverseJoinColumns = {@JoinColumn(name = "item_id")})
-    private List<ArmorEntity> toolProficiencies;
+    private List<MundaneItemEntity> toolProficiencies;
 }
