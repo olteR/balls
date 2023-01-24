@@ -1,6 +1,7 @@
 package olter.balls.users;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import olter.balls.users.security.JwtHandler;
 import olter.balls.users.security.dto.LoginRequest;
 import olter.balls.users.security.dto.LoginResponse;
@@ -18,6 +19,7 @@ import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class UserService implements UserDetailsService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
@@ -29,6 +31,7 @@ public class UserService implements UserDetailsService {
         if (!passwordEncoder.matches(loginRequest.getPassword(), user.getPassword())) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid password");
         }
+        log.info(user.getName() + " logging in");
         return new LoginResponse(user.getId(), user.getName(), jwtHandler.generateJwt(user.getName(), Map.of("uid", user.getId())));
     }
 

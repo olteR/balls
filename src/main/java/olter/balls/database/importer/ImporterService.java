@@ -51,6 +51,7 @@ public class ImporterService {
                 importedBooks.add(entity);
             } catch (Exception ignored) {}
         }
+        log.info("Imported " + importedBooks + " books");
         return bookMapper.entityToResponseList(importedBooks);
     }
 }
