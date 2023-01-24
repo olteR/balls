@@ -6,7 +6,7 @@ import lombok.Setter;
 import lombok.RequiredArgsConstructor;
 import olter.balls.common.BaseEntity;
 import olter.balls.connections.campaign_users.CampaignUserEntity;
-import olter.balls.connections.character_classes.CharacterClassEntity;
+import olter.balls.database.ancestries.AncestryEntity;
 import olter.balls.users.UserEntity;
 
 import java.util.List;
@@ -27,12 +27,13 @@ public class CharacterEntity extends BaseEntity {
 //    @JoinColumn(name = "background_id")
 //    private BackgroundEntity background;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "character")
-    private List<CharacterClassEntity> classes;
-
 //    @ManyToOne
-//    @JoinColumn(name = "race_id")
-//    private RaceEntity race;
+//    @JoinColumn(name = "class_id")
+//    private ClassEntity characterClass;
+
+    @ManyToOne
+    @JoinColumn(name = "ancestry_id")
+    private AncestryEntity ancestry;
 
     @ManyToMany(mappedBy = "characters", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<CampaignUserEntity> campaigns;

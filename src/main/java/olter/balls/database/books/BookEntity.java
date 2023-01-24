@@ -1,5 +1,6 @@
 package olter.balls.database.books;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import lombok.Getter;
@@ -15,7 +16,9 @@ import java.time.LocalDate;
 @RequiredArgsConstructor
 @Table(name = "books")
 public class BookEntity extends BaseEntity {
+    @Column(unique = true)
     private String name;
+    @Column(unique = true)
     private String shortName;
     private LocalDate published;
 }

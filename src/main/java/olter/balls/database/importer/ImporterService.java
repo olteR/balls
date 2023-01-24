@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import olter.balls.database.books.BookEntity;
 import olter.balls.database.books.BookMapper;
 import olter.balls.database.books.dto.BookRepository;
@@ -21,6 +22,7 @@ import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class ImporterService {
 
     @Value("${import.url}")
@@ -43,9 +45,12 @@ public class ImporterService {
         BookImport[] imports = mapper.readValue(Objects.requireNonNull(responseJson.getBody()).substring(responseJson.getBody().indexOf('['), responseJson.getBody().lastIndexOf(']') + 1), BookImport[].class);
         ArrayList<BookEntity> importedBooks = new ArrayList<>();
         for (BookImport book : imports) {
-            importedBooks.add(importMapper.toBookEntity(book));
+            BookEntity entity = importMapper.toBookEntity(book);
+            try {
+                bookRepository.save(entity);
+                importedBooks.add(entity);
+            } catch (Exception ignored) {}
         }
-        bookRepository.saveAll(importedBooks);
         return bookMapper.entityToResponseList(importedBooks);
     }
 }
