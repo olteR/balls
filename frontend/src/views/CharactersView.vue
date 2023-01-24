@@ -14,7 +14,6 @@
           />
         </div>
         <div class="col-span-9">
-          <div>ruleset: {{ character.ruleset.shortName }}</div>
           <div>
             campaigns:
             <span v-for="campaign in character.campaigns" :key="campaign.id"
@@ -27,22 +26,8 @@
               ></span>
             </span>
           </div>
-          <div>race: {{ character.race.name }}</div>
-          <div>
-            classes:
-            <span
-              v-for="characterClass in character.classes"
-              :key="characterClass.id"
-              >level {{ characterClass.level }}
-              {{ characterClass.characterClass.name
-              }}<span
-                v-if="
-                  character.classes.indexOf(characterClass) !==
-                  character.classes.length - 1
-                "
-              ></span>
-            </span>
-          </div>
+          <div>race: insert race here</div>
+          <div>class: insert class here</div>
         </div>
         <div class="col-span-2">
           <div class="my-2 flex"><Button label="character sheet"></Button></div>

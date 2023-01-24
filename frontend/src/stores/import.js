@@ -6,13 +6,18 @@ export const useImportStore = defineStore("import", () => {
   const toast = useToast();
 
   const urls = {
-    races: "http://localhost:3000/api/import/races",
+    books: "http://localhost:3000/api/import/books",
   };
 
-  async function importRaces() {
+  async function importBooks() {
     try {
-      const response = await axios.get(urls.races);
-      console.log(response);
+      const response = await axios.get(urls.books);
+      toast.add({
+        severity: "success",
+        summary: "successfully imported " + response.data.length + " books",
+        detail: response.data.map(book => book.name).join(", "),
+        life: 3000,
+      });
     } catch (error) {
       toast.add({
         severity: "error",
@@ -23,5 +28,5 @@ export const useImportStore = defineStore("import", () => {
     }
   }
 
-  return { importRaces };
+  return { importBooks };
 });

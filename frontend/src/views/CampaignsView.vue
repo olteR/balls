@@ -13,7 +13,7 @@
         {{
           campaign.relatedUsers.find((user) => user.role === "GAME_MASTER").user
             .displayName
-        }}<span class="ml-8">ruleset: {{ campaign.ruleset.shortName }}</span>
+        }}
       </div>
       <div class="mb-4">
         players:
