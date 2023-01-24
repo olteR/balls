@@ -1,27 +1,17 @@
 INSERT INTO users (id, email, name, display_name, password) VALUES (1, 'admin@ttrpg-balls.com', 'admin', 'admin', '$2a$10$hiIQcqTYSGKu4eyHfFSOzufDqKLTQlku/OqBcs/5Nv8VQm9jI2S/a'),
-                                                                   (2, 'olter@gttrpg-balls.com', 'olteR', 'olteR', '$2a$10$EHSaFaO4nljzREqLn4kz8Ol82HirKPBX7VUeQ1P1lUAQIkp.1RECe'),
+                                                                   (2, 'olter@ttrpg-balls.com', 'olteR', 'olteR', '$2a$10$EHSaFaO4nljzREqLn4kz8Ol82HirKPBX7VUeQ1P1lUAQIkp.1RECe'),
                                                                    (3, 'rero@ttrpg-balls.com', 'rero', 'rero', '$2a$10$kaE5D.T0I7fn6j1mIhWPF.O5Tk/EsE2ayqSRbBcp2WB36nPcf0Yru'),
                                                                    (4, 'geri@ttrpg-balls.com', 'Geri', 'Geri', '$2a$10$jZsluxkAuRaZvoZyWB/MNO/j2iiQye/KGiH2zNfRckq/yOa6pH5m.'),
                                                                    (5, 'marci@ttrpg-balls.com', 'Marci', 'Marci', '$2a$10$tdw06E/BpPfwMAvNhzVy1O5vmP.n8E3iVphkV8UG3yKkZmsG.8u.S'),
                                                                    (6, 'tiniky@ttrpg-balls.com', 'Tiniky', 'Tiniky', '$2a$10$yPtASJuJQfVNVmdkg8547.7B4MYZ4zDi.aaNLCCVScI6YDRj1Wtxq'),
                                                                    (7, 'ogike@ttrpg-balls.com', 'ogike', 'ogike', '$2a$10$ZDY9MGgRwl9fdXHyUM/y3OZDQ7ZFTI2m/ViJxNd7gHcx7oyU7UKY.');
-INSERT INTO rulesets (id, core_dice, name, short_name) VALUES (8, 20, 'Dungeons & Dragons 5E', 'dnd5e'),
-                                                              (9, 20, 'Pathfinder 2E', 'pf2e');
-INSERT INTO campaigns (id, name, game_master_id, ruleset_id) VALUES (10, 'D&VE', 4, 8),
-                                                                    (11, 'not dave', 5, 8),
-                                                                    (12, 'C4RL', 2, 8);
-INSERT INTO characters (id, name, owner_id, ruleset_id) VALUES (13, 'Rakash', 5, 8),
-                                                               (14, 'Rico', 7, 8),
-                                                               (15, 'SPADE', 3, 8),
-                                                               (16, 'Sisylla', 2, 8),
-                                                               (17, 'Corvus', 3, 8),
-                                                               (18, 'Kian', 7, 8),
-                                                               (19, 'Luna', 4, 8),
-                                                               (20, 'Noxua', 2, 8),
-                                                               (21, 'Elise', 5, 8),
-                                                               (22, 'Fence', 4, 8),
-                                                               (23, 'Lex', 3, 8),
-                                                               (24, 'Rowern', 6, 8);
-INSERT INTO campaign_characters (campaign_id, character_id) VALUES (10, 13), (10, 14), (10, 15), (10, 16),
-                                                                   (11, 17), (11, 18), (11, 19), (11, 20),
-                                                                   (12, 21), (12, 22), (12, 23), (12, 24);
+INSERT INTO campaigns (id, name) VALUES (11000, 'D&VE'), (11001, 'not dave'), (11002, 'C4RL');
+INSERT INTO characters (id, name, owner_id) VALUES (12000, 'Rakash', 10003), (12001, 'Rico', 10005), (12002, 'SPADE', 10001), (12003, 'Sisylla', 10000),
+                                                   (12004, 'Corvus', 10001), (12005, 'Kian', 10005), (12006, 'Luna', 10002), (12006, 'Noxua', 10000),
+                                                   (12007, 'Elise', 10003), (12008, 'Fence', 10002), (12009, 'Lex', 10001), (12010, 'Rowern', 10004);
+INSERT INTO campaign_users(id, role, campaign_id, user_id) VALUES (13000, 'GAME_MASTER', 11000, 10002), (13001, 'PLAYER', 11000, 10000), (13002, 'PLAYER', 11000, 10001), (13003, 'PLAYER', 11000, 10003), (13004, 'PLAYER', 11000, 10005),
+                                                                  (13005, 'GAME_MASTER', 11001, 10003), (13006, 'PLAYER', 11001, 10000), (13007, 'PLAYER', 11001, 10001), (13008, 'PLAYER', 11001, 10002), (13009, 'PLAYER', 11001, 10005),
+                                                                  (13010, 'GAME_MASTER', 11002, 10000), (13011, 'PLAYER', 11002, 10001), (13012, 'PLAYER', 11002, 10002), (13013, 'PLAYER', 11002, 10003), (13014, 'PLAYER', 11002, 10004);
+INSERT INTO campaign_characters(campaign_users_id, character_id) VALUES (13001, 12003), (13002, 12002), (13003, 12000), (13004, 12001),
+                                                                        (13006, 12006), (13007, 12004), (13008, 12006), (13009, 12005),
+                                                                        (13011, 12009), (13012, 12008), (13013, 12007), (13014, 12010);

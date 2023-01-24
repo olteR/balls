@@ -1,32 +1,39 @@
 package olter.balls.characters;
 
 import jakarta.persistence.*;
-import lombok.Data;
-import olter.balls.campaigns.CampaignEntity;
-import olter.balls.rulesets.RulesetEntity;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.RequiredArgsConstructor;
+import olter.balls.common.BaseEntity;
+import olter.balls.connections.campaign_users.CampaignUserEntity;
+import olter.balls.connections.character_classes.CharacterClassEntity;
 import olter.balls.users.UserEntity;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 @Entity
-@Data
+@Getter
+@Setter
+@RequiredArgsConstructor
 @Table(name = "characters")
-public class CharacterEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "balls_generator")
-    @SequenceGenerator(name = "balls_generator", sequenceName = "balls_id_seq", initialValue = 1000000, allocationSize = 1)
-    private Integer id;
+public class CharacterEntity extends BaseEntity {
     private String name;
 
     @ManyToOne
-    @JoinColumn(name = "ruleset_id")
-    private RulesetEntity ruleset;
-
-    @ManyToOne
-    @JoinColumn(name = "owner_id")
+    @JoinColumn(name = "owner_id", nullable = false)
     private UserEntity owner;
 
+//    @ManyToOne
+//    @JoinColumn(name = "background_id")
+//    private BackgroundEntity background;
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "character")
+    private List<CharacterClassEntity> classes;
+
+//    @ManyToOne
+//    @JoinColumn(name = "race_id")
+//    private RaceEntity race;
+
     @ManyToMany(mappedBy = "characters", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<CampaignEntity> campaigns = new HashSet<>();
+    private List<CampaignUserEntity> campaigns;
 }

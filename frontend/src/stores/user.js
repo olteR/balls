@@ -8,9 +8,13 @@ import jwtDecode from "jwt-decode";
 export const useUserStore = defineStore("user", () => {
   const toast = useToast();
 
+  const urls = {
+    login: "http://localhost:3000/api/users/login",
+  };
+
   const user = ref();
   const jwt = ref(
-    localStorage.getItem("jwt") ? localStorage.getItem("jwt") : null
+    localStorage.getItem("balls_jwt") ? localStorage.getItem("balls_jwt") : null
   );
 
   const getUser = computed(() =>
@@ -27,10 +31,6 @@ export const useUserStore = defineStore("user", () => {
   const isLoggedIn = computed(() =>
     jwt.value ? Date.now() < jwtDecode(jwt.value).exp * 1000 : false
   );
-
-  const urls = {
-    login: "http://localhost:3000/api/users/login",
-  };
 
   async function loginUser(login) {
     try {
@@ -52,13 +52,19 @@ export const useUserStore = defineStore("user", () => {
     }
   }
 
+  function logoutUser() {
+    delete axios.defaults.headers.common["Authorization"];
+    user.value = null;
+    localStorage.removeItem("balls_jwt");
+  }
+
   async function handleLoginResponse(response) {
-    localStorage.setItem("jwt", response.data.token);
+    localStorage.setItem("balls_jwt", response.data.token);
     axios.defaults.headers.common["Authorization"] =
       "Bearer " + response.data.token;
     user.value = response.data;
     await router.push("/");
   }
 
-  return { user, getUser, getJwt, isLoggedIn, loginUser };
+  return { user, getUser, getJwt, isLoggedIn, loginUser, logoutUser };
 });

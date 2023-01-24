@@ -5,7 +5,6 @@ import olter.balls.users.security.JwtHandler;
 import olter.balls.users.security.dto.LoginRequest;
 import olter.balls.users.security.dto.LoginResponse;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -14,7 +13,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.Map;
 
 
@@ -25,13 +23,13 @@ public class UserService implements UserDetailsService {
     private final PasswordEncoder passwordEncoder;
     private final JwtHandler jwtHandler;
 
-    public ResponseEntity<LoginResponse> loginUser(LoginRequest loginRequest) {
+    public LoginResponse loginUser(LoginRequest loginRequest) {
         UserEntity user = userRepository.findByName(loginRequest.getName()).orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "User not found with this name"));
 
         if (!passwordEncoder.matches(loginRequest.getPassword(), user.getPassword())) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid password");
         }
-        return ResponseEntity.ok().body(new LoginResponse(user.getId(), user.getName(), jwtHandler.generateJwt(user.getName(), Map.of("uid", user.getId()))));
+        return new LoginResponse(user.getId(), user.getName(), jwtHandler.generateJwt(user.getName(), Map.of("uid", user.getId())));
     }
 
     @Override

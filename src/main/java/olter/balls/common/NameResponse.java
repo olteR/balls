@@ -1,14 +1,13 @@
-package olter.balls.users.dto;
+package olter.balls.common;
 
 import lombok.Getter;
-import lombok.Setter;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
 @Getter
 @Setter
 @RequiredArgsConstructor
-public class UserResponse {
+public class NameResponse {
     private Integer id;
     private String name;
-    private String displayName;
 }
