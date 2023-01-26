@@ -3,6 +3,7 @@ package olter.balls.database.importer;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.RequiredArgsConstructor;
 import olter.balls.database.books.dto.BookResponse;
+import olter.balls.database.languages.dto.LanguageResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,5 +21,10 @@ public class ImporterEndpoint {
     @GetMapping("/import/books")
     public ResponseEntity<List<BookResponse>> importBooks() throws JsonProcessingException {
         return ResponseEntity.ok().body(importerService.importBooks());
+    }
+
+    @GetMapping("/import/languages")
+    public ResponseEntity<List<LanguageResponse>> importLanguages() throws JsonProcessingException {
+        return ResponseEntity.ok().body(importerService.importLanguages());
     }
 }

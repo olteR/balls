@@ -7,6 +7,7 @@ export const useImportStore = defineStore("import", () => {
 
   const urls = {
     books: "http://localhost:3000/api/import/books",
+    languages: "http://localhost:3000/api/import/languages",
   };
 
   async function importBooks() {
@@ -28,5 +29,24 @@ export const useImportStore = defineStore("import", () => {
     }
   }
 
-  return { importBooks };
+  async function importLanguages() {
+    try {
+      const response = await axios.get(urls.languages);
+      toast.add({
+        severity: "success",
+        summary: "successfully imported " + response.data.length + " languages",
+        detail: response.data.map(lang => lang.name).join(", "),
+        life: 3000,
+      });
+    } catch (error) {
+      toast.add({
+        severity: "error",
+        summary: "error.",
+        detail: error,
+        life: 3000,
+      });
+    }
+  }
+
+  return { importBooks, importLanguages };
 });

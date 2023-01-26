@@ -18,6 +18,7 @@ import java.util.List;
 public class LanguageEntity extends SourcedEntity {
     @Column(unique = true)
     private String name;
+    @Enumerated(EnumType.STRING)
     private LanguageTypeEnum type;
 
     @ManyToMany(mappedBy = "knownLanguages", fetch = FetchType.LAZY, cascade = CascadeType.ALL)

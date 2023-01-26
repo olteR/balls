@@ -1,10 +1,10 @@
 <template>
   <Toast />
   <div class="card">
-    <div v-if="userStore.isLoggedIn">
+    <div v-if="router.currentRoute.value.name !== 'login'">
       <TabMenu :model="items" class="inline" />
       <span class="tab-menu-profile"
-        >logged in as {{ userStore.getUser.name }}. <i class="fa fa-user"></i
+        >logged in as {{ userStore.getUser ? userStore.getUser.name : ""}}. <i class="fa fa-user"></i
       ></span>
     </div>
     <RouterView />
@@ -14,7 +14,7 @@
 <script setup>
 import { RouterView, useRouter } from "vue-router";
 import { useUserStore } from "@/stores/user";
-import { onMounted, ref } from "vue";
+import {onMounted, ref, watch} from "vue";
 import Toast from "primevue/toast";
 import TabMenu from "primevue/tabmenu";
 import { useToast } from "primevue/usetoast";

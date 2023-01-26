@@ -1,6 +1,7 @@
 <template>
   <div class="container mx-auto my-4">
-    <Button label="import books" @click="importBooks"></Button>
+    <Button label="import books" @click="importStore.importBooks()"></Button>
+    <Button label="import languages" @click="importStore.importLanguages()"></Button>
   </div>
 </template>
 
@@ -9,9 +10,6 @@ import { useImportStore } from "@/stores/import";
 import Button from "primevue/button";
 
 const importStore = useImportStore();
-function importBooks() {
-  importStore.importBooks();
-}
 </script>
 
 <style scoped></style>
