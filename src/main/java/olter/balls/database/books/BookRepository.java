@@ -1,4 +1,4 @@
-package olter.balls.database.books.dto;
+package olter.balls.database.books;
 
 import olter.balls.database.books.BookEntity;
 import org.springframework.data.jpa.repository.JpaRepository;

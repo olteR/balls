@@ -8,6 +8,7 @@ export const useImportStore = defineStore("import", () => {
   const urls = {
     books: "http://localhost:3000/api/import/books",
     languages: "http://localhost:3000/api/import/languages",
+    traits: "http://localhost:3000/api/import/traits",
   };
 
   async function importBooks() {
@@ -48,5 +49,24 @@ export const useImportStore = defineStore("import", () => {
     }
   }
 
-  return { importBooks, importLanguages };
+  async function importTraits() {
+    try {
+      const response = await axios.get(urls.traits);
+      toast.add({
+        severity: "success",
+        summary: "successfully imported " + response.data.length + " traits",
+        detail: response.data.map(trait => trait.name).join(", "),
+        life: 3000,
+      });
+    } catch (error) {
+      toast.add({
+        severity: "error",
+        summary: "error.",
+        detail: error,
+        life: 3000,
+      });
+    }
+  }
+
+  return { importBooks, importLanguages, importTraits };
 });
