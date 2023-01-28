@@ -1,17 +1,16 @@
 package olter.balls.database.core.enums;
 
-public enum AbilityChangeEnum {
+public enum AbilityScoreEnum {
     STR("strength"),
     DEX("dexterity"),
     CON("constitution"),
     INT("intelligence"),
     WIS("wisdom"),
-    CHA("charisma"),
-    FREE("free");
+    CHA("charisma");
 
     private final String value;
 
-    private AbilityChangeEnum(String value) {
+    private AbilityScoreEnum(String value) {
         this.value = value;
     }
 
