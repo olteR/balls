@@ -6,10 +6,30 @@ export const useImportStore = defineStore("import", () => {
   const toast = useToast();
 
   const urls = {
+    ancestries: "http://localhost:3000/api/import/ancestries",
     books: "http://localhost:3000/api/import/books",
     languages: "http://localhost:3000/api/import/languages",
     traits: "http://localhost:3000/api/import/traits",
   };
+
+  async function importAncestries() {
+    try {
+      const response = await axios.get(urls.ancestries);
+      toast.add({
+        severity: "success",
+        summary: "successfully imported " + response.data.length + " ancestries",
+        detail: response.data.map((ancestry) => ancestry.name).join(", "),
+        life: 3000,
+      });
+    } catch (error) {
+      toast.add({
+        severity: "error",
+        summary: "error.",
+        detail: error,
+        life: 3000,
+      });
+    }
+  }
 
   async function importBooks() {
     try {
@@ -68,5 +88,5 @@ export const useImportStore = defineStore("import", () => {
     }
   }
 
-  return { importBooks, importLanguages, importTraits };
+  return { importAncestries, importBooks, importLanguages, importTraits };
 });

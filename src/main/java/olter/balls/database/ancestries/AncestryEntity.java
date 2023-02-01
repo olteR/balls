@@ -9,6 +9,7 @@ import olter.balls.database.core.SourcedEntity;
 import olter.balls.database.core.embeddables.AbilityBoostEmbeddable;
 import olter.balls.database.core.embeddables.SpeedEmbeddable;
 import olter.balls.database.core.enums.AbilityScoreEnum;
+import olter.balls.database.core.enums.AncestryRarityEnum;
 import olter.balls.database.core.enums.CreatureSizeEnum;
 import olter.balls.database.languages.LanguageEntity;
 
@@ -23,6 +24,9 @@ public class AncestryEntity extends SourcedEntity {
     @Column(unique = true)
     private String name;
     private Integer hp;
+
+    @Enumerated(EnumType.STRING)
+    private AncestryRarityEnum rarity;
 
     @Embedded
     private SpeedEmbeddable speed;

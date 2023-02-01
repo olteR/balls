@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import olter.balls.database.ancestries.dto.AncestryResponse;
 import olter.balls.database.books.BookEntity;
 import olter.balls.database.books.BookMapper;
 import olter.balls.database.books.BookRepository;
@@ -25,6 +26,7 @@ import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -50,6 +52,18 @@ public class ImporterService {
 
     private final TraitRepository traitRepository;
     private final TraitMapper traitMapper;
+
+    public List<AncestryResponse> importAncestries() throws JsonProcessingException {
+        RestTemplate restTemplate = new RestTemplate();
+        ObjectMapper mapper = new ObjectMapper();
+
+        ResponseEntity<String> responseJson = restTemplate.exchange(IMPORT_URL.concat("ancestries/index.json"), HttpMethod.GET, generateHttpEntity(), String.class);
+        String[] sources = Objects.requireNonNull(responseJson.getBody()).split(",");
+        for (String source : sources) {
+            source = source.substring(source.indexOf(':') + 3, source.lastIndexOf('"'));
+        }
+        return null;
+    }
 
     public List<BookResponse> importBooks() throws JsonProcessingException {
         RestTemplate restTemplate = new RestTemplate();

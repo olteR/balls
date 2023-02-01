@@ -2,6 +2,7 @@ package olter.balls.database.importer;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.RequiredArgsConstructor;
+import olter.balls.database.ancestries.dto.AncestryResponse;
 import olter.balls.database.books.dto.BookResponse;
 import olter.balls.database.languages.dto.LanguageResponse;
 import olter.balls.database.traits.dto.TraitResponse;
@@ -18,6 +19,11 @@ import java.util.List;
 public class ImporterEndpoint {
 
     private final ImporterService importerService;
+
+    @GetMapping("/import/ancestries")
+    public ResponseEntity<List<AncestryResponse>> importAncestries() throws JsonProcessingException {
+        return ResponseEntity.ok().body(importerService.importAncestries());
+    }
 
     @GetMapping("/import/books")
     public ResponseEntity<List<BookResponse>> importBooks() throws JsonProcessingException {
