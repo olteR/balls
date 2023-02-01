@@ -17,7 +17,7 @@ export const useImportStore = defineStore("import", () => {
       toast.add({
         severity: "success",
         summary: "successfully imported " + response.data.length + " books",
-        detail: response.data.map(book => book.name).join(", "),
+        detail: response.data.map((book) => book.name).join(", "),
         life: 3000,
       });
     } catch (error) {
@@ -36,7 +36,7 @@ export const useImportStore = defineStore("import", () => {
       toast.add({
         severity: "success",
         summary: "successfully imported " + response.data.length + " languages",
-        detail: response.data.map(lang => lang.name).join(", "),
+        detail: response.data.map((lang) => lang.name).join(", "),
         life: 3000,
       });
     } catch (error) {
@@ -55,7 +55,7 @@ export const useImportStore = defineStore("import", () => {
       toast.add({
         severity: "success",
         summary: "successfully imported " + response.data.length + " traits",
-        detail: response.data.map(trait => trait.name).join(", "),
+        detail: response.data.map((trait) => trait.name).join(", "),
         life: 3000,
       });
     } catch (error) {

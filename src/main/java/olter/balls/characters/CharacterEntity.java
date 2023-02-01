@@ -18,6 +18,7 @@ import java.util.List;
 @Table(name = "characters")
 public class CharacterEntity extends BaseEntity {
     private String name;
+    private Integer level;
 
     @ManyToOne
     @JoinColumn(name = "owner_id", nullable = false)

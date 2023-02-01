@@ -1,9 +1,9 @@
 package olter.balls.connections.campaign_users;
 
-import olter.balls.connections.campaign_users.dto.CampaignUserResponse;
+import olter.balls.connections.campaign_users.dto.CampaignUserListResponse;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
 public interface CampaignUserMapper {
-    CampaignUserResponse entityToResponse(CampaignUserEntity entity);
+    CampaignUserListResponse entityToResponse(CampaignUserEntity entity);
 }

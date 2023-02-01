@@ -1,8 +1,10 @@
 import { createRouter, createWebHistory } from "vue-router";
 import LoginView from "../views/LoginView.vue";
-import CampaignsView from "../views/CampaignsView.vue";
+import CampaignsView from "../views/campaigns/CampaignsView.vue";
+import CampaignHub from "@/views/campaigns/CampaignHub.vue";
 import CharactersView from "../views/CharactersView.vue";
-import DatabaseView from "../views/DatabaseView.vue";
+import DatabaseView from "../views/database/DatabaseView.vue";
+import ProfileView from "../views/ProfileView.vue";
 import GodmodeView from "../views/GodmodeView.vue";
 
 const router = createRouter({
@@ -13,10 +15,16 @@ const router = createRouter({
       name: "login",
       component: LoginView,
     },
+    // CAMPAIGNS
     {
       path: "/campaigns",
       name: "campaigns",
       component: CampaignsView,
+    },
+    {
+      path: "/campaigns/:id?/hub",
+      name: "campaign hub",
+      component: CampaignHub,
     },
     {
       path: "/characters",
@@ -27,6 +35,11 @@ const router = createRouter({
       path: "/database",
       name: "database",
       component: DatabaseView,
+    },
+    {
+      path: "/profile",
+      name: "profile",
+      component: ProfileView,
     },
     {
       path: "/godmode",

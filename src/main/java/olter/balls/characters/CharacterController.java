@@ -1,7 +1,7 @@
 package olter.balls.characters;
 
 import lombok.RequiredArgsConstructor;
-import olter.balls.characters.dto.CharacterResponse;
+import olter.balls.characters.dto.CharacterListResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,7 +18,7 @@ public class CharacterController {
     private final CharacterService characterService;
 
     @GetMapping("/characters/{userId}")
-    public ResponseEntity<List<CharacterResponse>> getRelatedCampaigns(@PathVariable Integer userId) {
+    public ResponseEntity<List<CharacterListResponse>> getRelatedCampaigns(@PathVariable Integer userId) {
         return ResponseEntity.ok().body(characterService.getCharacters(userId));
     }
 }

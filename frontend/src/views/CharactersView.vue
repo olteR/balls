@@ -26,8 +26,15 @@
               ></span>
             </span>
           </div>
-          <div>race: insert race here</div>
-          <div>class: insert class here</div>
+          <div>
+            race: {{ character.ancestry ? character.ancestry.name : "N/A" }}
+          </div>
+          <div>
+            class:
+            {{
+              character.characterClass ? character.characterClass.name : "N/A"
+            }}
+          </div>
         </div>
         <div class="col-span-2">
           <div class="my-2 flex"><Button label="character sheet"></Button></div>

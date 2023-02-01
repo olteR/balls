@@ -1,9 +1,13 @@
 package olter.balls.campaigns;
 
-import olter.balls.campaigns.dto.CampaignResponse;
+import olter.balls.campaigns.dto.CampaignDetailsResponse;
+import olter.balls.campaigns.dto.CampaignListResponse;
 import org.mapstruct.Mapper;
+
+import java.util.Optional;
 
 @Mapper(componentModel = "spring")
 public interface CampaignMapper {
-    CampaignResponse entityToResponse(CampaignEntity entity);
+    CampaignListResponse entityToListResponse(CampaignEntity entity);
+    CampaignDetailsResponse entityToDetailsResponse(CampaignEntity entity);
 }
