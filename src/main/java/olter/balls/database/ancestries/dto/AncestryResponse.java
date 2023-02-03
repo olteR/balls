@@ -10,5 +10,5 @@ import lombok.Setter;
 @RequiredArgsConstructor
 public class AncestryResponse {
     private Integer id;
-    private Integer name;
+    private String name;
 }

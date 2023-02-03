@@ -1,4 +1,4 @@
-package olter.balls.database.core.enums;
+package olter.balls.database.languages;
 
 public enum LanguageTypeEnum {
     COMMON("common"),
@@ -9,11 +9,11 @@ public enum LanguageTypeEnum {
 
     private final String value;
 
-    private LanguageTypeEnum(String value) {
+    LanguageTypeEnum(String value) {
         this.value = value;
     }
 
-    private String getValue() {
+    public String getValue() {
         return this.value;
     }
 }

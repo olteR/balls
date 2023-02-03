@@ -10,11 +10,11 @@ public enum AbilityScoreEnum {
 
     private final String value;
 
-    private AbilityScoreEnum(String value) {
+    AbilityScoreEnum(String value) {
         this.value = value;
     }
 
-    private String getValue() {
+    public String getValue() {
         return this.value;
     }
 }

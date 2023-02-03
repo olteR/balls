@@ -6,7 +6,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import olter.balls.database.ancestries.AncestryEntity;
 import olter.balls.database.core.SourcedEntity;
-import olter.balls.database.core.enums.LanguageTypeEnum;
 
 import java.util.List;
 

@@ -14,20 +14,11 @@ public interface CharacterMapper {
         CharacterListResponse response = new CharacterListResponse();
         response.setId(entity.getId());
         response.setName(entity.getName());
-
-        if (entity.getAncestry() != null) {
-            NameResponse ancestry = new NameResponse();
-            ancestry.setId(entity.getAncestry().getId());
-            ancestry.setName(entity.getAncestry().getName());
-            response.setAncestry(ancestry);
-        }
+        response.setAncestry(entity.getAncestry() != null ? new NameResponse(entity.getAncestry().getId(), entity.getAncestry().getName()) : null);
 
         List<NameResponse> campaigns = new ArrayList<>();
         entity.getCampaigns().forEach(cu -> {
-            NameResponse campaign = new NameResponse();
-            campaign.setId(cu.getCampaign().getId());
-            campaign.setName(cu.getCampaign().getName());
-            campaigns.add(campaign);
+            campaigns.add(new NameResponse(cu.getCampaign().getId(), cu.getCampaign().getName()));
         });
         response.setCampaigns(campaigns);
         return response;

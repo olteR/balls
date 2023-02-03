@@ -4,12 +4,20 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import olter.balls.database.ancestries.AncestryEntity;
+import olter.balls.database.ancestries.AncestryMapper;
+import olter.balls.database.ancestries.AncestryRepository;
 import olter.balls.database.ancestries.dto.AncestryResponse;
 import olter.balls.database.books.BookEntity;
 import olter.balls.database.books.BookMapper;
 import olter.balls.database.books.BookRepository;
 import olter.balls.database.books.dto.BookResponse;
-import olter.balls.database.core.enums.TraitCategoryEnum;
+import olter.balls.database.core.embeddables.AbilityBoostEmbeddable;
+import olter.balls.database.core.embeddables.FeatureEmbeddable;
+import olter.balls.database.core.enums.AbilityScoreEnum;
+import olter.balls.database.ancestries.AncestryRarityEnum;
+import olter.balls.database.traits.TraitCategoryEnum;
+import olter.balls.database.importer.dto.ancestry.AncestryImport;
 import olter.balls.database.importer.dto.BookImport;
 import olter.balls.database.importer.dto.LanguageImport;
 import olter.balls.database.importer.dto.TraitImport;
@@ -26,7 +34,6 @@ import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -39,10 +46,13 @@ public class ImporterService {
 
     @Value("${import.url}")
     private String IMPORT_URL;
-    private List<String> abilities = Arrays.asList("Deviant", "Esoterica", "Psyche", "Instinct");
-    private List<String> elements = Arrays.asList("Air", "Earth", "Fire", "Water");
+    private final List<String> abilities = Arrays.asList("Deviant", "Esoterica", "Psyche", "Instinct");
+    private final List<String> elements = Arrays.asList("Air", "Earth", "Fire", "Water");
 
     private final ImportMapper importMapper;
+
+    private final AncestryRepository ancestryRepository;
+    private final AncestryMapper ancestryMapper;
 
     private final BookMapper bookMapper;
     private final BookRepository bookRepository;
@@ -59,10 +69,36 @@ public class ImporterService {
 
         ResponseEntity<String> responseJson = restTemplate.exchange(IMPORT_URL.concat("ancestries/index.json"), HttpMethod.GET, generateHttpEntity(), String.class);
         String[] sources = Objects.requireNonNull(responseJson.getBody()).split(",");
+        List<AncestryEntity> importedAncestries = new ArrayList<>();
         for (String source : sources) {
             source = source.substring(source.indexOf(':') + 3, source.lastIndexOf('"'));
+            if (!source.equals("versatile-heritages.json")) {
+                ResponseEntity<String> ancestryResponseJson = restTemplate.exchange(IMPORT_URL.concat("ancestries/".concat(source)), HttpMethod.GET, generateHttpEntity(), String.class);
+                AncestryImport ancestryImport = mapper.readValue(Objects.requireNonNull(ancestryResponseJson.getBody()).substring(ancestryResponseJson.getBody().indexOf('[') + 1, ancestryResponseJson.getBody().lastIndexOf(']')), AncestryImport.class);
+                AncestryEntity entity = importMapper.toAncestryEntity(ancestryImport);
+
+                // RARITY
+                if (entity.getRarity() == null) entity.setRarity(AncestryRarityEnum.COMMON);
+
+                // ABILITY BOOSTS AND FLAWS
+                List<AbilityBoostEmbeddable> abilityBoosts = new ArrayList<>();
+                abilityBoosts.addAll(getBoosts(ancestryImport.getBoosts(), false));
+                abilityBoosts.addAll(getBoosts(ancestryImport.getFlaw(), true));
+                entity.setAbilityBoosts(abilityBoosts);
+
+                // DESCRIPTION
+                List<FeatureEmbeddable> features = new ArrayList<>();
+                features.add(new FeatureEmbeddable("Flavor", String.join("\n",ancestryImport.getFlavor())));
+                features.add(new FeatureEmbeddable("Info", String.join("\n",ancestryImport.getInfo().stream().filter(i -> i.getClass() == String.class).map(Object::toString).toList())));
+                entity.setFeatures(features);
+
+                try {
+                    ancestryRepository.save(entity);
+                    importedAncestries.add(entity);
+                } catch (Exception ignored) {}
+            }
         }
-        return null;
+        return ancestryMapper.entityToResponseList(importedAncestries);
     }
 
     public List<BookResponse> importBooks() throws JsonProcessingException {
@@ -147,5 +183,19 @@ public class ImporterService {
             if (category == from) return to;
             return category;
         }).toList();
+    }
+
+    private List<AbilityBoostEmbeddable> getBoosts(List<String> boosts, boolean flaw) {
+        List<AbilityBoostEmbeddable> abilityBoosts = new ArrayList<>();
+        if (boosts != null) {
+            for (String boost : boosts) {
+                AbilityBoostEmbeddable abilityBoost = new AbilityBoostEmbeddable(boost.contains("free") ? null : AbilityScoreEnum.valueOf(boost.substring(0,3).toUpperCase()), boost.contains("free"), flaw);
+                if (boost.equals("Two free ability boosts")) {
+                    abilityBoosts.add(new AbilityBoostEmbeddable(null, true, false));
+                }
+                abilityBoosts.add(abilityBoost);
+            }
+        }
+        return abilityBoosts;
     }
 }

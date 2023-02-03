@@ -15,7 +15,8 @@
           collapsed
         >
           <template #icons>
-            <button v-if="user.role === 'PLAYER'"
+            <button
+              v-if="user.role === 'PLAYER'"
               class="p-panel-header-icon p-link mr-2"
               @click="toggle"
             ></button>

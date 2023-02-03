@@ -17,7 +17,8 @@ export const useImportStore = defineStore("import", () => {
       const response = await axios.get(urls.ancestries);
       toast.add({
         severity: "success",
-        summary: "successfully imported " + response.data.length + " ancestries",
+        summary:
+          "successfully imported " + response.data.length + " ancestries",
         detail: response.data.map((ancestry) => ancestry.name).join(", "),
         life: 3000,
       });

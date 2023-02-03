@@ -7,9 +7,8 @@ import lombok.Setter;
 import olter.balls.characters.CharacterEntity;
 import olter.balls.database.core.SourcedEntity;
 import olter.balls.database.core.embeddables.AbilityBoostEmbeddable;
+import olter.balls.database.core.embeddables.FeatureEmbeddable;
 import olter.balls.database.core.embeddables.SpeedEmbeddable;
-import olter.balls.database.core.enums.AbilityScoreEnum;
-import olter.balls.database.core.enums.AncestryRarityEnum;
 import olter.balls.database.core.enums.CreatureSizeEnum;
 import olter.balls.database.languages.LanguageEntity;
 
@@ -32,11 +31,16 @@ public class AncestryEntity extends SourcedEntity {
     private SpeedEmbeddable speed;
 
     @ElementCollection
-    @CollectionTable(name = "race_sizes", joinColumns = @JoinColumn(name = "race_id"))
+    @CollectionTable(name = "ancestry_features", joinColumns = @JoinColumn(name = "ancestry_id"))
+    private List<FeatureEmbeddable> features;
+
+    @ElementCollection
+    @CollectionTable(name = "ancestry_sizes", joinColumns = @JoinColumn(name = "ancestry_id"))
+    @Enumerated(EnumType.STRING)
     private List<CreatureSizeEnum> sizes;
 
     @ElementCollection
-    @CollectionTable(name = "race_ability_boosts", joinColumns = @JoinColumn(name = "race_id"))
+    @CollectionTable(name = "ancestry_ability_boosts", joinColumns = @JoinColumn(name = "ancestry_id"))
     private List<AbilityBoostEmbeddable> abilityBoosts;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "ancestry")

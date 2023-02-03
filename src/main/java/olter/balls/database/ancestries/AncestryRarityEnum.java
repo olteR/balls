@@ -1,4 +1,4 @@
-package olter.balls.database.core.enums;
+package olter.balls.database.ancestries;
 
 public enum AncestryRarityEnum {
     COMMON("common"),
@@ -7,11 +7,11 @@ public enum AncestryRarityEnum {
 
     private final String value;
 
-    private AncestryRarityEnum(String value) {
+    AncestryRarityEnum(String value) {
         this.value = value;
     }
 
-    private String getValue() {
+    public String getValue() {
         return this.value;
     }
 }

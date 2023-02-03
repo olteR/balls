@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import olter.balls.database.core.SourcedEntity;
-import olter.balls.database.core.enums.TraitCategoryEnum;
 
 import java.util.List;
 

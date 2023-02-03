@@ -10,11 +10,11 @@ public enum CreatureSizeEnum {
 
     private final String value;
 
-    private CreatureSizeEnum(String value) {
+    CreatureSizeEnum(String value) {
         this.value = value;
     }
 
-    private String getValue() {
+    public String getValue() {
         return this.value;
     }
 }

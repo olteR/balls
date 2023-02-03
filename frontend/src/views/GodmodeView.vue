@@ -3,8 +3,8 @@
     <div class="grid grid-cols-12 gap-4">
       <div>
         <Button
-            label="import ancestries"
-            @click="importStore.importAncestries()"
+          label="import ancestries"
+          @click="importStore.importAncestries()"
         ></Button>
       </div>
       <div>

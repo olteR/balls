@@ -1,4 +1,4 @@
-package olter.balls.database.core.enums;
+package olter.balls.database.traits;
 
 public enum TraitCategoryEnum {
     ABILITY("ability"),
@@ -34,11 +34,11 @@ public enum TraitCategoryEnum {
 
     private final String value;
 
-    private TraitCategoryEnum(String value) {
+    TraitCategoryEnum(String value) {
         this.value = value;
     }
 
-    private String getValue() {
+    public String getValue() {
         return this.value;
     }
 }
