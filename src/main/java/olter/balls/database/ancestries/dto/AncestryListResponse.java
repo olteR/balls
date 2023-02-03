@@ -1,6 +1,5 @@
 package olter.balls.database.ancestries.dto;
 
-import jakarta.persistence.criteria.CriteriaBuilder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -8,7 +7,9 @@ import lombok.Setter;
 @Getter
 @Setter
 @RequiredArgsConstructor
-public class AncestryResponse {
+public class AncestryListResponse {
     private Integer id;
     private String name;
+    private String rarity;
+    private String source;
 }

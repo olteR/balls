@@ -4,14 +4,13 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import olter.balls.common.NameResponse;
 import olter.balls.database.ancestries.AncestryEntity;
 import olter.balls.database.ancestries.AncestryMapper;
 import olter.balls.database.ancestries.AncestryRepository;
-import olter.balls.database.ancestries.dto.AncestryResponse;
 import olter.balls.database.books.BookEntity;
 import olter.balls.database.books.BookMapper;
 import olter.balls.database.books.BookRepository;
-import olter.balls.database.books.dto.BookResponse;
 import olter.balls.database.core.embeddables.AbilityBoostEmbeddable;
 import olter.balls.database.core.embeddables.FeatureEmbeddable;
 import olter.balls.database.core.enums.AbilityScoreEnum;
@@ -24,11 +23,9 @@ import olter.balls.database.importer.dto.TraitImport;
 import olter.balls.database.languages.LanguageEntity;
 import olter.balls.database.languages.LanguageMapper;
 import olter.balls.database.languages.LanguageRepository;
-import olter.balls.database.languages.dto.LanguageResponse;
 import olter.balls.database.traits.TraitEntity;
 import olter.balls.database.traits.TraitMapper;
 import olter.balls.database.traits.TraitRepository;
-import olter.balls.database.traits.dto.TraitResponse;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
@@ -63,7 +60,7 @@ public class ImporterService {
     private final TraitRepository traitRepository;
     private final TraitMapper traitMapper;
 
-    public List<AncestryResponse> importAncestries() throws JsonProcessingException {
+    public List<NameResponse> importAncestries() throws JsonProcessingException {
         RestTemplate restTemplate = new RestTemplate();
         ObjectMapper mapper = new ObjectMapper();
 
@@ -98,10 +95,10 @@ public class ImporterService {
                 } catch (Exception ignored) {}
             }
         }
-        return ancestryMapper.entityToResponseList(importedAncestries);
+        return ancestryMapper.entityToNameResponseList(importedAncestries);
     }
 
-    public List<BookResponse> importBooks() throws JsonProcessingException {
+    public List<NameResponse> importBooks() throws JsonProcessingException {
         RestTemplate restTemplate = new RestTemplate();
         ObjectMapper mapper = new ObjectMapper();
 
@@ -116,10 +113,10 @@ public class ImporterService {
             } catch (Exception ignored) {}
         }
         log.info("Imported " + importedBooks.size() + " books");
-        return bookMapper.entityToResponseList(importedBooks);
+        return bookMapper.entityToNameResponseList(importedBooks);
     }
 
-    public List<LanguageResponse> importLanguages() throws JsonProcessingException {
+    public List<NameResponse> importLanguages() throws JsonProcessingException {
         RestTemplate restTemplate = new RestTemplate();
         ObjectMapper mapper = new ObjectMapper();
 
@@ -134,10 +131,10 @@ public class ImporterService {
             } catch (Exception ignored) {}
         }
         log.info("Imported " + importedLanguages.size() + " languages");
-        return languageMapper.entityToResponseList(importedLanguages);
+        return languageMapper.entityToNameResponseList(importedLanguages);
     }
 
-    public List<TraitResponse> importTraits() throws JsonProcessingException {
+    public List<NameResponse> importTraits() throws JsonProcessingException {
         RestTemplate restTemplate = new RestTemplate();
         ObjectMapper mapper = new ObjectMapper();
 
@@ -167,7 +164,7 @@ public class ImporterService {
             }
         }
         log.info("Imported " + importedTraits.size() + " traits");
-        return traitMapper.entityToResponseList(importedTraits);
+        return traitMapper.entityToNameResponseList(importedTraits);
     }
 
     private HttpEntity<String> generateHttpEntity() {

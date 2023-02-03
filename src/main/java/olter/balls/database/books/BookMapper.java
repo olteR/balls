@@ -1,12 +1,12 @@
 package olter.balls.database.books;
 
-import olter.balls.database.books.dto.BookResponse;
+import olter.balls.common.NameResponse;
 import org.mapstruct.Mapper;
 
 import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface BookMapper {
-    BookResponse entityToResponse(BookEntity entity);
-    List<BookResponse> entityToResponseList(List<BookEntity> entities);
+    NameResponse entityToResponse(BookEntity entity);
+    List<NameResponse> entityToNameResponseList(List<BookEntity> entities);
 }

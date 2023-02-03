@@ -2,7 +2,7 @@
   <div class="container mx-auto my-4">
     <div class="grid grid-cols-2 lg:grid-cols-4">
       <div class="m-4">
-        <Button class="w-full">
+        <Button class="w-full" @click="router.push('database/ancestries')">
           <Card class="w-full">
             <template #header>
               <span
@@ -11,7 +11,7 @@
               ></span>
             </template>
             <template #title>
-              <span class="text-5xl">races</span>
+              <span class="text-5xl">ancestries</span>
             </template>
           </Card>
         </Button>
@@ -126,8 +126,11 @@
 </template>
 
 <script setup>
+import {useRouter} from "vue-router";
 import Card from "primevue/card";
 import Button from "primevue/button";
+
+const router = useRouter();
 </script>
 
 <style scoped>

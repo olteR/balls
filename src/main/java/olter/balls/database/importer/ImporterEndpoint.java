@@ -2,10 +2,7 @@ package olter.balls.database.importer;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.RequiredArgsConstructor;
-import olter.balls.database.ancestries.dto.AncestryResponse;
-import olter.balls.database.books.dto.BookResponse;
-import olter.balls.database.languages.dto.LanguageResponse;
-import olter.balls.database.traits.dto.TraitResponse;
+import olter.balls.common.NameResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,22 +18,22 @@ public class ImporterEndpoint {
     private final ImporterService importerService;
 
     @GetMapping("/import/ancestries")
-    public ResponseEntity<List<AncestryResponse>> importAncestries() throws JsonProcessingException {
+    public ResponseEntity<List<NameResponse>> importAncestries() throws JsonProcessingException {
         return ResponseEntity.ok().body(importerService.importAncestries());
     }
 
     @GetMapping("/import/books")
-    public ResponseEntity<List<BookResponse>> importBooks() throws JsonProcessingException {
+    public ResponseEntity<List<NameResponse>> importBooks() throws JsonProcessingException {
         return ResponseEntity.ok().body(importerService.importBooks());
     }
 
     @GetMapping("/import/languages")
-    public ResponseEntity<List<LanguageResponse>> importLanguages() throws JsonProcessingException {
+    public ResponseEntity<List<NameResponse>> importLanguages() throws JsonProcessingException {
         return ResponseEntity.ok().body(importerService.importLanguages());
     }
 
     @GetMapping("/import/traits")
-    public ResponseEntity<List<TraitResponse>> importTraits() throws JsonProcessingException {
+    public ResponseEntity<List<NameResponse>> importTraits() throws JsonProcessingException {
         return ResponseEntity.ok().body(importerService.importTraits());
     }
 }
