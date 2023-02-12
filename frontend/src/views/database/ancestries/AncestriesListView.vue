@@ -3,18 +3,20 @@
     <Card class="p-4">
       <template #title>
         <span class="text-5xl">ancestries</span>
-        <div v-for="rarity in ANCESTRY_RARITY">
-          <DataTable :value="ancestryStore.getAncestries.filter(a => a.rarity.toLowerCase() === rarity)" responsiveLayout="scroll">
-            <template #header><div class="text-5xl text-center">{{ rarity }}</div></template>
-            <Column field="name" header="name"></Column>
-            <Column field="source" header="source"></Column>
-            <Column>
-              <template #body="slotProps">
-                <router-link :to="'/database/ancestry/' + slotProps.data.id"><i class="fa fa-ellipsis"></i></router-link>
-              </template>
-            </Column>
-          </DataTable>
-        </div>
+      </template>
+      <template #content>
+      <div v-for="rarity in ANCESTRY_RARITY">
+        <DataTable :value="ancestryStore.getAncestries.filter(a => a.rarity.toLowerCase() === rarity)" responsiveLayout="scroll">
+          <template #header><div class="text-5xl text-center">{{ rarity }}</div></template>
+          <Column field="name" header="name"></Column>
+          <Column field="source" header="source"></Column>
+          <Column>
+            <template #body="slotProps">
+              <router-link :to="'/database/ancestry/' + slotProps.data.id"><i class="fa fa-ellipsis"></i></router-link>
+            </template>
+          </Column>
+        </DataTable>
+      </div>
       </template>
     </Card>
   </div>

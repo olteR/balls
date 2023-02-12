@@ -1,5 +1,5 @@
 <template>
-  <Toast />
+  <Toast position="bottom-center" />
   <div class="card">
     <div v-if="router.currentRoute.value.name !== 'login'">
       <TabMenu :model="items" class="inline w-full" />
@@ -51,6 +51,7 @@ onMounted(() => {
         severity: "error",
         summary: "login expired",
         detail: "please log in again.",
+        group: 'bc',
         life: 3000,
       });
     }

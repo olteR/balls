@@ -17,8 +17,8 @@ import org.mapstruct.*;
 @Mapper(componentModel = "spring")
 public interface ImportMapper {
     @Mapping(target = "id", ignore = true)
-    @Mapping(target = "speed.walkingSpeed", source = "speed.walk")
-    @Mapping(target = "speed.swimmingSpeed", source = "speed.swim")
+    @Mapping(target = "speed.walking", source = "speed.walk")
+    @Mapping(target = "speed.swimming", source = "speed.swim")
     AncestryEntity toAncestryEntity(AncestryImport ancestry);
 
     @EnumMapping(nameTransformationStrategy = "case", configuration = "lower")

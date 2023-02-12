@@ -20,7 +20,7 @@ export const useAncestryStore = defineStore("ancestry", () => {
     async function fetchAncestry(id) {
         try {
             const response = await axios.get(urls.ancestry(id));
-            ancestries.value = response.data;
+            ancestry.value = response.data;
         } catch (error) {
             toast.add({
                 severity: "error",
@@ -47,6 +47,7 @@ export const useAncestryStore = defineStore("ancestry", () => {
 
     return {
         ancestries,
+        getAncestry,
         getAncestries,
         fetchAncestry,
         fetchAncestries,

@@ -10,6 +10,6 @@ import lombok.Setter;
 @RequiredArgsConstructor
 @Embeddable
 public class SpeedEmbeddable {
-    private Integer walkingSpeed;
-    private Integer swimmingSpeed;
+    private Integer walking;
+    private Integer swimming;
 }

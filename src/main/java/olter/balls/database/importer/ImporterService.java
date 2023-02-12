@@ -85,8 +85,25 @@ public class ImporterService {
 
                 // DESCRIPTION
                 List<FeatureEmbeddable> features = new ArrayList<>();
-                features.add(new FeatureEmbeddable("Flavor", String.join("\n",ancestryImport.getFlavor())));
-                features.add(new FeatureEmbeddable("Info", String.join("\n",ancestryImport.getInfo().stream().filter(i -> i.getClass() == String.class).map(Object::toString).toList())));
+                features.add(new FeatureEmbeddable("Flavor", "<p>".concat(String.join("</p><p>",ancestryImport.getFlavor())).concat("</p>")));
+                features.add(new FeatureEmbeddable("Info", "<p>".concat(String.join("</p><p>",ancestryImport.getInfo().stream().filter(i -> i.getClass() == String.class).map(Object::toString).toList())).concat("</p>")));
+                ancestryImport.getInfo().stream().filter(i -> i.getClass() != String.class).forEach(i -> {
+                    String info = i.toString();
+                    if (info.contains("entries=[") && info.contains("name=")) {
+                        String name = info.substring(info.indexOf("name=") + 5);
+                        name = name.substring(0, name.indexOf(','));
+                        String entries = info.substring(info.indexOf("entries=[") + 9);
+                        if (entries.contains("{type=list")) {
+                            entries = entries.substring(entries.indexOf("items=[") + 7);
+                            entries = "<ul><li>".concat(entries.substring(0, entries.indexOf("]")).replace(".,", ".</li><li>")).concat("</li></ul>");
+                            features.add(new FeatureEmbeddable(name, entries));
+                        }
+                        else if (!entries.contains("{type=")) {
+                            entries = "<p>".concat(entries.substring(0, entries.indexOf("]")).replace(".,", ".</p><p>")).concat("</p>");
+                            features.add(new FeatureEmbeddable(name, entries));
+                        }
+                    }
+                });
                 entity.setFeatures(features);
 
                 try {
