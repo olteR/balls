@@ -6,7 +6,7 @@ import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
 public interface LanguageMapper {
-	NameResponse entityToNameResponse(LanguageEntity entity);
+  NameResponse entityToNameResponse(LanguageEntity entity);
 
-	List<NameResponse> entityToNameResponseList(List<LanguageEntity> entities);
+  List<NameResponse> entityToNameResponseList(List<LanguageEntity> entities);
 }

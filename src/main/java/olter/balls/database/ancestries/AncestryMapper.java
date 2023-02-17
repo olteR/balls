@@ -8,13 +8,13 @@ import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
 public interface AncestryMapper {
-	AncestryDetailsResponse entityToDetailsResponse(AncestryEntity entity);
+  AncestryDetailsResponse entityToDetailsResponse(AncestryEntity entity);
 
-	AncestryListResponse entityToListResponse(AncestryEntity entity);
+  AncestryListResponse entityToListResponse(AncestryEntity entity);
 
-	List<AncestryListResponse> entityToListResponseList(List<AncestryEntity> entities);
+  List<AncestryListResponse> entityToListResponseList(List<AncestryEntity> entities);
 
-	NameResponse entityToNameResponse(AncestryEntity entity);
+  NameResponse entityToNameResponse(AncestryEntity entity);
 
-	List<NameResponse> entityToNameResponseList(List<AncestryEntity> entities);
+  List<NameResponse> entityToNameResponseList(List<AncestryEntity> entities);
 }

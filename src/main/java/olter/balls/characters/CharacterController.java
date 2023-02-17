@@ -14,11 +14,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class CharacterController {
 
-	private final CharacterService characterService;
+  private final CharacterService characterService;
 
-	@GetMapping("/characters/{userId}")
-	public ResponseEntity<List<CharacterListResponse>> getRelatedCampaigns(
-			@PathVariable Integer userId) {
-		return ResponseEntity.ok().body(characterService.getCharacters(userId));
-	}
+  @GetMapping("/characters/{userId}")
+  public ResponseEntity<List<CharacterListResponse>> getRelatedCampaigns(
+      @PathVariable Integer userId) {
+    return ResponseEntity.ok().body(characterService.getCharacters(userId));
+  }
 }

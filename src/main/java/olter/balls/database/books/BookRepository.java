@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface BookRepository extends JpaRepository<BookEntity, Integer> {
-	Optional<BookEntity> findBookEntityByShortName(String shortName);
+  Optional<BookEntity> findBookEntityByShortName(String shortName);
 }

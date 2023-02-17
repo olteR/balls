@@ -8,7 +8,7 @@ import lombok.Setter;
 @Setter
 @RequiredArgsConstructor
 public class UserResponse {
-	private Integer id;
-	private String name;
-	private String displayName;
+  private Integer id;
+  private String name;
+  private String displayName;
 }

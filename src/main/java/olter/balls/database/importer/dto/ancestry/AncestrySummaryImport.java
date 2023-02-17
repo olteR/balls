@@ -9,6 +9,6 @@ import lombok.Setter;
 @Setter
 @RequiredArgsConstructor
 public class AncestrySummaryImport {
-	private String text;
-	private ArrayList<String> images;
+  private String text;
+  private ArrayList<String> images;
 }

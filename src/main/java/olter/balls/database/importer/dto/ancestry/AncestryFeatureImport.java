@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 @RequiredArgsConstructor
 public class AncestryFeatureImport {
-	private String name;
-	private boolean unarmedAttack;
-	private ArrayList<Object> entries;
+  private String name;
+  private boolean unarmedAttack;
+  private ArrayList<Object> entries;
 }

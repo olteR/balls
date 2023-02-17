@@ -13,41 +13,41 @@ import org.springframework.beans.factory.annotation.Value;
 
 @NoArgsConstructor
 public class JwtHandler {
-	private final int JWT_EXP_TIME = 1200000;
+  private final int JWT_EXP_TIME = 1200000;
 
-	@Value("${jwt.secret}")
-	private final String SECRET = "secret";
+  @Value("${jwt.secret}")
+  private final String SECRET = "secret";
 
-	private final String ISSUER = "Balls_Security";
-	private final String AUDIENCE = "Balls";
-	private static final SignatureAlgorithm ALGORITHM = SignatureAlgorithm.HS512;
+  private final String ISSUER = "Balls_Security";
+  private final String AUDIENCE = "Balls";
+  private static final SignatureAlgorithm ALGORITHM = SignatureAlgorithm.HS512;
 
-	public String generateJwt(String username, Map<String, Object> data) {
-		JwtBuilder jwtBuilder =
-				Jwts.builder()
-						.addClaims(data)
-						.setNotBefore(Date.from(ZonedDateTime.now().toInstant()))
-						.setIssuedAt(Date.from(ZonedDateTime.now().toInstant()))
-						.setExpiration(Date.from(ZonedDateTime.now().plusHours(24).toInstant()))
-						.setIssuer(ISSUER)
-						.setAudience(AUDIENCE)
-						.signWith(ALGORITHM, SECRET);
-		if (!data.containsKey("sub")) {
-			jwtBuilder.setSubject(username);
-		}
-		return jwtBuilder.compact();
-	}
+  public String generateJwt(String username, Map<String, Object> data) {
+    JwtBuilder jwtBuilder =
+        Jwts.builder()
+            .addClaims(data)
+            .setNotBefore(Date.from(ZonedDateTime.now().toInstant()))
+            .setIssuedAt(Date.from(ZonedDateTime.now().toInstant()))
+            .setExpiration(Date.from(ZonedDateTime.now().plusHours(24).toInstant()))
+            .setIssuer(ISSUER)
+            .setAudience(AUDIENCE)
+            .signWith(ALGORITHM, SECRET);
+    if (!data.containsKey("sub")) {
+      jwtBuilder.setSubject(username);
+    }
+    return jwtBuilder.compact();
+  }
 
-	private Claims getAllClaimsFromToken(String token) {
-		return Jwts.parser().setSigningKey(SECRET).parseClaimsJws(token).getBody();
-	}
+  private Claims getAllClaimsFromToken(String token) {
+    return Jwts.parser().setSigningKey(SECRET).parseClaimsJws(token).getBody();
+  }
 
-	private <T> T getClaimFromToken(String token, Function<Claims, T> claimsResolver) {
-		final Claims claims = getAllClaimsFromToken(token);
-		return claimsResolver.apply(claims);
-	}
+  private <T> T getClaimFromToken(String token, Function<Claims, T> claimsResolver) {
+    final Claims claims = getAllClaimsFromToken(token);
+    return claimsResolver.apply(claims);
+  }
 
-	public String getUsernameFromToken(String token) {
-		return getClaimFromToken(token, Claims::getSubject);
-	}
+  public String getUsernameFromToken(String token) {
+    return getClaimFromToken(token, Claims::getSubject);
+  }
 }

@@ -17,18 +17,18 @@ import olter.balls.connections.campaign_users.CampaignUserEntity;
 @RequiredArgsConstructor
 @Table(name = "users")
 public class UserEntity extends BaseEntity {
-	@Column(unique = true)
-	private String email;
+  @Column(unique = true)
+  private String email;
 
-	@Column(unique = true)
-	private String name;
+  @Column(unique = true)
+  private String name;
 
-	private String displayName;
-	private String password;
+  private String displayName;
+  private String password;
 
-	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private Set<CampaignUserEntity> campaigns = new HashSet<>();
+  @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  private Set<CampaignUserEntity> campaigns = new HashSet<>();
 
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "owner")
-	private List<CharacterEntity> characters;
+  @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "owner")
+  private List<CharacterEntity> characters;
 }

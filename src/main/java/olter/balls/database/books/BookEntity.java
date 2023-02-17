@@ -15,11 +15,11 @@ import olter.balls.common.BaseEntity;
 @RequiredArgsConstructor
 @Table(name = "books")
 public class BookEntity extends BaseEntity {
-	@Column(unique = true)
-	private String name;
+  @Column(unique = true)
+  private String name;
 
-	@Column(unique = true)
-	private String shortName;
+  @Column(unique = true)
+  private String shortName;
 
-	private LocalDate published;
+  private LocalDate published;
 }

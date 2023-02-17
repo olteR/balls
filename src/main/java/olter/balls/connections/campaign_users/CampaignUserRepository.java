@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface CampaignUserRepository extends JpaRepository<CampaignUserEntity, Integer> {
-	@Query("SELECT cu FROM CampaignUserEntity cu WHERE cu.user.id = ?1")
-	List<CampaignUserEntity> findAllByUserId(Integer userId);
+  @Query("SELECT cu FROM CampaignUserEntity cu WHERE cu.user.id = ?1")
+  List<CampaignUserEntity> findAllByUserId(Integer userId);
 }

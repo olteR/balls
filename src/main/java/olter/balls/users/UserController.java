@@ -13,10 +13,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api")
 @RequiredArgsConstructor
 public class UserController {
-	private final UserService userService;
+  private final UserService userService;
 
-	@PostMapping("/users/login")
-	public ResponseEntity<LoginResponse> loginUser(@RequestBody LoginRequest loginRequest) {
-		return ResponseEntity.ok().body(userService.loginUser(loginRequest));
-	}
+  @PostMapping("/users/login")
+  public ResponseEntity<LoginResponse> loginUser(@RequestBody LoginRequest loginRequest) {
+    return ResponseEntity.ok().body(userService.loginUser(loginRequest));
+  }
 }

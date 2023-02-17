@@ -9,7 +9,7 @@ import olter.balls.common.NameResponse;
 @Setter
 @RequiredArgsConstructor
 public class CharacterCampaignResponse extends NameResponse {
-	private Integer level;
-	private NameResponse ancestry;
-	private NameResponse characterClass;
+  private Integer level;
+  private NameResponse ancestry;
+  private NameResponse characterClass;
 }

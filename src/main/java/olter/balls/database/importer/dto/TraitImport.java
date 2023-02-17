@@ -11,9 +11,9 @@ import lombok.Setter;
 @RequiredArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class TraitImport {
-	private String name;
-	private String source;
-	private Integer page;
-	private List<String> categories;
-	private List<Object> entries;
+  private String name;
+  private String source;
+  private Integer page;
+  private List<String> categories;
+  private List<Object> entries;
 }

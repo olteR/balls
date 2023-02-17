@@ -139,9 +139,10 @@
                     <java>
                         <googleJavaFormat>
                             <version>1.15.0</version>
-                            <style>AOSP</style>
+                            <style>GOOGLE</style>
                             <reflowLongStrings>true</reflowLongStrings>
                         </googleJavaFormat>
+                        <removeUnusedImports/>
                     </java>
                 </configuration>
             </plugin>

@@ -13,13 +13,13 @@ import olter.balls.database.core.SourcedEntity;
 @RequiredArgsConstructor
 @Table(name = "traits")
 public class TraitEntity extends SourcedEntity {
-	private String name;
+  private String name;
 
-	@ElementCollection
-	@CollectionTable(name = "trait_categories", joinColumns = @JoinColumn(name = "trait_id"))
-	@Enumerated(EnumType.STRING)
-	private List<TraitCategoryEnum> categories;
+  @ElementCollection
+  @CollectionTable(name = "trait_categories", joinColumns = @JoinColumn(name = "trait_id"))
+  @Enumerated(EnumType.STRING)
+  private List<TraitCategoryEnum> categories;
 
-	@Column(columnDefinition = "TEXT")
-	private String description;
+  @Column(columnDefinition = "TEXT")
+  private String description;
 }

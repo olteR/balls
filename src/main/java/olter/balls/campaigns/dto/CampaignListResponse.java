@@ -11,5 +11,5 @@ import olter.balls.connections.campaign_users.dto.CampaignUserListResponse;
 @Setter
 @RequiredArgsConstructor
 public class CampaignListResponse extends NameResponse {
-	private List<CampaignUserListResponse> relatedUsers;
+  private List<CampaignUserListResponse> relatedUsers;
 }

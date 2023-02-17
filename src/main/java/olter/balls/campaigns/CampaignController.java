@@ -12,17 +12,17 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api")
 @RequiredArgsConstructor
 public class CampaignController {
-	private final CampaignService campaignService;
+  private final CampaignService campaignService;
 
-	@GetMapping("/campaign/{id}")
-	public ResponseEntity<CampaignDetailsResponse> getCampaignDetails(@PathVariable Integer id)
-			throws ResourceNotFoundException {
-		return ResponseEntity.ok().body(campaignService.getCampaignDetails(id));
-	}
+  @GetMapping("/campaign/{id}")
+  public ResponseEntity<CampaignDetailsResponse> getCampaignDetails(@PathVariable Integer id)
+      throws ResourceNotFoundException {
+    return ResponseEntity.ok().body(campaignService.getCampaignDetails(id));
+  }
 
-	@GetMapping("/campaigns/{userId}")
-	public ResponseEntity<List<CampaignListResponse>> getRelatedCampaigns(
-			@PathVariable Integer userId) {
-		return ResponseEntity.ok().body(campaignService.getRelatedCampaigns(userId));
-	}
+  @GetMapping("/campaigns/{userId}")
+  public ResponseEntity<List<CampaignListResponse>> getRelatedCampaigns(
+      @PathVariable Integer userId) {
+    return ResponseEntity.ok().body(campaignService.getRelatedCampaigns(userId));
+  }
 }

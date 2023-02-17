@@ -14,15 +14,15 @@ import olter.balls.database.core.SourcedEntity;
 @RequiredArgsConstructor
 @Table(name = "languages")
 public class LanguageEntity extends SourcedEntity {
-	@Column(unique = true)
-	private String name;
+  @Column(unique = true)
+  private String name;
 
-	@Enumerated(EnumType.STRING)
-	private LanguageTypeEnum type;
+  @Enumerated(EnumType.STRING)
+  private LanguageTypeEnum type;
 
-	@ManyToMany(mappedBy = "knownLanguages", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	List<AncestryEntity> ancestriesKnowing;
+  @ManyToMany(mappedBy = "knownLanguages", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  List<AncestryEntity> ancestriesKnowing;
 
-	@ManyToMany(mappedBy = "additionalLanguages", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	List<AncestryEntity> ancestriesAsAdditional;
+  @ManyToMany(mappedBy = "additionalLanguages", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  List<AncestryEntity> ancestriesAsAdditional;
 }

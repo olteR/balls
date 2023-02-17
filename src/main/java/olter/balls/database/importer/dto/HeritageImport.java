@@ -11,9 +11,9 @@ import lombok.Setter;
 @RequiredArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class HeritageImport {
-	private String name;
-	private String shortName;
-	private String source;
-	private int page;
-	private ArrayList<Object> entries;
+  private String name;
+  private String shortName;
+  private String source;
+  private int page;
+  private ArrayList<Object> entries;
 }

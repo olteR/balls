@@ -13,17 +13,17 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 @Slf4j
 public class AncestryService {
-	private final AncestryRepository ancestryRepository;
-	private final AncestryMapper ancestryMapper;
+  private final AncestryRepository ancestryRepository;
+  private final AncestryMapper ancestryMapper;
 
-	public AncestryDetailsResponse getAncestry(Integer id) {
-		Optional<AncestryEntity> entity = ancestryRepository.findById(id);
-		if (entity.isPresent()) {
-			return ancestryMapper.entityToDetailsResponse(entity.get());
-		} else throw new ResourceNotFoundException("no ancestry with such id");
-	}
+  public AncestryDetailsResponse getAncestry(Integer id) {
+    Optional<AncestryEntity> entity = ancestryRepository.findById(id);
+    if (entity.isPresent()) {
+      return ancestryMapper.entityToDetailsResponse(entity.get());
+    } else throw new ResourceNotFoundException("no ancestry with such id");
+  }
 
-	public List<AncestryListResponse> getAncestries() {
-		return ancestryMapper.entityToListResponseList(ancestryRepository.findAll());
-	}
+  public List<AncestryListResponse> getAncestries() {
+    return ancestryMapper.entityToListResponseList(ancestryRepository.findAll());
+  }
 }

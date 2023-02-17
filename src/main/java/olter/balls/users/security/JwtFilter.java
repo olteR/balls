@@ -17,26 +17,25 @@ import org.springframework.stereotype.Component;
 @Component
 public class JwtFilter extends HttpFilter {
 
-	private final UserService userService;
-	private final JwtHandler jwtHandler;
+  private final UserService userService;
+  private final JwtHandler jwtHandler;
 
-	@Override
-	public void doFilter(
-			HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
-			throws ServletException, IOException {
-		String authHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
-		if (authHeader != null && authHeader.startsWith("Bearer ")) {
-			JwtAuthenticationToken jwt = new JwtAuthenticationToken(authHeader.substring(7));
-			try {
-				UserDetails user =
-						userService.loadUserByUsername(
-								jwtHandler.getUsernameFromToken(jwt.getJwt()));
-				jwt.setUsername(user.getUsername());
-				SecurityContextHolder.getContext().setAuthentication(jwt);
-			} catch (Exception e) {
-				System.out.println(e.getMessage());
-			}
-		}
-		filterChain.doFilter(request, response);
-	}
+  @Override
+  public void doFilter(
+      HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+      throws ServletException, IOException {
+    String authHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
+    if (authHeader != null && authHeader.startsWith("Bearer ")) {
+      JwtAuthenticationToken jwt = new JwtAuthenticationToken(authHeader.substring(7));
+      try {
+        UserDetails user =
+            userService.loadUserByUsername(jwtHandler.getUsernameFromToken(jwt.getJwt()));
+        jwt.setUsername(user.getUsername());
+        SecurityContextHolder.getContext().setAuthentication(jwt);
+      } catch (Exception e) {
+        System.out.println(e.getMessage());
+      }
+    }
+    filterChain.doFilter(request, response);
+  }
 }

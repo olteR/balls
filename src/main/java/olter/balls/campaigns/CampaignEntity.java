@@ -15,14 +15,14 @@ import olter.balls.connections.campaign_users.CampaignUserEntity;
 @RequiredArgsConstructor
 @Table(name = "campaigns")
 public class CampaignEntity extends BaseEntity {
-	private String name;
+  private String name;
 
-	@Column(columnDefinition = "TEXT")
-	private String description;
+  @Column(columnDefinition = "TEXT")
+  private String description;
 
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "campaign")
-	private List<ArticleEntity> articles;
+  @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "campaign")
+  private List<ArticleEntity> articles;
 
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "campaign")
-	private List<CampaignUserEntity> relatedUsers;
+  @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "campaign")
+  private List<CampaignUserEntity> relatedUsers;
 }

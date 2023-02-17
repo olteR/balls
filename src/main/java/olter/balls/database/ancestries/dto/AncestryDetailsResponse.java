@@ -15,20 +15,20 @@ import olter.balls.database.languages.dto.LanguageResponse;
 @Setter
 @RequiredArgsConstructor
 public class AncestryDetailsResponse {
-	private Integer id;
-	private String source;
-	private Integer page;
-	private String name;
-	private Integer hp;
-	private AncestryRarityEnum rarity;
+  private Integer id;
+  private String source;
+  private Integer page;
+  private String name;
+  private Integer hp;
+  private AncestryRarityEnum rarity;
 
-	private SpeedEmbeddable speed;
+  private SpeedEmbeddable speed;
 
-	private List<FeatureEmbeddable> features;
-	private List<CreatureSizeEnum> sizes;
-	private List<AbilityBoostEmbeddable> abilityBoosts;
+  private List<FeatureEmbeddable> features;
+  private List<CreatureSizeEnum> sizes;
+  private List<AbilityBoostEmbeddable> abilityBoosts;
 
-	private List<LanguageResponse> knownLanguages;
+  private List<LanguageResponse> knownLanguages;
 
-	private List<LanguageResponse> additionalLanguages;
+  private List<LanguageResponse> additionalLanguages;
 }

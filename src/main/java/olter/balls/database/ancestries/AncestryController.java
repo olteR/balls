@@ -15,15 +15,15 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class AncestryController {
 
-	private final AncestryService ancestryService;
+  private final AncestryService ancestryService;
 
-	@GetMapping("/ancestry/{id}")
-	public ResponseEntity<AncestryDetailsResponse> getAncestry(@PathVariable Integer id) {
-		return ResponseEntity.ok().body(ancestryService.getAncestry(id));
-	}
+  @GetMapping("/ancestry/{id}")
+  public ResponseEntity<AncestryDetailsResponse> getAncestry(@PathVariable Integer id) {
+    return ResponseEntity.ok().body(ancestryService.getAncestry(id));
+  }
 
-	@GetMapping("/ancestries")
-	public ResponseEntity<List<AncestryListResponse>> getAncestries() {
-		return ResponseEntity.ok().body(ancestryService.getAncestries());
-	}
+  @GetMapping("/ancestries")
+  public ResponseEntity<List<AncestryListResponse>> getAncestries() {
+    return ResponseEntity.ok().body(ancestryService.getAncestries());
+  }
 }

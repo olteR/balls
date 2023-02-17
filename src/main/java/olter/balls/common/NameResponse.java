@@ -10,6 +10,6 @@ import lombok.Setter;
 @RequiredArgsConstructor
 @AllArgsConstructor
 public class NameResponse {
-	private Integer id;
-	private String name;
+  private Integer id;
+  private String name;
 }

@@ -16,19 +16,19 @@ import olter.balls.users.UserEntity;
 @RequiredArgsConstructor
 @Table(name = "campaign_users")
 public class CampaignUserEntity extends BaseEntity {
-	@ManyToOne(fetch = FetchType.LAZY)
-	private CampaignEntity campaign;
+  @ManyToOne(fetch = FetchType.LAZY)
+  private CampaignEntity campaign;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	private UserEntity user;
+  @ManyToOne(fetch = FetchType.LAZY)
+  private UserEntity user;
 
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinTable(
-			name = "campaign_characters",
-			joinColumns = {@JoinColumn(name = "campaign_users_id")},
-			inverseJoinColumns = {@JoinColumn(name = "character_id")})
-	private List<CharacterEntity> characters;
+  @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  @JoinTable(
+      name = "campaign_characters",
+      joinColumns = {@JoinColumn(name = "campaign_users_id")},
+      inverseJoinColumns = {@JoinColumn(name = "character_id")})
+  private List<CharacterEntity> characters;
 
-	@Enumerated(EnumType.STRING)
-	private CampaignUserConnectionEnum role;
+  @Enumerated(EnumType.STRING)
+  private CampaignUserConnectionEnum role;
 }

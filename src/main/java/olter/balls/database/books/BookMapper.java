@@ -6,7 +6,7 @@ import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
 public interface BookMapper {
-	NameResponse entityToResponse(BookEntity entity);
+  NameResponse entityToResponse(BookEntity entity);
 
-	List<NameResponse> entityToNameResponseList(List<BookEntity> entities);
+  List<NameResponse> entityToNameResponseList(List<BookEntity> entities);
 }

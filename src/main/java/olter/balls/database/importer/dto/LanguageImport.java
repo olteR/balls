@@ -10,8 +10,8 @@ import lombok.Setter;
 @RequiredArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class LanguageImport {
-	private String name;
-	private String type;
-	private String source;
-	private Integer page;
+  private String name;
+  private String type;
+  private String source;
+  private Integer page;
 }

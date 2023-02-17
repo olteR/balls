@@ -12,7 +12,7 @@ import olter.balls.connections.campaign_users.dto.CampaignUserDetailsResponse;
 @Setter
 @RequiredArgsConstructor
 public class CampaignDetailsResponse extends NameResponse {
-	private String description;
-	private List<ArticleListResponse> articles;
-	private List<CampaignUserDetailsResponse> relatedUsers;
+  private String description;
+  private List<ArticleListResponse> articles;
+  private List<CampaignUserDetailsResponse> relatedUsers;
 }

@@ -10,7 +10,7 @@ import lombok.Setter;
 @RequiredArgsConstructor
 @AllArgsConstructor
 public class LoginResponse {
-	Integer id;
-	String name;
-	String token;
+  Integer id;
+  String name;
+  String token;
 }

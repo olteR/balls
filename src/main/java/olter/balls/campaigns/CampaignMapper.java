@@ -6,7 +6,7 @@ import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
 public interface CampaignMapper {
-	CampaignListResponse entityToListResponse(CampaignEntity entity);
+  CampaignListResponse entityToListResponse(CampaignEntity entity);
 
-	CampaignDetailsResponse entityToDetailsResponse(CampaignEntity entity);
+  CampaignDetailsResponse entityToDetailsResponse(CampaignEntity entity);
 }

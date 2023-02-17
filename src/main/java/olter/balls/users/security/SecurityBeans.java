@@ -9,19 +9,19 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class SecurityBeans {
-	@Bean
-	PasswordEncoder passwordEncoder() {
-		return new BCryptPasswordEncoder();
-	}
+  @Bean
+  PasswordEncoder passwordEncoder() {
+    return new BCryptPasswordEncoder();
+  }
 
-	@Bean
-	public AuthenticationManager authenticationManager(
-			AuthenticationConfiguration authenticationConfiguration) throws Exception {
-		return authenticationConfiguration.getAuthenticationManager();
-	}
+  @Bean
+  public AuthenticationManager authenticationManager(
+      AuthenticationConfiguration authenticationConfiguration) throws Exception {
+    return authenticationConfiguration.getAuthenticationManager();
+  }
 
-	@Bean
-	public JwtHandler jwtHandler() {
-		return new JwtHandler();
-	}
+  @Bean
+  public JwtHandler jwtHandler() {
+    return new JwtHandler();
+  }
 }

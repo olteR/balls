@@ -12,7 +12,7 @@ import olter.balls.users.dto.UserResponse;
 @Setter
 @RequiredArgsConstructor
 public class CampaignUserDetailsResponse {
-	private UserResponse user;
-	private Set<CharacterCampaignResponse> characters;
-	private CampaignUserConnectionEnum role;
+  private UserResponse user;
+  private Set<CharacterCampaignResponse> characters;
+  private CampaignUserConnectionEnum role;
 }

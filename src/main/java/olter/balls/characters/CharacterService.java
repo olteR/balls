@@ -11,11 +11,11 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class CharacterService {
 
-	private final CharacterRepository characterRepository;
-	private final CharacterMapper characterMapper;
+  private final CharacterRepository characterRepository;
+  private final CharacterMapper characterMapper;
 
-	List<CharacterListResponse> getCharacters(Integer userId) {
-		log.info("Serving characters for user " + userId);
-		return characterMapper.entityToResponseList(characterRepository.findAllByOwnerId(userId));
-	}
+  List<CharacterListResponse> getCharacters(Integer userId) {
+    log.info("Serving characters for user " + userId);
+    return characterMapper.entityToResponseList(characterRepository.findAllByOwnerId(userId));
+  }
 }

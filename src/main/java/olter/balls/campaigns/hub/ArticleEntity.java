@@ -15,22 +15,22 @@ import olter.balls.users.UserEntity;
 @RequiredArgsConstructor
 @Table(name = "articles")
 public class ArticleEntity extends BaseEntity {
-	private String title;
-	private boolean featured;
+  private String title;
+  private boolean featured;
 
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "article")
-	private List<SegmentEntity> segments;
+  @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "article")
+  private List<SegmentEntity> segments;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	private CampaignEntity campaign;
+  @ManyToOne(fetch = FetchType.LAZY)
+  private CampaignEntity campaign;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	private ArticleCategoryEntity category;
+  @ManyToOne(fetch = FetchType.LAZY)
+  private ArticleCategoryEntity category;
 
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinTable(
-			name = "article_visibility",
-			joinColumns = {@JoinColumn(name = "article_id")},
-			inverseJoinColumns = {@JoinColumn(name = "user_id")})
-	private List<UserEntity> visibleToUsers;
+  @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  @JoinTable(
+      name = "article_visibility",
+      joinColumns = {@JoinColumn(name = "article_id")},
+      inverseJoinColumns = {@JoinColumn(name = "user_id")})
+  private List<UserEntity> visibleToUsers;
 }

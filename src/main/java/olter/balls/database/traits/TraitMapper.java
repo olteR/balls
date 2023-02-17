@@ -6,7 +6,7 @@ import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
 public interface TraitMapper {
-	NameResponse entityToNameResponse(TraitEntity entity);
+  NameResponse entityToNameResponse(TraitEntity entity);
 
-	List<NameResponse> entityToNameResponseList(List<TraitEntity> entities);
+  List<NameResponse> entityToNameResponseList(List<TraitEntity> entities);
 }

@@ -13,9 +13,9 @@ import olter.balls.common.BaseEntity;
 @RequiredArgsConstructor
 @Table(name = "article_categories")
 public class ArticleCategoryEntity extends BaseEntity {
-	@Column(unique = true)
-	private String name;
+  @Column(unique = true)
+  private String name;
 
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "category")
-	private List<ArticleEntity> articles;
+  @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "category")
+  private List<ArticleEntity> articles;
 }

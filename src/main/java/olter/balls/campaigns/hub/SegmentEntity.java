@@ -14,18 +14,18 @@ import olter.balls.users.UserEntity;
 @RequiredArgsConstructor
 @Table(name = "articles")
 public class SegmentEntity extends BaseEntity {
-	private String title;
+  private String title;
 
-	@Column(columnDefinition = "TEXT")
-	private String content;
+  @Column(columnDefinition = "TEXT")
+  private String content;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	private ArticleEntity article;
+  @ManyToOne(fetch = FetchType.LAZY)
+  private ArticleEntity article;
 
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinTable(
-			name = "segment_visibility",
-			joinColumns = {@JoinColumn(name = "segment_id")},
-			inverseJoinColumns = {@JoinColumn(name = "user_id")})
-	private List<UserEntity> visibleToUsers;
+  @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  @JoinTable(
+      name = "segment_visibility",
+      joinColumns = {@JoinColumn(name = "segment_id")},
+      inverseJoinColumns = {@JoinColumn(name = "user_id")})
+  private List<UserEntity> visibleToUsers;
 }
