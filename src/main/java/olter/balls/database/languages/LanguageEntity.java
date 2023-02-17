@@ -22,7 +22,4 @@ public class LanguageEntity extends SourcedEntity {
 
   @ManyToMany(mappedBy = "knownLanguages", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   List<AncestryEntity> ancestriesKnowing;
-
-  @ManyToMany(mappedBy = "additionalLanguages", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-  List<AncestryEntity> ancestriesAsAdditional;
 }

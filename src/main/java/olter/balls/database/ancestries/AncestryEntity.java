@@ -49,15 +49,10 @@ public class AncestryEntity extends SourcedEntity {
 
   @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   @JoinTable(
-      name = "ancestry_known_languages",
+      name = "ancestry_languages",
       joinColumns = {@JoinColumn(name = "ancestry_id")},
       inverseJoinColumns = {@JoinColumn(name = "language_id")})
   private List<LanguageEntity> knownLanguages;
 
-  @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-  @JoinTable(
-      name = "ancestry_additional_languages",
-      joinColumns = {@JoinColumn(name = "ancestry_id")},
-      inverseJoinColumns = {@JoinColumn(name = "language_id")})
-  private List<LanguageEntity> additionalLanguages;
+  private Integer additionalLanguages;
 }

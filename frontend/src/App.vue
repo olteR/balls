@@ -51,7 +51,7 @@ onMounted(() => {
         severity: "error",
         summary: "login expired",
         detail: "please log in again.",
-        group: 'bc',
+        group: "bc",
         life: 3000,
       });
     }

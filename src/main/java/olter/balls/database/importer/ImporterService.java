@@ -152,28 +152,35 @@ public class ImporterService {
         entity.setFeatures(features);
 
         // LANGUAGES
-        List<LanguageEntity> known = new ArrayList<>();
-        List<LanguageEntity> additional = new ArrayList<>();
+        List<LanguageEntity> languages = new ArrayList<>();
         ancestryImport
             .getLanguages()
             .forEach(
                 l -> {
                   if (l.startsWith("{@language")) {
-                    known.add(
+                    languages.add(
                         languageRepository.findByName(
                             l.substring(
-                                l.indexOf(' '),
+                                l.indexOf(' ') + 1,
                                 l.contains("|") ? l.indexOf('|') : l.indexOf('}'))));
                   } else {
-
+                    try {
+                      entity.setAdditionalLanguages(
+                          Integer.parseInt(
+                              l.substring(0, l.indexOf('.')).replaceAll("[^0-9]", "")));
+                    } catch (NumberFormatException e) {
+                      entity.setAdditionalLanguages(0);
+                    }
                   }
                 });
-
+        entity.setKnownLanguages(languages);
         try {
           ancestryRepository.save(entity);
           importedAncestries.add(entity);
+
         } catch (Exception ignored) {
         }
+        log.info("Imported " + entity.getName());
       }
     }
     return ancestryMapper.entityToNameResponseList(importedAncestries);

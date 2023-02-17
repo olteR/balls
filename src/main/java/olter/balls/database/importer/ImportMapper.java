@@ -36,7 +36,6 @@ public interface ImportMapper {
 
   @Mapping(target = "id", ignore = true)
   @Mapping(target = "ancestriesKnowing", ignore = true)
-  @Mapping(target = "ancestriesAsAdditional", ignore = true)
   LanguageEntity toLanguageEntity(LanguageImport language);
 
   @ValueMapping(source = "Ancestry & Heritage", target = "ANCESTRY")
