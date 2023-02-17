@@ -5,7 +5,7 @@
         <span class="text-5xl">ancestries</span>
       </template>
       <template #content>
-        <div v-for="rarity in ANCESTRY_RARITY">
+        <div v-for="rarity in ANCESTRY_RARITY" :key="rarity">
           <DataTable
             :value="
               ancestryStore.getAncestries.filter(

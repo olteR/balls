@@ -15,12 +15,12 @@
             <div
               class="text-justify italic"
               v-if="
-                ancestryStore.getAncestry.features.find(
+                ancestryStore.getAncestry.description.find(
                   (f) => f.name === 'Flavor'
                 )
               "
               v-html="
-                ancestryStore.getAncestry.features.find(
+                ancestryStore.getAncestry.description.find(
                   (f) => f.name === 'Flavor'
                 ).entry
               "
@@ -31,19 +31,19 @@
             <div
               class="text-justify"
               v-if="
-                ancestryStore.getAncestry.features.find(
+                ancestryStore.getAncestry.description.find(
                   (f) => f.name === 'Info'
                 )
               "
               v-html="
-                ancestryStore.getAncestry.features.find(
+                ancestryStore.getAncestry.description.find(
                   (f) => f.name === 'Info'
                 ).entry
               "
             ></div>
             <div
               v-if="
-                ancestryStore.getAncestry.features.find(
+                ancestryStore.getAncestry.description.find(
                   (f) => f.name === 'You Might...'
                 )
               "
@@ -52,7 +52,7 @@
               <div
                 class="text-justify"
                 v-html="
-                  ancestryStore.getAncestry.features.find(
+                  ancestryStore.getAncestry.description.find(
                     (f) => f.name === 'You Might...'
                   ).entry
                 "
@@ -60,7 +60,7 @@
             </div>
             <div
               v-if="
-                ancestryStore.getAncestry.features.find(
+                ancestryStore.getAncestry.description.find(
                   (f) => f.name === 'Others Probably...'
                 )
               "
@@ -69,7 +69,7 @@
               <div
                 class="text-justify"
                 v-html="
-                  ancestryStore.getAncestry.features.find(
+                  ancestryStore.getAncestry.description.find(
                     (f) => f.name === 'Others Probably...'
                   ).entry
                 "
@@ -77,7 +77,7 @@
             </div>
             <div
               v-if="
-                ancestryStore.getAncestry.features.find(
+                ancestryStore.getAncestry.description.find(
                   (f) => f.name === 'Physical Description'
                 )
               "
@@ -86,7 +86,7 @@
               <div
                 class="text-justify"
                 v-html="
-                  ancestryStore.getAncestry.features.find(
+                  ancestryStore.getAncestry.description.find(
                     (f) => f.name === 'Physical Description'
                   ).entry
                 "
@@ -94,7 +94,7 @@
             </div>
             <div
               v-if="
-                ancestryStore.getAncestry.features.find(
+                ancestryStore.getAncestry.description.find(
                   (f) => f.name === 'Society'
                 )
               "
@@ -103,7 +103,7 @@
               <div
                 class="text-justify"
                 v-html="
-                  ancestryStore.getAncestry.features.find(
+                  ancestryStore.getAncestry.description.find(
                     (f) => f.name === 'Society'
                   ).entry
                 "
@@ -111,7 +111,7 @@
             </div>
             <div
               v-if="
-                ancestryStore.getAncestry.features.find(
+                ancestryStore.getAncestry.description.find(
                   (f) => f.name === 'Alignment and Religion'
                 )
               "
@@ -120,7 +120,7 @@
               <div
                 class="text-justify"
                 v-html="
-                  ancestryStore.getAncestry.features.find(
+                  ancestryStore.getAncestry.description.find(
                     (f) => f.name === 'Alignment and Religion'
                   ).entry
                 "
@@ -128,7 +128,7 @@
             </div>
             <div
               v-if="
-                ancestryStore.getAncestry.features.find(
+                ancestryStore.getAncestry.description.find(
                   (f) => f.name === 'Names'
                 )
               "
@@ -137,15 +137,15 @@
               <div
                 class="text-justify"
                 v-html="
-                  ancestryStore.getAncestry.features.find(
+                  ancestryStore.getAncestry.description.find(
                     (f) => f.name === 'Names'
                   ).entry
                 "
               ></div>
               <div
                 v-if="
-                  ancestryStore.getAncestry.features.find(
-                    (f) => f.name === 'Sample names'
+                  ancestryStore.getAncestry.description.find(
+                    (f) => f.name === 'Sample Names'
                   )
                 "
               >
@@ -153,7 +153,7 @@
                 <div
                   class="text-justify"
                   v-html="
-                    ancestryStore.getAncestry.features.find(
+                    ancestryStore.getAncestry.description.find(
                       (f) => f.name === 'Sample Names'
                     ).entry
                   "
@@ -162,7 +162,7 @@
             </div>
             <div
               v-if="
-                ancestryStore.getAncestry.features.find(
+                ancestryStore.getAncestry.description.find(
                   (f) => f.name === 'Ethnicities'
                 )
               "
@@ -171,7 +171,7 @@
               <div
                 class="text-justify"
                 v-html="
-                  ancestryStore.getAncestry.features.find(
+                  ancestryStore.getAncestry.description.find(
                     (f) => f.name === 'Ethnicities'
                   ).entry
                 "
@@ -247,6 +247,15 @@
                     : ""
                 }}
                 your Intelligence modifier (if it is positive).
+              </div>
+            </div>
+            <div class="pb-4">
+              <div class="font-bold">traits</div>
+              <div
+                v-for="trait in ancestryStore.getAncestry.traits"
+                :key="trait.id"
+              >
+                {{ trait.name }}
               </div>
             </div>
           </div>

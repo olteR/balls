@@ -21,12 +21,11 @@ public class AncestryDetailsResponse {
   private String name;
   private Integer hp;
   private AncestryRarityEnum rarity;
-
   private SpeedEmbeddable speed;
-
-  private List<FeatureEmbeddable> features;
+  private List<FeatureEmbeddable> description;
   private List<CreatureSizeEnum> sizes;
   private List<AbilityBoostEmbeddable> abilityBoosts;
   private List<NameResponse> knownLanguages;
   private Integer additionalLanguages;
+  private List<NameResponse> traits;
 }

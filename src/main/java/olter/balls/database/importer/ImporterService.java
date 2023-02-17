@@ -2,10 +2,7 @@ package olter.balls.database.importer;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import olter.balls.common.NameResponse;
@@ -26,6 +23,7 @@ import olter.balls.database.importer.dto.ancestry.AncestryImport;
 import olter.balls.database.languages.LanguageEntity;
 import olter.balls.database.languages.LanguageMapper;
 import olter.balls.database.languages.LanguageRepository;
+import olter.balls.database.languages.SpeakerEmbeddable;
 import olter.balls.database.traits.TraitCategoryEnum;
 import olter.balls.database.traits.TraitEntity;
 import olter.balls.database.traits.TraitMapper;
@@ -33,6 +31,7 @@ import olter.balls.database.traits.TraitRepository;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 import org.springframework.web.client.RestTemplate;
 
 @Service
@@ -89,7 +88,13 @@ public class ImporterService {
                         ancestryResponseJson.getBody().indexOf('[') + 1,
                         ancestryResponseJson.getBody().lastIndexOf(']')),
                 AncestryImport.class);
-        AncestryEntity entity = importMapper.toAncestryEntity(ancestryImport);
+        Optional<AncestryEntity> oEntity = ancestryRepository.findByName(ancestryImport.getName());
+        log.info(
+            oEntity.isPresent()
+                ? "Updating " + ancestryImport.getName() + "..."
+                : "Importing " + ancestryImport.getName() + "...");
+        AncestryEntity entity = oEntity.orElseGet(AncestryEntity::new);
+        importMapper.map(ancestryImport, entity);
 
         // RARITY
         if (entity.getRarity() == null) entity.setRarity(AncestryRarityEnum.COMMON);
@@ -149,7 +154,7 @@ public class ImporterService {
                     }
                   }
                 });
-        entity.setFeatures(features);
+        entity.setDescription(features);
 
         // LANGUAGES
         List<LanguageEntity> languages = new ArrayList<>();
@@ -158,11 +163,12 @@ public class ImporterService {
             .forEach(
                 l -> {
                   if (l.startsWith("{@language")) {
-                    languages.add(
+                    Optional<LanguageEntity> language =
                         languageRepository.findByName(
                             l.substring(
                                 l.indexOf(' ') + 1,
-                                l.contains("|") ? l.indexOf('|') : l.indexOf('}'))));
+                                l.contains("|") ? l.indexOf('|') : l.indexOf('}')));
+                    language.ifPresent(languages::add);
                   } else {
                     try {
                       entity.setAdditionalLanguages(
@@ -174,13 +180,20 @@ public class ImporterService {
                   }
                 });
         entity.setKnownLanguages(languages);
-        try {
-          ancestryRepository.save(entity);
-          importedAncestries.add(entity);
 
-        } catch (Exception ignored) {
-        }
-        log.info("Imported " + entity.getName());
+        // TRAITS
+        List<TraitEntity> traits = new ArrayList<>();
+        ancestryImport
+            .getTraits()
+            .forEach(
+                t -> {
+                  Optional<TraitEntity> trait = traitRepository.findByName(t);
+                  trait.ifPresent(traits::add);
+                });
+        entity.setTraits(traits);
+
+        ancestryRepository.save(entity);
+        importedAncestries.add(entity);
       }
     }
     return ancestryMapper.entityToNameResponseList(importedAncestries);
@@ -202,14 +215,16 @@ public class ImporterService {
             BookImport[].class);
     ArrayList<BookEntity> importedBooks = new ArrayList<>();
     for (BookImport book : imports) {
-      BookEntity entity = importMapper.toBookEntity(book);
-      try {
-        bookRepository.save(entity);
-        importedBooks.add(entity);
-      } catch (Exception ignored) {
-      }
+      Optional<BookEntity> oEntity = bookRepository.findByShortName(book.getShortName());
+      log.info(
+          oEntity.isPresent()
+              ? "Updating " + book.getName() + "..."
+              : "Importing " + book.getName() + "...");
+      BookEntity entity = oEntity.orElseGet(BookEntity::new);
+      importMapper.map(book, entity);
+      bookRepository.save(entity);
+      importedBooks.add(entity);
     }
-    log.info("Imported " + importedBooks.size() + " books");
     return bookMapper.entityToNameResponseList(importedBooks);
   }
 
@@ -232,14 +247,50 @@ public class ImporterService {
             LanguageImport[].class);
     ArrayList<LanguageEntity> importedLanguages = new ArrayList<>();
     for (LanguageImport lang : imports) {
-      LanguageEntity entity = importMapper.toLanguageEntity(lang);
-      try {
-        languageRepository.save(entity);
-        importedLanguages.add(entity);
-      } catch (Exception ignored) {
+      Optional<LanguageEntity> oEntity = languageRepository.findByName(lang.getName());
+      log.info(
+          oEntity.isPresent()
+              ? "Updating " + lang.getName() + "..."
+              : "Importing " + lang.getName() + "...");
+      LanguageEntity entity = oEntity.orElseGet(LanguageEntity::new);
+      importMapper.map(lang, entity);
+      if (lang.getEntries() != null) {
+        entity.setDescription(
+            "<p>"
+                .concat(
+                    String.join(
+                        "</p><p>",
+                        lang.getEntries().stream()
+                            .filter(l -> l.getClass() == String.class)
+                            .map(Object::toString)
+                            .toList()))
+                .concat("</p>"));
       }
+      if (lang.getTypicalSpeakers() != null) {
+        List<SpeakerEmbeddable> speakers = new ArrayList<>();
+        lang.getTypicalSpeakers()
+            .forEach(
+                ts -> {
+                  log.info(ts);
+                  SpeakerEmbeddable speaker = new SpeakerEmbeddable();
+                  if (ts.startsWith("{@ancestry")) {
+                    String name = ts.substring(ts.indexOf(' ') + 1, ts.indexOf('|'));
+                    Optional<AncestryEntity> ancestry = ancestryRepository.findByName(name);
+                    ancestry.ifPresent(ancestryEntity -> speaker.setId(ancestryEntity.getId()));
+                    speaker.setName(
+                        StringUtils.countOccurrencesOf(ts, "|") == 2
+                            ? ts.substring(ts.lastIndexOf('|') + 1, ts.indexOf('}'))
+                            : name);
+                  } else {
+                    speaker.setName(ts);
+                  }
+                  speakers.add(speaker);
+                });
+        entity.setTypicalSpeakers(speakers);
+      }
+      languageRepository.save(entity);
+      importedLanguages.add(entity);
     }
-    log.info("Imported " + importedLanguages.size() + " languages");
     return languageMapper.entityToNameResponseList(importedLanguages);
   }
 
@@ -263,7 +314,13 @@ public class ImporterService {
               || (!trait.getCategories().contains("_alignAbv")
                   && !trait.getCategories().contains("Size")))
           && !trait.getName().startsWith("[")) {
-        TraitEntity entity = importMapper.toTraitEntity(trait);
+        Optional<TraitEntity> oEntity = traitRepository.findByName(trait.getName());
+        log.info(
+            oEntity.isPresent()
+                ? "Updating " + trait.getName() + "..."
+                : "Importing " + trait.getName() + "...");
+        TraitEntity entity = oEntity.orElseGet(TraitEntity::new);
+        importMapper.map(trait, entity);
         String description = "";
         for (Object entry : trait.getEntries()) {
           if (entry instanceof String) {
@@ -278,11 +335,8 @@ public class ImporterService {
           entity.setCategories(
               mapTraits(entity, TraitCategoryEnum.ENERGY, TraitCategoryEnum.ELEMENT));
         }
-        try {
-          traitRepository.save(entity);
-          importedTraits.add(entity);
-        } catch (Exception ignored) {
-        }
+        traitRepository.save(entity);
+        importedTraits.add(entity);
       }
     }
     log.info("Imported " + importedTraits.size() + " traits");

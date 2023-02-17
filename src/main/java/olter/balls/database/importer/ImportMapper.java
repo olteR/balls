@@ -17,9 +17,10 @@ import org.mapstruct.*;
 @Mapper(componentModel = "spring")
 public interface ImportMapper {
   @Mapping(target = "id", ignore = true)
+  @Mapping(target = "traits", ignore = true)
   @Mapping(target = "speed.walking", source = "speed.walk")
   @Mapping(target = "speed.swimming", source = "speed.swim")
-  AncestryEntity toAncestryEntity(AncestryImport ancestry);
+  AncestryEntity map(AncestryImport source, @MappingTarget AncestryEntity target);
 
   @EnumMapping(nameTransformationStrategy = "case", configuration = "lower")
   CreatureSizeEnum sizeToEnum(String size);
@@ -28,26 +29,27 @@ public interface ImportMapper {
   AncestryRarityEnum rarityToEnum(String size);
 
   @Mapping(target = "id", ignore = true)
-  BookEntity toBookEntity(BookImport book);
+  BookEntity map(BookImport source, @MappingTarget BookEntity target);
 
   @EnumMapping(nameTransformationStrategy = "case", configuration = "capital")
   @ValueMapping(source = MappingConstants.ANY_REMAINING, target = "COMMON")
   LanguageTypeEnum typeToEnum(String type);
 
   @Mapping(target = "id", ignore = true)
-  @Mapping(target = "ancestriesKnowing", ignore = true)
-  LanguageEntity toLanguageEntity(LanguageImport language);
+  @Mapping(target = "description", ignore = true)
+  @Mapping(target = "typicalSpeakers", ignore = true)
+  LanguageEntity map(LanguageImport source, @MappingTarget LanguageEntity target);
 
   @ValueMapping(source = "Ancestry & Heritage", target = "ANCESTRY")
   @ValueMapping(source = "Action & Ability", target = "ACTION")
   @ValueMapping(source = "Creature", target = "CREATURE_TYPE")
   @ValueMapping(source = "Creature Type", target = "CREATURE_TYPE")
   @ValueMapping(source = "Energy & Element", target = "ENERGY")
-  // @ValueMapping(source = MappingConstants.ANY_REMAINING, target = "GENERAL")
+  @ValueMapping(source = MappingConstants.ANY_REMAINING, target = "GENERAL")
   @EnumMapping(nameTransformationStrategy = "case", configuration = "capital")
   TraitCategoryEnum categoryToEnum(String category);
 
   @Mapping(target = "id", ignore = true)
   @Mapping(target = "description", ignore = true)
-  TraitEntity toTraitEntity(TraitImport trait);
+  TraitEntity map(TraitImport source, @MappingTarget TraitEntity target);
 }

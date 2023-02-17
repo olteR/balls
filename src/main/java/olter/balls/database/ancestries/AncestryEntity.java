@@ -12,6 +12,7 @@ import olter.balls.database.core.embeddables.FeatureEmbeddable;
 import olter.balls.database.core.embeddables.SpeedEmbeddable;
 import olter.balls.database.core.enums.CreatureSizeEnum;
 import olter.balls.database.languages.LanguageEntity;
+import olter.balls.database.traits.TraitEntity;
 
 @Entity
 @Getter
@@ -23,6 +24,7 @@ public class AncestryEntity extends SourcedEntity {
   private String name;
 
   private Integer hp;
+  private Integer additionalLanguages;
 
   @Enumerated(EnumType.STRING)
   private AncestryRarityEnum rarity;
@@ -31,7 +33,7 @@ public class AncestryEntity extends SourcedEntity {
 
   @ElementCollection
   @CollectionTable(name = "ancestry_features", joinColumns = @JoinColumn(name = "ancestry_id"))
-  private List<FeatureEmbeddable> features;
+  private List<FeatureEmbeddable> description;
 
   @ElementCollection
   @CollectionTable(name = "ancestry_sizes", joinColumns = @JoinColumn(name = "ancestry_id"))
@@ -54,5 +56,10 @@ public class AncestryEntity extends SourcedEntity {
       inverseJoinColumns = {@JoinColumn(name = "language_id")})
   private List<LanguageEntity> knownLanguages;
 
-  private Integer additionalLanguages;
+  @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  @JoinTable(
+      name = "ancestry_traits",
+      joinColumns = {@JoinColumn(name = "ancestry_id")},
+      inverseJoinColumns = {@JoinColumn(name = "trait_id")})
+  private List<TraitEntity> traits;
 }

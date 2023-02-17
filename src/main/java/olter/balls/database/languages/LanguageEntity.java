@@ -20,6 +20,13 @@ public class LanguageEntity extends SourcedEntity {
   @Enumerated(EnumType.STRING)
   private LanguageTypeEnum type;
 
+  @Column(columnDefinition = "TEXT")
+  private String description;
+
+  @ElementCollection
+  @CollectionTable(name = "language_speakers", joinColumns = @JoinColumn(name = "language_id"))
+  private List<SpeakerEmbeddable> typicalSpeakers;
+
   @ManyToMany(mappedBy = "knownLanguages", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   List<AncestryEntity> ancestriesKnowing;
 }
