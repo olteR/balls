@@ -13,7 +13,6 @@ import olter.balls.database.core.SourcedEntity;
 @RequiredArgsConstructor
 @Table(name = "eritages")
 public class HeritageEntity extends SourcedEntity {
-    private String name;
-    private String shortName;
-
+	private String name;
+	private String shortName;
 }

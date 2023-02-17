@@ -13,8 +13,8 @@ import lombok.Setter;
 @AllArgsConstructor
 @Embeddable
 public class FeatureEmbeddable {
-    private String name;
+	private String name;
 
-    @Column(columnDefinition="TEXT")
-    private String entry;
+	@Column(columnDefinition = "TEXT")
+	private String entry;
 }

@@ -5,5 +5,5 @@ import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
 public interface CampaignUserMapper {
-    CampaignUserListResponse entityToResponse(CampaignUserEntity entity);
+	CampaignUserListResponse entityToResponse(CampaignUserEntity entity);
 }

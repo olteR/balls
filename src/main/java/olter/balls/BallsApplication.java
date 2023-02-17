@@ -6,8 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class BallsApplication {
 
-    public static void main(String[] args) {
-        SpringApplication.run(BallsApplication.class, args);
-    }
-
+	public static void main(String[] args) {
+		SpringApplication.run(BallsApplication.class, args);
+	}
 }

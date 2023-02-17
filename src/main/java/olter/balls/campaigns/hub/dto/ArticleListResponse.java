@@ -8,6 +8,6 @@ import lombok.Setter;
 @Setter
 @RequiredArgsConstructor
 public class ArticleListResponse {
-    private String title;
-    private boolean featured;
+	private String title;
+	private boolean featured;
 }

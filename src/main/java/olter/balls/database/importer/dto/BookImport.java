@@ -11,8 +11,10 @@ import lombok.Setter;
 @RequiredArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class BookImport {
-    private String name;
-    @JsonProperty("source")
-    private String shortName;
-    private String published;
+	private String name;
+
+	@JsonProperty("source")
+	private String shortName;
+
+	private String published;
 }

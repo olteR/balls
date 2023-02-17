@@ -11,6 +11,6 @@ import olter.balls.common.BaseEntity;
 @RequiredArgsConstructor
 @MappedSuperclass
 public class SourcedEntity extends BaseEntity {
-    private String source;
-    private Integer page;
+	private String source;
+	private Integer page;
 }

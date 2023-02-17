@@ -15,8 +15,9 @@ import olter.balls.database.core.enums.AbilityScoreEnum;
 @AllArgsConstructor
 @Embeddable
 public class AbilityBoostEmbeddable {
-    @Enumerated(EnumType.STRING)
-    private AbilityScoreEnum abilityScore;
-    private boolean free;
-    private boolean flaw;
+	@Enumerated(EnumType.STRING)
+	private AbilityScoreEnum abilityScore;
+
+	private boolean free;
+	private boolean flaw;
 }

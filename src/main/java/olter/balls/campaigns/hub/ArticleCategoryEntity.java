@@ -1,12 +1,11 @@
 package olter.balls.campaigns.hub;
 
 import jakarta.persistence.*;
+import java.util.List;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import olter.balls.common.BaseEntity;
-
-import java.util.List;
 
 @Entity
 @Getter
@@ -14,9 +13,9 @@ import java.util.List;
 @RequiredArgsConstructor
 @Table(name = "article_categories")
 public class ArticleCategoryEntity extends BaseEntity {
-    @Column(unique = true)
-    private String name;
+	@Column(unique = true)
+	private String name;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "category")
-    private List<ArticleEntity> articles;
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "category")
+	private List<ArticleEntity> articles;
 }

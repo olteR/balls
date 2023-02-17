@@ -1,7 +1,7 @@
 <template>
   <Button class="backbutton" @click="
               router.push({ name: 'ancestries'})
-            "><i class="fa fa-chevron-left"></i> back to ancestries</Button>
+            "><i class="fa fa-chevron-left mr-2"></i> back to ancestries</Button>
   <div class="container mx-auto my-4">
     <Card class="p-4" v-if="!loading">
       <template #title>
@@ -58,7 +58,7 @@
             </div>
             <div class="pb-4">
               <div class="font-bold">speed</div>
-              <div v-for="(speed, type) in ancestryStore.getAncestry.speed" :key="type"><span v-if="speed != null">{{ type.toLowerCase() }}: {{ speed }} feet</span></div>
+              <div v-for="(speed, type) in ancestryStore.getAncestry.speed" :key="type"><span v-if="speed != null">{{ type.toLowerCase() }}: {{ speed }} ft</span></div>
             </div>
             <div class="pb-4">
               <div class="font-bold">ability boosts</div>
