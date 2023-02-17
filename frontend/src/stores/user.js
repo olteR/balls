@@ -66,5 +66,5 @@ export const useUserStore = defineStore("user", () => {
     await router.push("/");
   }
 
-  return { user, getUser, getJwt, isLoggedIn, loginUser, logoutUser };
+  return { getUser, getJwt, isLoggedIn, loginUser, logoutUser };
 });

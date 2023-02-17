@@ -12,6 +12,9 @@ import CharactersView from "../views/CharactersView.vue";
 import DatabaseView from "../views/database/DatabaseView.vue";
 import AncestriesListView from "../views/database/ancestries/AncestriesListView.vue";
 import AncestryDetailsView from "@/views/database/ancestries/AncestryDetailsView.vue";
+import BooksListView from "@/views/database/books/BooksListView.vue";
+import LanguagesListView from "@/views/database/languages/LanguagesListView.vue";
+import TraitsListView from "@/views/database/traits/TraitsListView.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -64,6 +67,21 @@ const router = createRouter({
       path: "/database/ancestry/:id?",
       name: "ancestry",
       component: AncestryDetailsView,
+    },
+    {
+      path: "/database/books",
+      name: "books",
+      component: BooksListView,
+    },
+    {
+      path: "/database/languages",
+      name: "languages",
+      component: LanguagesListView,
+    },
+    {
+      path: "/database/traits",
+      name: "traits",
+      component: TraitsListView,
     },
 
     {

@@ -46,8 +46,6 @@ export const useCampaignStore = defineStore("campaign", () => {
   }
 
   return {
-    campaignDetails,
-    campaigns,
     getCampaign,
     getCampaigns,
     fetchCampaign,

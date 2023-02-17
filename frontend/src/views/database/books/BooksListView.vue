@@ -2,26 +2,20 @@
   <div class="container mx-auto my-4">
     <Card class="p-4">
       <template #title>
-        <span class="text-5xl">ancestries</span>
+        <span class="text-5xl">books</span>
       </template>
       <template #content>
         <div>
           <DataTable
-            :value="ancestryStore.getAncestries"
+            :value="bookStore.getBooks"
             responsiveLayout="scroll"
             sortMode="multiple"
             removableSort
           >
             <Column field="name" header="name" :sortable="true"></Column>
-            <Column field="rarity" header="rarity" :sortable="true">
-              <template #body="slotProps">
-                {{ slotProps.data.rarity.toLowerCase() }}
-              </template>
-            </Column>
-            <Column field="source" header="source" :sortable="true"></Column>
             <Column>
               <template #body="slotProps">
-                <router-link :to="'/database/ancestry/' + slotProps.data.id"
+                <router-link :to="'/database/book/' + slotProps.data.id"
                   ><i class="fa fa-ellipsis"></i
                 ></router-link>
               </template>
@@ -35,15 +29,15 @@
 
 <script setup>
 import { onMounted } from "vue";
-import { useAncestryStore } from "@/stores/database/ancestry";
+import { useBookStore } from "@/stores/database/book";
 import Card from "primevue/card";
 import DataTable from "primevue/datatable";
 import Column from "primevue/column";
 
-const ancestryStore = useAncestryStore();
+const bookStore = useBookStore();
 
 onMounted(() => {
-  ancestryStore.fetchAncestries();
+  bookStore.fetchBooks();
 });
 </script>
 

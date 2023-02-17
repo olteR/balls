@@ -28,5 +28,5 @@ export const useCharacterStore = defineStore("character", () => {
     }
   }
 
-  return { characters, getCharacters, fetchCharacters };
+  return { getCharacters, fetchCharacters };
 });
