@@ -226,7 +226,7 @@ public class ImporterService {
       bookRepository.save(entity);
       importedBooks.add(entity);
     }
-    return importedBooks.stream().map(bookMapper::entityToResponse).toList();
+    return importedBooks.stream().map(bookMapper::entityToNameResponse).toList();
   }
 
   public List<NameResponse> importLanguages() throws JsonProcessingException {

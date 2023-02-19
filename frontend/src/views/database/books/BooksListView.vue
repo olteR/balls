@@ -13,6 +13,16 @@
             removableSort
           >
             <Column field="name" header="name" :sortable="true"></Column>
+            <Column
+              field="shortName"
+              header="abbreviation"
+              :sortable="true"
+            ></Column>
+            <Column
+              field="published"
+              header="published"
+              :sortable="true"
+            ></Column>
             <Column>
               <template #body="slotProps">
                 <router-link :to="'/database/book/' + slotProps.data.id"
