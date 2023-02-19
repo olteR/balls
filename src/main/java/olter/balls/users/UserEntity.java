@@ -7,9 +7,9 @@ import java.util.Set;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import olter.balls.characters.CharacterEntity;
+import olter.balls.characters.model.CharacterEntity;
 import olter.balls.common.BaseEntity;
-import olter.balls.connections.campaign_users.CampaignUserEntity;
+import olter.balls.connections.campaign_users.model.CampaignUserEntity;
 
 @Entity
 @Getter

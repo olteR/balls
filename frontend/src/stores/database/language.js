@@ -33,7 +33,7 @@ export const useLanguageStore = defineStore("language", () => {
 
   async function fetchLanguages() {
     try {
-      const response = await axios.get(languages.value.books);
+      const response = await axios.get(urls.languages);
       languages.value = response.data;
     } catch (error) {
       toast.add({

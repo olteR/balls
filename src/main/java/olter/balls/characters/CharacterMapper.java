@@ -3,6 +3,7 @@ package olter.balls.characters;
 import java.util.ArrayList;
 import java.util.List;
 import olter.balls.characters.dto.CharacterListResponse;
+import olter.balls.characters.model.CharacterEntity;
 import olter.balls.common.NameResponse;
 import org.mapstruct.Mapper;
 
@@ -27,6 +28,4 @@ public interface CharacterMapper {
     response.setCampaigns(campaigns);
     return response;
   }
-
-  List<CharacterListResponse> entityToResponseList(List<CharacterEntity> entities);
 }

@@ -18,7 +18,11 @@
                 {{ slotProps.data.rarity.toLowerCase() }}
               </template>
             </Column>
-            <Column field="source" header="source" :sortable="true"></Column>
+            <Column field="source" header="source">
+              <template #body="slotProps">
+                {{ slotProps.data.source + " pg. " + slotProps.data.page }}
+              </template>
+            </Column>
             <Column>
               <template #body="slotProps">
                 <router-link :to="'/database/ancestry/' + slotProps.data.id"

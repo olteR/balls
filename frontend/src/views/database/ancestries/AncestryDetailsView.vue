@@ -258,6 +258,16 @@
                 {{ trait.name }}
               </div>
             </div>
+            <div class="absolute bottom-0 pb-12">
+              <div class="font-bold">source</div>
+              <div>
+                {{
+                  ancestryStore.getAncestry.source +
+                  " pg. " +
+                  ancestryStore.getAncestry.page
+                }}
+              </div>
+            </div>
           </div>
         </div>
       </template>

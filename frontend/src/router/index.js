@@ -14,6 +14,7 @@ import AncestriesListView from "../views/database/ancestries/AncestriesListView.
 import AncestryDetailsView from "@/views/database/ancestries/AncestryDetailsView.vue";
 import BooksListView from "@/views/database/books/BooksListView.vue";
 import LanguagesListView from "@/views/database/languages/LanguagesListView.vue";
+import LanguageDetailsView from "@/views/database/languages/LanguageDetailsView.vue";
 import TraitsListView from "@/views/database/traits/TraitsListView.vue";
 
 const router = createRouter({
@@ -77,6 +78,11 @@ const router = createRouter({
       path: "/database/languages",
       name: "languages",
       component: LanguagesListView,
+    },
+    {
+      path: "/database/language/:id?",
+      name: "language",
+      component: LanguageDetailsView,
     },
     {
       path: "/database/traits",

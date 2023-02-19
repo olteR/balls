@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import olter.balls.common.NameResponse;
-import olter.balls.connections.campaign_users.CampaignUserConnectionEnum;
+import olter.balls.connections.campaign_users.model.CampaignUserConnectionEnum;
 import olter.balls.users.dto.UserResponse;
 
 @Getter

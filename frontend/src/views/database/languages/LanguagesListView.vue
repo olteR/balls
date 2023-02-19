@@ -13,6 +13,16 @@
             removableSort
           >
             <Column field="name" header="name" :sortable="true"></Column>
+            <Column field="type" header="rarity" :sortable="true">
+              <template #body="slotProps">
+                {{ slotProps.data.type.toLowerCase() }}
+              </template>
+            </Column>
+            <Column field="source" header="source">
+              <template #body="slotProps">
+                {{ slotProps.data.source + " pg. " + slotProps.data.page }}
+              </template>
+            </Column>
             <Column>
               <template #body="slotProps">
                 <router-link :to="'/database/language/' + slotProps.data.id"

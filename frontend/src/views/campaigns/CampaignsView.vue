@@ -2,7 +2,7 @@
   <div class="container mx-auto my-4">
     <Accordion :multiple="true" :activeIndex="[]">
       <AccordionTab
-        v-for="campaign in campaignStore.campaigns"
+        v-for="campaign in campaignStore.getCampaigns"
         :key="campaign.id"
         :header="campaign.name"
       >
