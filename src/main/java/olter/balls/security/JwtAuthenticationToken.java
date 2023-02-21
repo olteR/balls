@@ -1,4 +1,4 @@
-package olter.balls.users.security;
+package olter.balls.security;
 
 import java.util.ArrayList;
 import java.util.Collection;

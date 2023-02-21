@@ -1,4 +1,4 @@
-package olter.balls.users.security;
+package olter.balls.security;
 
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 

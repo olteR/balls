@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import olter.balls.common.BaseEntity;
-import olter.balls.users.UserEntity;
+import olter.balls.users.model.UserEntity;
 
 @Entity
 @Getter

@@ -1,4 +1,4 @@
-package olter.balls.users.security;
+package olter.balls.security;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtBuilder;

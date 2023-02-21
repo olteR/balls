@@ -8,7 +8,7 @@ import lombok.Setter;
 import olter.balls.campaigns.campaign.model.CampaignEntity;
 import olter.balls.characters.model.CharacterEntity;
 import olter.balls.common.BaseEntity;
-import olter.balls.users.UserEntity;
+import olter.balls.users.model.UserEntity;
 
 @Entity
 @Getter

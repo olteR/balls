@@ -1,4 +1,4 @@
-package olter.balls.users.security;
+package olter.balls.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;

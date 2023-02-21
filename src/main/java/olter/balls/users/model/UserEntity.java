@@ -1,4 +1,4 @@
-package olter.balls.users;
+package olter.balls.users.model;
 
 import jakarta.persistence.*;
 import java.util.HashSet;

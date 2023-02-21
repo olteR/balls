@@ -1,12 +1,14 @@
-package olter.balls.users;
+package olter.balls.users.controller;
 
 import java.util.Collection;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import olter.balls.users.security.JwtHandler;
-import olter.balls.users.security.dto.LoginRequest;
-import olter.balls.users.security.dto.LoginResponse;
+import olter.balls.users.model.UserEntity;
+import olter.balls.users.model.UserRepository;
+import olter.balls.security.JwtHandler;
+import olter.balls.security.dto.LoginRequest;
+import olter.balls.security.dto.LoginResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
