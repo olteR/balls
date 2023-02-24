@@ -11,6 +11,7 @@ import olter.balls.database.ancestries.ancestry.AncestryMapper;
 import olter.balls.database.ancestries.ancestry.model.AncestryEntity;
 import olter.balls.database.ancestries.ancestry.model.AncestryRarityEnum;
 import olter.balls.database.ancestries.ancestry.model.AncestryRepository;
+import olter.balls.database.ancestries.heritage.HeritageMapper;
 import olter.balls.database.ancestries.heritage.model.HeritageEntity;
 import olter.balls.database.ancestries.heritage.model.HeritageRepository;
 import olter.balls.database.books.BookMapper;
@@ -21,10 +22,11 @@ import olter.balls.database.core.embeddables.FeatureEmbeddable;
 import olter.balls.database.core.enums.AbilityScoreEnum;
 import olter.balls.database.importer.ImportMapper;
 import olter.balls.database.importer.dto.BookImport;
+import olter.balls.database.importer.dto.ImportResponse;
 import olter.balls.database.importer.dto.LanguageImport;
 import olter.balls.database.importer.dto.TraitImport;
 import olter.balls.database.importer.dto.ancestry.AncestryImport;
-import olter.balls.database.importer.dto.ancestry.HeritageImport;
+import olter.balls.database.importer.dto.ancestry.AncestryImportResponse;
 import olter.balls.database.languages.LanguageMapper;
 import olter.balls.database.languages.model.LanguageEntity;
 import olter.balls.database.languages.model.LanguageRepository;
@@ -57,6 +59,7 @@ public class ImporterService {
   private final AncestryMapper ancestryMapper;
 
   private final HeritageRepository heritageRepository;
+  private final HeritageMapper heritageMapper;
 
   private final BookMapper bookMapper;
   private final BookRepository bookRepository;
@@ -67,7 +70,7 @@ public class ImporterService {
   private final TraitRepository traitRepository;
   private final TraitMapper traitMapper;
 
-  public List<NameResponse> importAncestries() throws JsonProcessingException {
+  public AncestryImportResponse importAncestries() throws JsonProcessingException {
     RestTemplate restTemplate = new RestTemplate();
     ObjectMapper mapper = new ObjectMapper();
 
@@ -78,7 +81,10 @@ public class ImporterService {
             generateHttpEntity(),
             String.class);
     String[] sources = Objects.requireNonNull(responseJson.getBody()).split(",");
-    List<AncestryEntity> importedAncestries = new ArrayList<>();
+    List<NameResponse> importedAncestries = new ArrayList<>();
+    List<NameResponse> updatedAncestries = new ArrayList<>();
+    List<NameResponse> importedHeritages = new ArrayList<>();
+    List<NameResponse> updatedHeritages = new ArrayList<>();
     for (String source : sources) {
       source = source.substring(source.indexOf(':') + 3, source.lastIndexOf('"'));
       if (!source.equals("versatile-heritages.json")) {
@@ -201,7 +207,8 @@ public class ImporterService {
 
         // HERITAGES
         List<HeritageEntity> heritages = new ArrayList<>();
-        ancestryImport.getHeritages()
+        ancestryImport
+            .getHeritages()
             .forEach(
                 h -> {
                   Optional<HeritageEntity> oHeritage = heritageRepository.findByName(h.getName());
@@ -217,17 +224,26 @@ public class ImporterService {
                                   .concat("</p>")));
                   heritage.setAncestry(entity);
                   heritages.add(heritage);
+                  if (oHeritage.isPresent())
+                    updatedHeritages.add(heritageMapper.entityToNameResponse(heritage));
+                  else importedHeritages.add(heritageMapper.entityToNameResponse(heritage));
                 });
         entity.setHeritages(heritages);
 
         ancestryRepository.save(entity);
-        importedAncestries.add(entity);
+        if (oEntity.isPresent()) updatedAncestries.add(ancestryMapper.entityToNameResponse(entity));
+        else importedAncestries.add(ancestryMapper.entityToNameResponse(entity));
       }
     }
-    return importedAncestries.stream().map(ancestryMapper::entityToNameResponse).toList();
+    log.info("Imported " + importedAncestries.size() + " ancestries");
+    log.info("Updated " + updatedAncestries.size() + " ancestries");
+    log.info("Imported " + importedHeritages.size() + " heritages");
+    log.info("Updated " + updatedHeritages.size() + " heritages");
+    return new AncestryImportResponse(
+        importedAncestries, updatedAncestries, importedHeritages, updatedHeritages);
   }
 
-  public List<NameResponse> importBooks() throws JsonProcessingException {
+  public ImportResponse importBooks() throws JsonProcessingException {
     RestTemplate restTemplate = new RestTemplate();
     ObjectMapper mapper = new ObjectMapper();
 
@@ -241,7 +257,8 @@ public class ImporterService {
                     responseJson.getBody().indexOf('['),
                     responseJson.getBody().lastIndexOf(']') + 1),
             BookImport[].class);
-    ArrayList<BookEntity> importedBooks = new ArrayList<>();
+    List<NameResponse> importedBooks = new ArrayList<>();
+    List<NameResponse> updatedBooks = new ArrayList<>();
     for (BookImport book : imports) {
       Optional<BookEntity> oEntity = bookRepository.findByShortName(book.getShortName());
       log.info(
@@ -251,12 +268,15 @@ public class ImporterService {
       BookEntity entity = oEntity.orElseGet(BookEntity::new);
       importMapper.map(book, entity);
       bookRepository.save(entity);
-      importedBooks.add(entity);
+      if (oEntity.isPresent()) updatedBooks.add(bookMapper.entityToNameResponse(entity));
+      else importedBooks.add(bookMapper.entityToNameResponse(entity));
     }
-    return importedBooks.stream().map(bookMapper::entityToNameResponse).toList();
+    log.info("Imported " + importedBooks.size() + " books");
+    log.info("Updated " + updatedBooks.size() + " books");
+    return new ImportResponse(importedBooks, updatedBooks);
   }
 
-  public List<NameResponse> importLanguages() throws JsonProcessingException {
+  public ImportResponse importLanguages() throws JsonProcessingException {
     RestTemplate restTemplate = new RestTemplate();
     ObjectMapper mapper = new ObjectMapper();
 
@@ -273,7 +293,8 @@ public class ImporterService {
                     responseJson.getBody().indexOf('['),
                     responseJson.getBody().lastIndexOf(']') + 1),
             LanguageImport[].class);
-    ArrayList<LanguageEntity> importedLanguages = new ArrayList<>();
+    List<NameResponse> importedLanguages = new ArrayList<>();
+    List<NameResponse> updatedLanguages = new ArrayList<>();
     for (LanguageImport lang : imports) {
       Optional<LanguageEntity> oEntity = languageRepository.findByName(lang.getName());
       log.info(
@@ -317,12 +338,15 @@ public class ImporterService {
         entity.setTypicalSpeakers(speakers);
       }
       languageRepository.save(entity);
-      importedLanguages.add(entity);
+      if (oEntity.isPresent()) updatedLanguages.add(languageMapper.entityToNameResponse(entity));
+      else importedLanguages.add(languageMapper.entityToNameResponse(entity));
     }
-    return importedLanguages.stream().map(languageMapper::entityToNameResponse).toList();
+    log.info("Imported " + importedLanguages.size() + " languages");
+    log.info("Updated " + updatedLanguages.size() + " languages");
+    return new ImportResponse(importedLanguages, updatedLanguages);
   }
 
-  public List<NameResponse> importTraits() throws JsonProcessingException {
+  public ImportResponse importTraits() throws JsonProcessingException {
     RestTemplate restTemplate = new RestTemplate();
     ObjectMapper mapper = new ObjectMapper();
 
@@ -336,7 +360,8 @@ public class ImporterService {
                     responseJson.getBody().indexOf('['),
                     responseJson.getBody().lastIndexOf(']') + 1),
             TraitImport[].class);
-    ArrayList<TraitEntity> importedTraits = new ArrayList<>();
+    List<NameResponse> importedTraits = new ArrayList<>();
+    List<NameResponse> updatedTraits = new ArrayList<>();
     for (TraitImport trait : imports) {
       if ((trait.getCategories() == null
               || (!trait.getCategories().contains("_alignAbv")
@@ -349,13 +374,14 @@ public class ImporterService {
                 : "Importing " + trait.getName() + "...");
         TraitEntity entity = oEntity.orElseGet(TraitEntity::new);
         importMapper.map(trait, entity);
-        String description = "";
-        for (Object entry : trait.getEntries()) {
-          if (entry instanceof String) {
-            description = description.concat("\n").concat((String) entry);
-          }
-        }
-        entity.setDescription(description);
+        entity.setDescription(
+            "<p>"
+                .concat(
+                    trait.getEntries().stream()
+                        .filter(t -> t.getClass() == String.class)
+                        .map(Object::toString)
+                        .collect(Collectors.joining("<p></p>"))
+                        .concat("</p>")));
         if (abilities.contains(entity.getName())) {
           entity.setCategories(
               mapTraits(entity, TraitCategoryEnum.ACTION, TraitCategoryEnum.ABILITY));
@@ -364,11 +390,13 @@ public class ImporterService {
               mapTraits(entity, TraitCategoryEnum.ENERGY, TraitCategoryEnum.ELEMENT));
         }
         traitRepository.save(entity);
-        importedTraits.add(entity);
+        if (oEntity.isPresent()) updatedTraits.add(traitMapper.entityToNameResponse(entity));
+        else importedTraits.add(traitMapper.entityToNameResponse(entity));
       }
     }
     log.info("Imported " + importedTraits.size() + " traits");
-    return importedTraits.stream().map(traitMapper::entityToNameResponse).toList();
+    log.info("Updated " + updatedTraits.size() + " traits");
+    return new ImportResponse(importedTraits, updatedTraits);
   }
 
   private HttpEntity<String> generateHttpEntity() {

@@ -15,13 +15,50 @@ export const useImportStore = defineStore("import", () => {
   async function importAncestries() {
     try {
       const response = await axios.get(urls.ancestries);
-      toast.add({
-        severity: "success",
-        summary:
-          "successfully imported " + response.data.length + " ancestries",
-        detail: response.data.map((ancestry) => ancestry.name).join(", "),
-        life: 3000,
-      });
+      if (response.data.importedAncestries.length) {
+        toast.add({
+          severity: "success",
+          summary: "success",
+          detail:
+            "successfully imported " +
+            response.data.importedAncestries.length +
+            " ancestries",
+          life: 3000,
+        });
+      }
+      if (response.data.updatedAncestries.length) {
+        toast.add({
+          severity: "success",
+          summary: "success",
+          detail:
+            "successfully updated " +
+            response.data.updatedAncestries.length +
+            " ancestries",
+          life: 3000,
+        });
+      }
+      if (response.data.importedHeritages.length) {
+        toast.add({
+          severity: "success",
+          summary: "success",
+          detail:
+            "successfully imported " +
+            response.data.importedHeritages.length +
+            " heritages",
+          life: 3000,
+        });
+      }
+      if (response.data.updatedHeritages.length) {
+        toast.add({
+          severity: "success",
+          summary: "success",
+          detail:
+            "successfully updated " +
+            response.data.updatedHeritages.length +
+            " heritages",
+          life: 3000,
+        });
+      }
     } catch (error) {
       toast.add({
         severity: "error",
@@ -35,12 +72,24 @@ export const useImportStore = defineStore("import", () => {
   async function importBooks() {
     try {
       const response = await axios.get(urls.books);
-      toast.add({
-        severity: "success",
-        summary: "successfully imported " + response.data.length + " books",
-        detail: response.data.map((book) => book.name).join(", "),
-        life: 3000,
-      });
+      if (response.data.imported.length) {
+        toast.add({
+          severity: "success",
+          summary: "success",
+          detail:
+            "successfully imported " + response.data.imported.length + " books",
+          life: 3000,
+        });
+      }
+      if (response.data.updated.length) {
+        toast.add({
+          severity: "success",
+          summary: "success",
+          detail:
+            "successfully updated " + response.data.updated.length + " books",
+          life: 3000,
+        });
+      }
     } catch (error) {
       toast.add({
         severity: "error",
@@ -54,12 +103,28 @@ export const useImportStore = defineStore("import", () => {
   async function importLanguages() {
     try {
       const response = await axios.get(urls.languages);
-      toast.add({
-        severity: "success",
-        summary: "successfully imported " + response.data.length + " languages",
-        detail: response.data.map((lang) => lang.name).join(", "),
-        life: 3000,
-      });
+      if (response.data.imported.length) {
+        toast.add({
+          severity: "success",
+          summary: "success",
+          detail:
+            "successfully imported " +
+            response.data.imported.length +
+            " languages",
+          life: 3000,
+        });
+      }
+      if (response.data.updated.length) {
+        toast.add({
+          severity: "success",
+          summary: "success",
+          detail:
+            "successfully updated " +
+            response.data.updated.length +
+            " languages",
+          life: 3000,
+        });
+      }
     } catch (error) {
       toast.add({
         severity: "error",
@@ -73,12 +138,26 @@ export const useImportStore = defineStore("import", () => {
   async function importTraits() {
     try {
       const response = await axios.get(urls.traits);
-      toast.add({
-        severity: "success",
-        summary: "successfully imported " + response.data.length + " traits",
-        detail: response.data.map((trait) => trait.name).join(", "),
-        life: 3000,
-      });
+      if (response.data.imported.length) {
+        toast.add({
+          severity: "success",
+          summary: "success",
+          detail:
+            "successfully imported " +
+            response.data.imported.length +
+            " traits",
+          life: 3000,
+        });
+      }
+      if (response.data.updated.length) {
+        toast.add({
+          severity: "success",
+          summary: "success",
+          detail:
+            "successfully updated " + response.data.updated.length + " traits",
+          life: 3000,
+        });
+      }
     } catch (error) {
       toast.add({
         severity: "error",

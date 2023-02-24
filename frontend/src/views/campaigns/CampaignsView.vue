@@ -1,6 +1,10 @@
 <template>
   <div class="container mx-auto my-4">
-    <ProgressSpinner v-if="loading" aria-label="loading" class="fixed top-1/2 left-1/2"></ProgressSpinner>
+    <ProgressSpinner
+      v-if="loading"
+      aria-label="loading"
+      class="fixed top-1/2 left-1/2"
+    ></ProgressSpinner>
     <Accordion :multiple="true" :activeIndex="[]" v-else>
       <AccordionTab
         v-for="campaign in campaignStore.getCampaigns"
@@ -68,7 +72,7 @@ import { onMounted, ref } from "vue";
 import { useRouter } from "vue-router";
 import { useCampaignStore } from "@/stores/campaign";
 import { useUserStore } from "@/stores/user";
-import ProgressSpinner from 'primevue/progressspinner';
+import ProgressSpinner from "primevue/progressspinner";
 import Accordion from "primevue/accordion";
 import AccordionTab from "primevue/accordiontab";
 import Button from "primevue/button";
@@ -80,7 +84,7 @@ const loading = ref(true);
 
 onMounted(() => {
   campaignStore.fetchCampaigns(userStore.getUser.id);
-  loaded.value = false;
+  loading.value = false;
 });
 </script>
 

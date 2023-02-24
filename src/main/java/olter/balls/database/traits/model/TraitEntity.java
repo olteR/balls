@@ -25,5 +25,5 @@ public class TraitEntity extends SourcedEntity {
   private String description;
 
   @ManyToMany(mappedBy = "traits", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-  List<AncestryEntity> relatedAncestries;
+  private List<AncestryEntity> relatedAncestries;
 }

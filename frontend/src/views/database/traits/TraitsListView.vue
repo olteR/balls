@@ -1,6 +1,10 @@
 <template>
   <div class="container mx-auto my-4">
-    <ProgressSpinner v-if="loading" aria-label="loading" class="fixed top-1/2 left-1/2"></ProgressSpinner>
+    <ProgressSpinner
+      v-if="loading"
+      aria-label="loading"
+      class="fixed top-1/2 left-1/2"
+    ></ProgressSpinner>
     <Card class="p-4" v-else>
       <template #title>
         <span class="text-5xl">traits</span>
@@ -56,7 +60,7 @@
 import { onMounted, ref } from "vue";
 import { useTraitStore } from "@/stores/database/trait";
 import { formatEnum } from "@/utils/utils";
-import ProgressSpinner from 'primevue/progressspinner';
+import ProgressSpinner from "primevue/progressspinner";
 import Card from "primevue/card";
 import DataTable from "primevue/datatable";
 import Column from "primevue/column";

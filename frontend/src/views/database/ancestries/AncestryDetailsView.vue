@@ -3,7 +3,11 @@
     ><i class="fa fa-chevron-left mr-2"></i> back to ancestries</Button
   >
   <div class="container mx-auto my-4">
-    <ProgressSpinner v-if="loading" aria-label="loading" class="fixed top-1/2 left-1/2"></ProgressSpinner>
+    <ProgressSpinner
+      v-if="loading"
+      aria-label="loading"
+      class="fixed top-1/2 left-1/2"
+    ></ProgressSpinner>
     <Card class="p-4" v-else>
       <template #title>
         <div class="text-5xl text-center">
@@ -281,7 +285,7 @@ import { onMounted, ref } from "vue";
 import { useRouter } from "vue-router";
 import { useAncestryStore } from "@/stores/database/ancestry";
 import { formatAbilityScore } from "@/utils/utils";
-import ProgressSpinner from 'primevue/progressspinner';
+import ProgressSpinner from "primevue/progressspinner";
 import Card from "primevue/card";
 import Divider from "primevue/divider";
 import Button from "primevue/button";

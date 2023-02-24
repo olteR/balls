@@ -1,6 +1,10 @@
 <template>
   <div class="container mx-auto my-4">
-    <ProgressSpinner v-if="loading" aria-label="loading" class="fixed top-1/2 left-1/2"></ProgressSpinner>
+    <ProgressSpinner
+      v-if="loading"
+      aria-label="loading"
+      class="fixed top-1/2 left-1/2"
+    ></ProgressSpinner>
     <Card class="p-4" v-else>
       <template #title>
         <span class="text-5xl">languages</span>
@@ -41,7 +45,7 @@
 <script setup>
 import { onMounted, ref } from "vue";
 import { useLanguageStore } from "@/stores/database/language";
-import ProgressSpinner from 'primevue/progressspinner';
+import ProgressSpinner from "primevue/progressspinner";
 import Card from "primevue/card";
 import DataTable from "primevue/datatable";
 import Column from "primevue/column";
