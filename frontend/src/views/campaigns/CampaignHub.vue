@@ -1,6 +1,7 @@
 <template>
   <div class="container mx-auto my-4">
-    <Card class="p-4" v-if="!loading">
+    <ProgressSpinner v-if="loading" aria-label="loading" class="fixed top-1/2 left-1/2"></ProgressSpinner>
+    <Card class="p-4" v-else>
       <template #title>
         <span class="text-5xl">{{ campaignStore.getCampaign.name }}</span>
       </template>
@@ -54,6 +55,7 @@
 import { onMounted, ref } from "vue";
 import { useRouter } from "vue-router";
 import { useCampaignStore } from "@/stores/campaign";
+import ProgressSpinner from 'primevue/progressspinner';
 import Card from "primevue/card";
 import Panel from "primevue/panel";
 import DataTable from "primevue/datatable";

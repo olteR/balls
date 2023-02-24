@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import olter.balls.characters.model.CharacterEntity;
+import olter.balls.database.ancestries.heritage.model.HeritageEntity;
 import olter.balls.database.core.SourcedEntity;
 import olter.balls.database.core.embeddables.AbilityBoostEmbeddable;
 import olter.balls.database.core.embeddables.FeatureEmbeddable;
@@ -48,6 +49,9 @@ public class AncestryEntity extends SourcedEntity {
 
   @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "ancestry")
   private List<CharacterEntity> characters;
+
+  @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "ancestry")
+  private List<HeritageEntity> heritages;
 
   @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   @JoinTable(

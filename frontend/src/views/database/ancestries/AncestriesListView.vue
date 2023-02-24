@@ -1,5 +1,6 @@
 <template>
   <div class="container mx-auto my-4">
+    <ProgressSpinner v-if="loading" aria-label="loading" class="fixed top-1/2 left-1/2"></ProgressSpinner>
     <Card class="p-4">
       <template #title>
         <span class="text-5xl">ancestries</span>
@@ -38,16 +39,19 @@
 </template>
 
 <script setup>
-import { onMounted } from "vue";
+import { onMounted, ref } from "vue";
 import { useAncestryStore } from "@/stores/database/ancestry";
+import ProgressSpinner from 'primevue/progressspinner';
 import Card from "primevue/card";
 import DataTable from "primevue/datatable";
 import Column from "primevue/column";
 
 const ancestryStore = useAncestryStore();
+const loading = ref(true);
 
 onMounted(() => {
   ancestryStore.fetchAncestries();
+  loading.value = false;
 });
 </script>
 

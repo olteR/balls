@@ -3,6 +3,7 @@ package olter.balls.database.importer.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.*;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import olter.balls.common.NameResponse;
@@ -10,6 +11,8 @@ import olter.balls.database.ancestries.ancestry.AncestryMapper;
 import olter.balls.database.ancestries.ancestry.model.AncestryEntity;
 import olter.balls.database.ancestries.ancestry.model.AncestryRarityEnum;
 import olter.balls.database.ancestries.ancestry.model.AncestryRepository;
+import olter.balls.database.ancestries.heritage.model.HeritageEntity;
+import olter.balls.database.ancestries.heritage.model.HeritageRepository;
 import olter.balls.database.books.BookMapper;
 import olter.balls.database.books.model.BookEntity;
 import olter.balls.database.books.model.BookRepository;
@@ -21,6 +24,7 @@ import olter.balls.database.importer.dto.BookImport;
 import olter.balls.database.importer.dto.LanguageImport;
 import olter.balls.database.importer.dto.TraitImport;
 import olter.balls.database.importer.dto.ancestry.AncestryImport;
+import olter.balls.database.importer.dto.ancestry.HeritageImport;
 import olter.balls.database.languages.LanguageMapper;
 import olter.balls.database.languages.model.LanguageEntity;
 import olter.balls.database.languages.model.LanguageRepository;
@@ -51,6 +55,8 @@ public class ImporterService {
 
   private final AncestryRepository ancestryRepository;
   private final AncestryMapper ancestryMapper;
+
+  private final HeritageRepository heritageRepository;
 
   private final BookMapper bookMapper;
   private final BookRepository bookRepository;
@@ -192,6 +198,27 @@ public class ImporterService {
                   trait.ifPresent(traits::add);
                 });
         entity.setTraits(traits);
+
+        // HERITAGES
+        List<HeritageEntity> heritages = new ArrayList<>();
+        ancestryImport.getHeritages()
+            .forEach(
+                h -> {
+                  Optional<HeritageEntity> oHeritage = heritageRepository.findByName(h.getName());
+                  HeritageEntity heritage = oHeritage.orElseGet(HeritageEntity::new);
+                  importMapper.map(h, heritage);
+                  heritage.setDescription(
+                      "<p>"
+                          .concat(
+                              h.getEntries().stream()
+                                  .filter(e -> e.getClass() == String.class)
+                                  .map(Object::toString)
+                                  .collect(Collectors.joining("<p></p>"))
+                                  .concat("</p>")));
+                  heritage.setAncestry(entity);
+                  heritages.add(heritage);
+                });
+        entity.setHeritages(heritages);
 
         ancestryRepository.save(entity);
         importedAncestries.add(entity);

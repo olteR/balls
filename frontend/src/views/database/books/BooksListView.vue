@@ -1,6 +1,7 @@
 <template>
   <div class="container mx-auto my-4">
-    <Card class="p-4">
+    <ProgressSpinner v-if="loading" aria-label="loading" class="fixed top-1/2 left-1/2"></ProgressSpinner>
+    <Card class="p-4" v-else>
       <template #title>
         <span class="text-5xl">books</span>
       </template>
@@ -38,16 +39,19 @@
 </template>
 
 <script setup>
-import { onMounted } from "vue";
+import { onMounted, ref } from "vue";
 import { useBookStore } from "@/stores/database/book";
+import ProgressSpinner from 'primevue/progressspinner';
 import Card from "primevue/card";
 import DataTable from "primevue/datatable";
 import Column from "primevue/column";
 
 const bookStore = useBookStore();
+const loading = ref(true);
 
 onMounted(() => {
   bookStore.fetchBooks();
+  loading.value = false;
 });
 </script>
 

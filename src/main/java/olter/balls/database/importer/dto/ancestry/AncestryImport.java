@@ -7,7 +7,6 @@ import java.util.List;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import olter.balls.database.importer.dto.HeritageImport;
 
 @Getter
 @Setter
@@ -31,7 +30,10 @@ public class AncestryImport {
   private ArrayList<String> flavor;
   private ArrayList<Object> info;
   private ArrayList<String> heritageInfo;
-  private ArrayList<HeritageImport> heritage;
+
+  @JsonProperty("heritage")
+  private List<HeritageImport> heritages;
+
   private List<AncestryFeatureImport> features;
   private AncestrySummaryImport summary;
 }

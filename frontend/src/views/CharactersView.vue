@@ -1,6 +1,8 @@
 <template>
   <div class="container mx-auto my-4">
+    <ProgressSpinner v-if="loading" aria-label="loading" class="fixed top-1/2 left-1/2"></ProgressSpinner>
     <Panel
+        v-else
       v-for="character in characterStore.getCharacters"
       :key="character.id"
       :header="character.name"
@@ -48,15 +50,18 @@
 <script setup>
 import { useUserStore } from "@/stores/user";
 import { useCharacterStore } from "@/stores/character";
-import { onMounted } from "vue";
+import { onMounted, ref } from "vue";
+import ProgressSpinner from 'primevue/progressspinner';
 import Panel from "primevue/panel";
 import Button from "primevue/button";
 
 const userStore = useUserStore();
 const characterStore = useCharacterStore();
+const loading = ref(true);
 
 onMounted(() => {
   characterStore.fetchCharacters(userStore.getUser.id);
+  loading.value = false;
 });
 </script>
 
