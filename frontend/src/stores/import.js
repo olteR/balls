@@ -37,24 +37,24 @@ export const useImportStore = defineStore("import", () => {
           life: 3000,
         });
       }
-      if (response.data.importedHeritages.length) {
+      if (response.data.heritages.imported.length) {
         toast.add({
           severity: "success",
           summary: "success",
           detail:
             "successfully imported " +
-            response.data.importedHeritages.length +
+            response.data.heritages.imported.length +
             " heritages",
           life: 3000,
         });
       }
-      if (response.data.updatedHeritages.length) {
+      if (response.data.heritages.updated.length) {
         toast.add({
           severity: "success",
           summary: "success",
           detail:
             "successfully updated " +
-            response.data.updatedHeritages.length +
+            response.data.heritages.updated.length +
             " heritages",
           life: 3000,
         });

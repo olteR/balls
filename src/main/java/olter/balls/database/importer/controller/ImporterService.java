@@ -3,42 +3,21 @@ package olter.balls.database.importer.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.*;
-import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import olter.balls.common.NameResponse;
-import olter.balls.database.ancestries.ancestry.AncestryMapper;
-import olter.balls.database.ancestries.ancestry.model.AncestryEntity;
-import olter.balls.database.ancestries.ancestry.model.AncestryRarityEnum;
-import olter.balls.database.ancestries.ancestry.model.AncestryRepository;
-import olter.balls.database.ancestries.heritage.HeritageMapper;
-import olter.balls.database.ancestries.heritage.model.HeritageEntity;
-import olter.balls.database.ancestries.heritage.model.HeritageRepository;
-import olter.balls.database.books.BookMapper;
-import olter.balls.database.books.model.BookEntity;
-import olter.balls.database.books.model.BookRepository;
-import olter.balls.database.core.embeddables.AbilityBoostEmbeddable;
-import olter.balls.database.core.embeddables.FeatureEmbeddable;
-import olter.balls.database.core.enums.AbilityScoreEnum;
-import olter.balls.database.importer.ImportMapper;
+import olter.balls.database.ancestries.ancestry.controller.AncestryService;
+import olter.balls.database.books.controller.BookService;
 import olter.balls.database.importer.dto.BookImport;
 import olter.balls.database.importer.dto.ImportResponse;
 import olter.balls.database.importer.dto.LanguageImport;
 import olter.balls.database.importer.dto.TraitImport;
 import olter.balls.database.importer.dto.ancestry.AncestryImport;
 import olter.balls.database.importer.dto.ancestry.AncestryImportResponse;
-import olter.balls.database.languages.LanguageMapper;
-import olter.balls.database.languages.model.LanguageEntity;
-import olter.balls.database.languages.model.LanguageRepository;
-import olter.balls.database.languages.model.SpeakerEmbeddable;
-import olter.balls.database.traits.TraitMapper;
-import olter.balls.database.traits.TraitRepository;
-import olter.balls.database.traits.model.TraitCategoryEnum;
-import olter.balls.database.traits.model.TraitEntity;
+import olter.balls.database.languages.controller.LanguageService;
+import olter.balls.database.traits.controller.TraitService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 import org.springframework.web.client.RestTemplate;
 
 @Service
@@ -49,30 +28,13 @@ public class ImporterService {
   @Value("${import.url}")
   private String IMPORT_URL;
 
-  private final List<String> abilities =
-      Arrays.asList("Deviant", "Esoterica", "Psyche", "Instinct");
-  private final List<String> elements = Arrays.asList("Air", "Earth", "Fire", "Water");
-
-  private final ImportMapper importMapper;
-
-  private final AncestryRepository ancestryRepository;
-  private final AncestryMapper ancestryMapper;
-
-  private final HeritageRepository heritageRepository;
-  private final HeritageMapper heritageMapper;
-
-  private final BookMapper bookMapper;
-  private final BookRepository bookRepository;
-
-  private final LanguageMapper languageMapper;
-  private final LanguageRepository languageRepository;
-
-  private final TraitRepository traitRepository;
-  private final TraitMapper traitMapper;
+  private final AncestryService ancestryService;
+  private final BookService bookService;
+  private final LanguageService languageService;
+  private final TraitService traitService;
 
   public AncestryImportResponse importAncestries() throws JsonProcessingException {
     RestTemplate restTemplate = new RestTemplate();
-    ObjectMapper mapper = new ObjectMapper();
 
     ResponseEntity<String> responseJson =
         restTemplate.exchange(
@@ -81,322 +43,26 @@ public class ImporterService {
             generateHttpEntity(),
             String.class);
     String[] sources = Objects.requireNonNull(responseJson.getBody()).split(",");
-    List<NameResponse> importedAncestries = new ArrayList<>();
-    List<NameResponse> updatedAncestries = new ArrayList<>();
-    List<NameResponse> importedHeritages = new ArrayList<>();
-    List<NameResponse> updatedHeritages = new ArrayList<>();
+    List<AncestryImport> imports = new ArrayList<>();
     for (String source : sources) {
       source = source.substring(source.indexOf(':') + 3, source.lastIndexOf('"'));
       if (!source.equals("versatile-heritages.json")) {
-        ResponseEntity<String> ancestryResponseJson =
-            restTemplate.exchange(
-                IMPORT_URL.concat("ancestries/".concat(source)),
-                HttpMethod.GET,
-                generateHttpEntity(),
-                String.class);
-        AncestryImport ancestryImport =
-            mapper.readValue(
-                Objects.requireNonNull(ancestryResponseJson.getBody())
-                    .substring(
-                        ancestryResponseJson.getBody().indexOf('[') + 1,
-                        ancestryResponseJson.getBody().lastIndexOf(']')),
-                AncestryImport.class);
-        Optional<AncestryEntity> oEntity = ancestryRepository.findByName(ancestryImport.getName());
-        log.info(
-            oEntity.isPresent()
-                ? "Updating " + ancestryImport.getName() + "..."
-                : "Importing " + ancestryImport.getName() + "...");
-        AncestryEntity entity = oEntity.orElseGet(AncestryEntity::new);
-        importMapper.map(ancestryImport, entity);
-
-        // RARITY
-        if (entity.getRarity() == null) entity.setRarity(AncestryRarityEnum.COMMON);
-
-        // ABILITY BOOSTS AND FLAWS
-        List<AbilityBoostEmbeddable> abilityBoosts = new ArrayList<>();
-        abilityBoosts.addAll(getBoosts(ancestryImport.getBoosts(), false));
-        abilityBoosts.addAll(getBoosts(ancestryImport.getFlaw(), true));
-        entity.setAbilityBoosts(abilityBoosts);
-
-        // DESCRIPTION
-        List<FeatureEmbeddable> features = new ArrayList<>();
-        features.add(
-            new FeatureEmbeddable(
-                "Flavor",
-                "<p>".concat(String.join("</p><p>", ancestryImport.getFlavor())).concat("</p>")));
-        features.add(
-            new FeatureEmbeddable(
-                "Info",
-                "<p>"
-                    .concat(
-                        String.join(
-                            "</p><p>",
-                            ancestryImport.getInfo().stream()
-                                .filter(i -> i.getClass() == String.class)
-                                .map(Object::toString)
-                                .toList()))
-                    .concat("</p>")));
-        ancestryImport.getInfo().stream()
-            .filter(i -> i.getClass() != String.class)
-            .forEach(
-                i -> {
-                  String info = i.toString();
-                  if (info.contains("entries=[") && info.contains("name=")) {
-                    String name = info.substring(info.indexOf("name=") + 5);
-                    name = name.substring(0, name.indexOf(','));
-                    String entries = info.substring(info.indexOf("entries=[") + 9);
-                    if (entries.contains("{type=list")) {
-                      entries = entries.substring(entries.indexOf("items=[") + 7);
-                      entries =
-                          "<ul><li>"
-                              .concat(
-                                  entries
-                                      .substring(0, entries.indexOf("]"))
-                                      .replace(".,", ".</li><li>"))
-                              .concat("</li></ul>");
-                      features.add(new FeatureEmbeddable(name, entries));
-                    } else if (!entries.contains("{type=")) {
-                      entries =
-                          "<p>"
-                              .concat(
-                                  entries
-                                      .substring(0, entries.indexOf("]"))
-                                      .replace(".,", ".</p><p>"))
-                              .concat("</p>");
-                      features.add(new FeatureEmbeddable(name, entries));
-                    }
-                  }
-                });
-        entity.setDescription(features);
-
-        // LANGUAGES
-        List<LanguageEntity> languages = new ArrayList<>();
-        ancestryImport
-            .getLanguages()
-            .forEach(
-                l -> {
-                  if (l.startsWith("{@language")) {
-                    Optional<LanguageEntity> language =
-                        languageRepository.findByName(
-                            l.substring(
-                                l.indexOf(' ') + 1,
-                                l.contains("|") ? l.indexOf('|') : l.indexOf('}')));
-                    language.ifPresent(languages::add);
-                  } else {
-                    try {
-                      entity.setAdditionalLanguages(
-                          Integer.parseInt(
-                              l.substring(0, l.indexOf('.')).replaceAll("[^0-9]", "")));
-                    } catch (NumberFormatException e) {
-                      entity.setAdditionalLanguages(0);
-                    }
-                  }
-                });
-        entity.setKnownLanguages(languages);
-
-        // TRAITS
-        List<TraitEntity> traits = new ArrayList<>();
-        ancestryImport
-            .getTraits()
-            .forEach(
-                t -> {
-                  Optional<TraitEntity> trait = traitRepository.findByName(t);
-                  trait.ifPresent(traits::add);
-                });
-        entity.setTraits(traits);
-
-        // HERITAGES
-        List<HeritageEntity> heritages = new ArrayList<>();
-        ancestryImport
-            .getHeritages()
-            .forEach(
-                h -> {
-                  Optional<HeritageEntity> oHeritage = heritageRepository.findByName(h.getName());
-                  HeritageEntity heritage = oHeritage.orElseGet(HeritageEntity::new);
-                  importMapper.map(h, heritage);
-                  heritage.setDescription(
-                      "<p>"
-                          .concat(
-                              h.getEntries().stream()
-                                  .filter(e -> e.getClass() == String.class)
-                                  .map(Object::toString)
-                                  .collect(Collectors.joining("<p></p>"))
-                                  .concat("</p>")));
-                  heritage.setAncestry(entity);
-                  heritages.add(heritage);
-                  if (oHeritage.isPresent())
-                    updatedHeritages.add(heritageMapper.entityToNameResponse(heritage));
-                  else importedHeritages.add(heritageMapper.entityToNameResponse(heritage));
-                });
-        entity.setHeritages(heritages);
-
-        ancestryRepository.save(entity);
-        if (oEntity.isPresent()) updatedAncestries.add(ancestryMapper.entityToNameResponse(entity));
-        else importedAncestries.add(ancestryMapper.entityToNameResponse(entity));
+        imports.add(fetchData("ancestries/".concat(source), AncestryImport.class));
       }
     }
-    log.info("Imported " + importedAncestries.size() + " ancestries");
-    log.info("Updated " + updatedAncestries.size() + " ancestries");
-    log.info("Imported " + importedHeritages.size() + " heritages");
-    log.info("Updated " + updatedHeritages.size() + " heritages");
-    return new AncestryImportResponse(
-        importedAncestries, updatedAncestries, importedHeritages, updatedHeritages);
+    return ancestryService.processImports(imports);
   }
 
   public ImportResponse importBooks() throws JsonProcessingException {
-    RestTemplate restTemplate = new RestTemplate();
-    ObjectMapper mapper = new ObjectMapper();
-
-    ResponseEntity<String> responseJson =
-        restTemplate.exchange(
-            IMPORT_URL.concat("books.json"), HttpMethod.GET, generateHttpEntity(), String.class);
-    BookImport[] imports =
-        mapper.readValue(
-            Objects.requireNonNull(responseJson.getBody())
-                .substring(
-                    responseJson.getBody().indexOf('['),
-                    responseJson.getBody().lastIndexOf(']') + 1),
-            BookImport[].class);
-    List<NameResponse> importedBooks = new ArrayList<>();
-    List<NameResponse> updatedBooks = new ArrayList<>();
-    for (BookImport book : imports) {
-      Optional<BookEntity> oEntity = bookRepository.findByShortName(book.getShortName());
-      log.info(
-          oEntity.isPresent()
-              ? "Updating " + book.getName() + "..."
-              : "Importing " + book.getName() + "...");
-      BookEntity entity = oEntity.orElseGet(BookEntity::new);
-      importMapper.map(book, entity);
-      bookRepository.save(entity);
-      if (oEntity.isPresent()) updatedBooks.add(bookMapper.entityToNameResponse(entity));
-      else importedBooks.add(bookMapper.entityToNameResponse(entity));
-    }
-    log.info("Imported " + importedBooks.size() + " books");
-    log.info("Updated " + updatedBooks.size() + " books");
-    return new ImportResponse(importedBooks, updatedBooks);
+    return bookService.processImports(fetchData("books.json", BookImport[].class));
   }
 
   public ImportResponse importLanguages() throws JsonProcessingException {
-    RestTemplate restTemplate = new RestTemplate();
-    ObjectMapper mapper = new ObjectMapper();
-
-    ResponseEntity<String> responseJson =
-        restTemplate.exchange(
-            IMPORT_URL.concat("languages.json"),
-            HttpMethod.GET,
-            generateHttpEntity(),
-            String.class);
-    LanguageImport[] imports =
-        mapper.readValue(
-            Objects.requireNonNull(responseJson.getBody())
-                .substring(
-                    responseJson.getBody().indexOf('['),
-                    responseJson.getBody().lastIndexOf(']') + 1),
-            LanguageImport[].class);
-    List<NameResponse> importedLanguages = new ArrayList<>();
-    List<NameResponse> updatedLanguages = new ArrayList<>();
-    for (LanguageImport lang : imports) {
-      Optional<LanguageEntity> oEntity = languageRepository.findByName(lang.getName());
-      log.info(
-          oEntity.isPresent()
-              ? "Updating " + lang.getName() + "..."
-              : "Importing " + lang.getName() + "...");
-      LanguageEntity entity = oEntity.orElseGet(LanguageEntity::new);
-      importMapper.map(lang, entity);
-      if (lang.getEntries() != null) {
-        entity.setDescription(
-            "<p>"
-                .concat(
-                    String.join(
-                        "</p><p>",
-                        lang.getEntries().stream()
-                            .filter(l -> l.getClass() == String.class)
-                            .map(Object::toString)
-                            .toList()))
-                .concat("</p>"));
-      }
-      if (lang.getTypicalSpeakers() != null) {
-        List<SpeakerEmbeddable> speakers = new ArrayList<>();
-        lang.getTypicalSpeakers()
-            .forEach(
-                ts -> {
-                  log.info(ts);
-                  SpeakerEmbeddable speaker = new SpeakerEmbeddable();
-                  if (ts.startsWith("{@ancestry")) {
-                    String name = ts.substring(ts.indexOf(' ') + 1, ts.indexOf('|'));
-                    Optional<AncestryEntity> ancestry = ancestryRepository.findByName(name);
-                    ancestry.ifPresent(ancestryEntity -> speaker.setId(ancestryEntity.getId()));
-                    speaker.setName(
-                        StringUtils.countOccurrencesOf(ts, "|") == 2
-                            ? ts.substring(ts.lastIndexOf('|') + 1, ts.indexOf('}'))
-                            : name);
-                  } else {
-                    speaker.setName(ts);
-                  }
-                  speakers.add(speaker);
-                });
-        entity.setTypicalSpeakers(speakers);
-      }
-      languageRepository.save(entity);
-      if (oEntity.isPresent()) updatedLanguages.add(languageMapper.entityToNameResponse(entity));
-      else importedLanguages.add(languageMapper.entityToNameResponse(entity));
-    }
-    log.info("Imported " + importedLanguages.size() + " languages");
-    log.info("Updated " + updatedLanguages.size() + " languages");
-    return new ImportResponse(importedLanguages, updatedLanguages);
+    return languageService.processImports(fetchData("languages.json", LanguageImport[].class));
   }
 
   public ImportResponse importTraits() throws JsonProcessingException {
-    RestTemplate restTemplate = new RestTemplate();
-    ObjectMapper mapper = new ObjectMapper();
-
-    ResponseEntity<String> responseJson =
-        restTemplate.exchange(
-            IMPORT_URL.concat("traits.json"), HttpMethod.GET, generateHttpEntity(), String.class);
-    TraitImport[] imports =
-        mapper.readValue(
-            Objects.requireNonNull(responseJson.getBody())
-                .substring(
-                    responseJson.getBody().indexOf('['),
-                    responseJson.getBody().lastIndexOf(']') + 1),
-            TraitImport[].class);
-    List<NameResponse> importedTraits = new ArrayList<>();
-    List<NameResponse> updatedTraits = new ArrayList<>();
-    for (TraitImport trait : imports) {
-      if ((trait.getCategories() == null
-              || (!trait.getCategories().contains("_alignAbv")
-                  && !trait.getCategories().contains("Size")))
-          && !trait.getName().startsWith("[")) {
-        Optional<TraitEntity> oEntity = traitRepository.findByName(trait.getName());
-        log.info(
-            oEntity.isPresent()
-                ? "Updating " + trait.getName() + "..."
-                : "Importing " + trait.getName() + "...");
-        TraitEntity entity = oEntity.orElseGet(TraitEntity::new);
-        importMapper.map(trait, entity);
-        entity.setDescription(
-            "<p>"
-                .concat(
-                    trait.getEntries().stream()
-                        .filter(t -> t.getClass() == String.class)
-                        .map(Object::toString)
-                        .collect(Collectors.joining("<p></p>"))
-                        .concat("</p>")));
-        if (abilities.contains(entity.getName())) {
-          entity.setCategories(
-              mapTraits(entity, TraitCategoryEnum.ACTION, TraitCategoryEnum.ABILITY));
-        } else if (elements.contains(entity.getName())) {
-          entity.setCategories(
-              mapTraits(entity, TraitCategoryEnum.ENERGY, TraitCategoryEnum.ELEMENT));
-        }
-        traitRepository.save(entity);
-        if (oEntity.isPresent()) updatedTraits.add(traitMapper.entityToNameResponse(entity));
-        else importedTraits.add(traitMapper.entityToNameResponse(entity));
-      }
-    }
-    log.info("Imported " + importedTraits.size() + " traits");
-    log.info("Updated " + updatedTraits.size() + " traits");
-    return new ImportResponse(importedTraits, updatedTraits);
+    return traitService.processImports(fetchData("traits.json", TraitImport[].class));
   }
 
   private HttpEntity<String> generateHttpEntity() {
@@ -407,34 +73,18 @@ public class ImporterService {
     return new HttpEntity<>(headers);
   }
 
-  private List<TraitCategoryEnum> mapTraits(
-      TraitEntity entity, TraitCategoryEnum from, TraitCategoryEnum to) {
-    return entity.getCategories().stream()
-        .map(
-            category -> {
-              if (category == from) return to;
-              return category;
-            })
-        .toList();
-  }
+  private <T> T fetchData(String url, Class<T> type) throws JsonProcessingException {
+    RestTemplate restTemplate = new RestTemplate();
+    ObjectMapper mapper = new ObjectMapper();
 
-  private List<AbilityBoostEmbeddable> getBoosts(List<String> boosts, boolean flaw) {
-    List<AbilityBoostEmbeddable> abilityBoosts = new ArrayList<>();
-    if (boosts != null) {
-      for (String boost : boosts) {
-        AbilityBoostEmbeddable abilityBoost =
-            new AbilityBoostEmbeddable(
-                boost.contains("free")
-                    ? null
-                    : AbilityScoreEnum.valueOf(boost.substring(0, 3).toUpperCase()),
-                boost.contains("free"),
-                flaw);
-        if (boost.equals("Two free ability boosts")) {
-          abilityBoosts.add(new AbilityBoostEmbeddable(null, true, false));
-        }
-        abilityBoosts.add(abilityBoost);
-      }
-    }
-    return abilityBoosts;
+    ResponseEntity<String> responseJson =
+        restTemplate.exchange(
+            IMPORT_URL.concat(url), HttpMethod.GET, generateHttpEntity(), String.class);
+    return mapper.readValue(
+        Objects.requireNonNull(responseJson.getBody())
+            .substring(
+                responseJson.getBody().indexOf('[') + (type.isArray() ? 0 : 1),
+                responseJson.getBody().lastIndexOf(']') + (type.isArray() ? 1 : 0)),
+        type);
   }
 }

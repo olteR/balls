@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import olter.balls.common.NameResponse;
+import olter.balls.database.importer.dto.ImportResponse;
 
 @Getter
 @Setter
@@ -14,6 +15,5 @@ import olter.balls.common.NameResponse;
 public class AncestryImportResponse {
   List<NameResponse> importedAncestries;
   List<NameResponse> updatedAncestries;
-  List<NameResponse> importedHeritages;
-  List<NameResponse> updatedHeritages;
+  ImportResponse heritages;
 }
