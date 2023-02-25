@@ -109,8 +109,7 @@ onMounted(() => {
   padding-top: 0.2rem;
 }
 .view {
-  position: relative;
-  top: 4rem;
+  margin-top: 1rem;
 }
 .menubutton, .menubutton > button {
   background-color: transparent !important;

@@ -77,7 +77,6 @@
 .p-link {
     font-size: 1rem;
     border-radius: 4px;
-    text-decoration-line: underline;
 }
 .p-link:focus {
     outline: 0 none;
@@ -7400,4 +7399,8 @@ p {
 
 ul {
     list-style: inside;
+}
+
+a.p-link {
+    text-decoration-line: underline;
 }

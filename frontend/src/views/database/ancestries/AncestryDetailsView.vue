@@ -184,7 +184,7 @@
             </div>
           </div>
           <Divider layout="vertical" />
-          <div class="w-1/4">
+          <div class="w-1/4 relative">
             <div class="pb-4">
               <div class="font-bold">hit points</div>
               <div>{{ ancestryStore.getAncestry.hp }}</div>
@@ -241,8 +241,11 @@
                 :key="
                   ancestryStore.getAncestry.knownLanguages.indexOf(language)
                 "
+              ><router-link
+                  :to="'/database/language/' + language.id"
+                  class="p-link"
+              >{{ language.name }}</router-link
               >
-                {{ language.name }}
               </div>
               <div>
                 Additional languages equal to
@@ -260,10 +263,14 @@
                 v-for="trait in ancestryStore.getAncestry.traits"
                 :key="trait.id"
               >
-                {{ trait.name }}
+                <router-link
+                    :to="'/database/trait/' + trait.id"
+                    class="p-link"
+                >{{ trait.name }}</router-link
+                >
               </div>
             </div>
-            <div class="absolute bottom-0 pb-12">
+            <div class="absolute bottom-0">
               <div class="font-bold">source</div>
               <div>
                 {{
@@ -272,7 +279,7 @@
                   ancestryStore.getAncestry.page
                 }}
               </div>
-            </div>
+              </div>
           </div>
         </div>
       </template>

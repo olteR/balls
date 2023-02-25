@@ -19,13 +19,6 @@
           :toggleable="user.role === 'PLAYER'"
           collapsed
         >
-          <template #icons>
-            <button
-              v-if="user.role === 'PLAYER'"
-              class="p-panel-header-icon p-link mr-2"
-              @click="toggle"
-            ></button>
-          </template>
           <template #header>
             <span class="text-3xl"
               ><i v-if="user.role === 'PLAYER'" class="fa fa-gamepad"></i
