@@ -64,11 +64,17 @@ public class TraitService {
                         .collect(Collectors.joining("<p></p>"))
                         .concat("</p>")));
         if (ABILITIES.contains(entity.getName())) {
-          entity.setCategories(
-              mapTraits(entity, TraitCategoryEnum.ACTION, TraitCategoryEnum.ABILITY));
+          entity
+              .getCategories()
+              .set(
+                  entity.getCategories().indexOf(TraitCategoryEnum.ACTION),
+                  TraitCategoryEnum.ABILITY);
         } else if (ELEMENTS.contains(entity.getName())) {
-          entity.setCategories(
-              mapTraits(entity, TraitCategoryEnum.ENERGY, TraitCategoryEnum.ELEMENT));
+          entity
+              .getCategories()
+              .set(
+                  entity.getCategories().indexOf(TraitCategoryEnum.ENERGY),
+                  TraitCategoryEnum.ELEMENT);
         }
         traitRepository.save(entity);
         if (oEntity.isPresent()) updatedTraits.add(traitMapper.entityToNameResponse(entity));
@@ -78,16 +84,5 @@ public class TraitService {
     log.info("Imported " + importedTraits.size() + " traits");
     log.info("Updated " + updatedTraits.size() + " traits");
     return new ImportResponse(importedTraits, updatedTraits);
-  }
-
-  private List<TraitCategoryEnum> mapTraits(
-      TraitEntity entity, TraitCategoryEnum from, TraitCategoryEnum to) {
-    return entity.getCategories().stream()
-        .map(
-            category -> {
-              if (category == from) return to;
-              return category;
-            })
-        .toList();
   }
 }

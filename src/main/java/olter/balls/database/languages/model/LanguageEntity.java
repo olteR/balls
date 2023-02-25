@@ -28,5 +28,5 @@ public class LanguageEntity extends SourcedEntity {
   private List<SpeakerEmbeddable> typicalSpeakers;
 
   @ManyToMany(mappedBy = "knownLanguages", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-  List<AncestryEntity> ancestriesKnowing;
+  private List<AncestryEntity> ancestriesKnowing;
 }
