@@ -31,8 +31,8 @@ const router = useRouter();
 const bookStore = useBookStore();
 const loading = ref(true);
 
-onMounted(() => {
-  bookStore.fetchBook(router.currentRoute.value.params.id);
+onMounted(async () => {
+  await bookStore.fetchBook(router.currentRoute.value.params.id);
   loading.value = false;
 });
 </script>

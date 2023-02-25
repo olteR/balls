@@ -68,8 +68,8 @@ import Column from "primevue/column";
 const traitStore = useTraitStore();
 const loading = ref(true);
 
-onMounted(() => {
-  traitStore.fetchTraits();
+onMounted(async () => {
+  await traitStore.fetchTraits();
   loading.value = false;
 });
 </script>

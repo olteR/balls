@@ -53,8 +53,8 @@ import Column from "primevue/column";
 const languageStore = useLanguageStore();
 const loading = ref(true);
 
-onMounted(() => {
-  languageStore.fetchLanguages();
+onMounted(async () => {
+  await languageStore.fetchLanguages();
   loading.value = false;
 });
 </script>

@@ -2,13 +2,22 @@
   <Toast position="bottom-center" />
   <div class="card">
     <div v-if="router.currentRoute.value.name !== 'login'">
-      <TabMenu :model="items" class="inline w-full" />
-      <span class="tab-menu-profile"
-        >logged in as
-        <router-link to="/profile">
-          {{ userStore.getUser ? userStore.getUser.name : "" }}.
-          <i class="fa fa-user"></i></router-link
-      ></span>
+      <Menubar :model="items">
+        <template #item="{item}">
+          <SplitButton v-if="item.subpages" class="menubutton" :model="item.subpages">
+            <Button @click="router.push(item.to)"><div class="menulabel" :class="{ active: router.currentRoute.value.path.startsWith(item.to) }">{{ item.label }}</div></Button>
+          </SplitButton>
+          <Button v-else class="menubutton" @click="router.push(item.to)"><div class="menulabel" :class="{ active: router.currentRoute.value.name === item.label }">{{ item.label }}</div></Button>
+        </template>
+        <template #end>
+          <div class="tab-menu-profile"
+            >logged in as
+            <router-link to="/profile">
+              {{ userStore.getUser ? userStore.getUser.name : "" }}.
+              <i class="fa fa-user"></i></router-link
+          ></div>
+        </template>
+      </Menubar>
     </div>
     <div class="view">
       <RouterView />
@@ -17,13 +26,15 @@
 </template>
 
 <script setup>
-import { RouterView, useRouter } from "vue-router";
-import { useUserStore } from "@/stores/user";
 import { onMounted, ref } from "vue";
-import Toast from "primevue/toast";
-import TabMenu from "primevue/tabmenu";
-import { useToast } from "primevue/usetoast";
+import { RouterView, useRouter } from "vue-router";
 import axios from "axios";
+import { useToast } from "primevue/usetoast";
+import { useUserStore } from "@/stores/user";
+import Toast from "primevue/toast";
+import Menubar from "primevue/menubar";
+import Button from "primevue/button";
+import SplitButton from "primevue/splitbutton";
 
 const router = useRouter();
 const toast = useToast();
@@ -40,6 +51,32 @@ const items = ref([
   {
     label: "database",
     to: "/database",
+    subpages: [
+      {
+        label: "ancestries",
+        command: () => {
+          router.push({name:"ancestries"});
+        }
+      },
+      {
+        label: "books",
+        command: () => {
+          router.push({name:"books"});
+        }
+      },
+      {
+        label: "languages",
+        command: () => {
+          router.push({name:"languages"});
+        }
+      },
+      {
+        label: "traits",
+        command: () => {
+          router.push({name:"traits"});
+        }
+      },
+    ],
   },
 ]);
 
@@ -64,13 +101,6 @@ onMounted(() => {
 </script>
 
 <style>
-.tab-menu-profile {
-  position: fixed;
-  top: 0;
-  right: 0;
-  padding: 0.75rem 1.25rem;
-  z-index: 999;
-}
 .p-tabmenu {
   background-color: #1e1e1e;
   position: fixed;
@@ -81,5 +111,17 @@ onMounted(() => {
 .view {
   position: relative;
   top: 4rem;
+}
+.menubutton, .menubutton > button {
+  background-color: transparent !important;
+  background-image: none !important;
+  color: rgba(255, 255, 255, 0.87) !important;
+}
+.menulabel {
+  border-bottom: 2px solid transparent;
+}
+.active {
+  border-bottom: 2px solid #CE93D8;
+  transition: border-bottom-color 0.5s ease;
 }
 </style>

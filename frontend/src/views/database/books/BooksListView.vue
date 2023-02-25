@@ -53,8 +53,8 @@ import Column from "primevue/column";
 const bookStore = useBookStore();
 const loading = ref(true);
 
-onMounted(() => {
-  bookStore.fetchBooks();
+onMounted(async () => {
+  await bookStore.fetchBooks();
   loading.value = false;
 });
 </script>

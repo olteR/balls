@@ -31,8 +31,8 @@ const router = useRouter();
 const traitStore = useTraitStore();
 const loading = ref(true);
 
-onMounted(() => {
-  traitStore.fetchTrait(router.currentRoute.value.params.id);
+onMounted(async () => {
+  await traitStore.fetchTrait(router.currentRoute.value.params.id);
   loading.value = false;
 });
 </script>

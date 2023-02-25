@@ -90,8 +90,8 @@ const router = useRouter();
 const languageStore = useLanguageStore();
 const loading = ref(true);
 
-onMounted(() => {
-  languageStore.fetchLanguage(router.currentRoute.value.params.id);
+onMounted(async () => {
+  await languageStore.fetchLanguage(router.currentRoute.value.params.id);
   loading.value = false;
 });
 </script>

@@ -53,8 +53,8 @@ import Column from "primevue/column";
 const ancestryStore = useAncestryStore();
 const loading = ref(true);
 
-onMounted(() => {
-  ancestryStore.fetchAncestries();
+onMounted(async () => {
+  await ancestryStore.fetchAncestries();
   loading.value = false;
 });
 </script>

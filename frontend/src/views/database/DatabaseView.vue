@@ -2,7 +2,7 @@
   <div class="container mx-auto my-4">
     <div class="grid grid-cols-2 lg:grid-cols-4">
       <div class="m-4">
-        <Button class="w-full" @click="router.push('database/ancestries')">
+        <Button class="w-full" @click="router.push({name:'ancestries'})">
           <Card class="w-full">
             <template #header>
               <span
@@ -32,7 +32,7 @@
         </Button>
       </div>
       <div class="m-4">
-        <Button class="w-full" @click="router.push('database/books')">
+        <Button class="w-full" @click="router.push({name:'books'})">
           <Card class="w-full">
             <template #header>
               <span
@@ -122,7 +122,7 @@
         </Button>
       </div>
       <div class="m-4">
-        <Button class="w-full" @click="router.push('database/languages')">
+        <Button class="w-full" @click="router.push({name:'languages'})">
           <Card class="w-full">
             <template #header>
               <span
@@ -152,7 +152,7 @@
         </Button>
       </div>
       <div class="m-4">
-        <Button class="w-full" @click="router.push('database/traits')">
+        <Button class="w-full" @click="router.push({name:'traits'})">
           <Card class="w-full">
             <template #header>
               <span

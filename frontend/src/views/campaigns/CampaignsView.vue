@@ -82,8 +82,8 @@ const userStore = useUserStore();
 const campaignStore = useCampaignStore();
 const loading = ref(true);
 
-onMounted(() => {
-  campaignStore.fetchCampaigns(userStore.getUser.id);
+onMounted(async () => {
+  await campaignStore.fetchCampaigns(userStore.getUser.id);
   loading.value = false;
 });
 </script>
@@ -93,6 +93,10 @@ onMounted(() => {
   .p-accordion-header-text {
     font-size: 3rem;
     margin-bottom: 1rem;
+  }
+  .p-accordion-tab,
+  .p-accordion-tab-active {
+    margin-bottom: 0.5rem !important;
   }
 }
 .p-button {

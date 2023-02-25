@@ -294,8 +294,8 @@ const router = useRouter();
 const ancestryStore = useAncestryStore();
 const loading = ref(true);
 
-onMounted(() => {
-  ancestryStore.fetchAncestry(router.currentRoute.value.params.id);
+onMounted(async () => {
+  await ancestryStore.fetchAncestry(router.currentRoute.value.params.id);
   loading.value = false;
 });
 </script>

@@ -10,7 +10,7 @@
       v-for="character in characterStore.getCharacters"
       :key="character.id"
       :header="character.name"
-      class="p-4"
+      class="p-1"
     >
       <div class="grid grid-cols-12 gap-4">
         <div>
@@ -63,8 +63,8 @@ const userStore = useUserStore();
 const characterStore = useCharacterStore();
 const loading = ref(true);
 
-onMounted(() => {
-  characterStore.fetchCharacters(userStore.getUser.id);
+onMounted(async () => {
+  await characterStore.fetchCharacters(userStore.getUser.id);
   loading.value = false;
 });
 </script>
