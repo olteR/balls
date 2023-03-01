@@ -13,5 +13,5 @@ import olter.balls.database.core.SourcedEntity;
 @RequiredArgsConstructor
 @Table(name = "feats")
 public class FeatEntity extends SourcedEntity {
-    private String name;
+  private String name;
 }

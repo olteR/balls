@@ -13,6 +13,6 @@ import olter.balls.database.core.enums.ActivityUnitEnum;
 @AllArgsConstructor
 @Embeddable
 public class ActivityEmbeddable {
-    private Integer number;
-    private ActivityUnitEnum units;
+  private Integer number;
+  private ActivityUnitEnum units;
 }
