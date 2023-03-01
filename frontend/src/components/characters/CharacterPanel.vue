@@ -57,12 +57,11 @@ const props = defineProps({
 </script>
 
 <style scoped>
-::v-deep(.p-panel) {
-  .p-panel-title {
+.p-panel .p-panel-title {
     font-size: 3rem;
     margin-bottom: 1rem;
-  }
 }
+
 .p-button {
   margin-left: auto;
 }

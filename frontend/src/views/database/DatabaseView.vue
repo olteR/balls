@@ -89,19 +89,15 @@ const router = useRouter();
 </script>
 
 <style scoped>
-::v-deep(.p-card) {
-  .p-card-content {
+.p-card .p-card-content {
     padding: 0;
-  }
-  .p-card-title {
-    text-align: center;
-  }
 }
-::v-deep(.p-button) {
-  .p-card {
+.p-card .p-card-title {
+    text-align: center;
+}
+.p-button .p-card {
     background: transparent;
     box-shadow: 0 0 #0000;
     color: var(--primary-color-text);
-  }
 }
 </style>

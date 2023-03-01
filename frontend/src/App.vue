@@ -8,7 +8,6 @@
     aria-label="loading"
     class="fixed top-1/2 left-1/2"
   ></ProgressSpinner>
-  <SiteBreadcrumb></SiteBreadcrumb>
   <div :class="{ invisible: stateStore.getLoading }">
     <RouterView />
   </div>

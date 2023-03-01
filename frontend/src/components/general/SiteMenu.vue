@@ -1,5 +1,10 @@
 <template>
   <Menubar :model="menuItems">
+    <template #start>
+      <div>
+        <SiteBreadcrumb></SiteBreadcrumb>
+      </div>
+    </template>
     <template #item="{ item }">
       <SplitButton
         v-if="item.subpages"
@@ -42,6 +47,7 @@
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 import { useStateStore } from "@/stores/state";
+import SiteBreadcrumb from "@/components/general/SiteBreadcrumb.vue";
 import Menubar from "primevue/menubar";
 import Button from "primevue/button";
 import SplitButton from "primevue/splitbutton";
@@ -110,5 +116,16 @@ const menuItems = ref([
 .active {
   border-bottom: 2px solid #ce93d8;
   transition: border-bottom-color 0.5s ease;
+}
+.p-menubar .p-menubar-root-list {
+  margin: auto;
+}
+.p-menubar-start {
+  width: 25vw;
+}
+.p-menubar-end {
+  width: 25vw;
+  text-align: right;
+  margin-left: 0 !important;
 }
 </style>
