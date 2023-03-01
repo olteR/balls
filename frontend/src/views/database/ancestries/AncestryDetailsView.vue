@@ -281,7 +281,7 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from "vue";
+import { onMounted } from "vue";
 import { useRouter } from "vue-router";
 import { useStateStore } from "@/stores/state";
 import { useAncestryStore } from "@/stores/database/ancestry";

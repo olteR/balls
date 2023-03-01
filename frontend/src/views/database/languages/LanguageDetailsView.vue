@@ -71,12 +71,11 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from "vue";
+import { onMounted } from "vue";
 import { useRouter } from "vue-router";
 import { useStateStore } from "@/stores/state";
 import { useLanguageStore } from "@/stores/database/language";
 import Card from "primevue/card";
-import Button from "primevue/button";
 
 const router = useRouter();
 const stateStore = useStateStore();

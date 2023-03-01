@@ -14,7 +14,7 @@
 <script setup>
 import { onMounted } from "vue";
 import { useRouter } from "vue-router";
-import {useStateStore} from "@/stores/state";
+import { useStateStore } from "@/stores/state";
 import { useTraitStore } from "@/stores/database/trait";
 import Card from "primevue/card";
 

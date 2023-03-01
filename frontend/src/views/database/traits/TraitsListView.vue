@@ -52,8 +52,8 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from "vue";
-import {useStateStore} from "@/stores/state";
+import { onMounted } from "vue";
+import { useStateStore } from "@/stores/state";
 import { useTraitStore } from "@/stores/database/trait";
 import { formatEnum } from "@/utils/util";
 import Card from "primevue/card";
@@ -62,7 +62,6 @@ import Column from "primevue/column";
 
 const stateStore = useStateStore();
 const traitStore = useTraitStore();
-const loading = ref(true);
 
 onMounted(async () => {
   stateStore.setLoading(true);

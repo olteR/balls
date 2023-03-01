@@ -38,8 +38,8 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from "vue";
-import {useStateStore} from "@/stores/state";
+import { onMounted } from "vue";
+import { useStateStore } from "@/stores/state";
 import { useBookStore } from "@/stores/database/book";
 import Card from "primevue/card";
 import DataTable from "primevue/datatable";

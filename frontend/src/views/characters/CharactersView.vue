@@ -11,8 +11,7 @@
 <script setup>
 import { useStateStore } from "@/stores/state";
 import { useCharacterStore } from "@/stores/character";
-import { onMounted, ref } from "vue";
-import ProgressSpinner from "primevue/progressspinner";
+import { onMounted } from "vue";
 import CharacterPanel from "@/components/characters/CharacterPanel.vue";
 
 const stateStore = useStateStore();

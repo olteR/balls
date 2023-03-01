@@ -39,7 +39,7 @@
 
 <script setup>
 import { onMounted } from "vue";
-import {useStateStore} from "@/stores/state";
+import { useStateStore } from "@/stores/state";
 import { useLanguageStore } from "@/stores/database/language";
 import Card from "primevue/card";
 import DataTable from "primevue/datatable";

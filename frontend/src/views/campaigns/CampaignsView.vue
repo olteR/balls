@@ -63,11 +63,10 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from "vue";
+import { onMounted } from "vue";
 import { useRouter } from "vue-router";
 import { useCampaignStore } from "@/stores/campaign";
 import { useStateStore } from "@/stores/state";
-import ProgressSpinner from "primevue/progressspinner";
 import Accordion from "primevue/accordion";
 import AccordionTab from "primevue/accordiontab";
 import Button from "primevue/button";
