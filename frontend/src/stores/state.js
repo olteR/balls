@@ -5,7 +5,7 @@ import axios from "axios";
 import router from "@/router";
 import jwtDecode from "jwt-decode";
 
-export const useUserStore = defineStore("user", () => {
+export const useStateStore = defineStore("state", () => {
   const toast = useToast();
 
   const urls = {
@@ -16,6 +16,8 @@ export const useUserStore = defineStore("user", () => {
   const jwt = ref(
     localStorage.getItem("balls_jwt") ? localStorage.getItem("balls_jwt") : null
   );
+  const breadcrumbs = ref([]);
+  const loading = ref(false);
 
   const getUser = computed(() =>
     user.value
@@ -31,6 +33,8 @@ export const useUserStore = defineStore("user", () => {
   const isLoggedIn = computed(() =>
     jwt.value ? Date.now() < jwtDecode(jwt.value).exp * 1000 : false
   );
+  const getBreadcrumbs = computed(() => breadcrumbs.value);
+  const getLoading = computed(() => loading.value);
 
   async function loginUser(login) {
     try {
@@ -66,5 +70,23 @@ export const useUserStore = defineStore("user", () => {
     await router.push("/");
   }
 
-  return { getUser, getJwt, isLoggedIn, loginUser, logoutUser };
+  function setBreadcrumbs(items) {
+    breadcrumbs.value = items;
+  }
+
+  function setLoading(val) {
+    loading.value = val;
+  }
+
+  return {
+    getUser,
+    getJwt,
+    isLoggedIn,
+    getBreadcrumbs,
+    getLoading,
+    loginUser,
+    logoutUser,
+    setBreadcrumbs,
+    setLoading,
+  };
 });

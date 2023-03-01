@@ -5,6 +5,7 @@ import java.util.List;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import olter.balls.database.actions.model.ActionEntity;
 import olter.balls.database.ancestries.ancestry.model.AncestryEntity;
 import olter.balls.database.core.SourcedEntity;
 
@@ -23,6 +24,9 @@ public class TraitEntity extends SourcedEntity {
 
   @Column(columnDefinition = "TEXT")
   private String description;
+
+  @ManyToMany(mappedBy = "traits", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  private List<ActionEntity> relatedActions;
 
   @ManyToMany(mappedBy = "traits", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   private List<AncestryEntity> relatedAncestries;

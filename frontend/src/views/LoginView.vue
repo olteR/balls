@@ -30,21 +30,21 @@ import { onMounted, ref } from "vue";
 import InputText from "primevue/inputtext";
 import Password from "primevue/password";
 import Button from "primevue/button";
-import { useUserStore } from "@/stores/user";
+import { useStateStore } from "@/stores/state";
 import { useRouter } from "vue-router";
 
 const router = useRouter();
-const userStore = useUserStore();
+const stateStore = useStateStore();
 const name = ref();
 const password = ref();
 
 onMounted(() => {
-  if (userStore.isLoggedIn) {
+  if (stateStore.isLoggedIn) {
     router.push("/campaigns");
   }
 });
 
 async function loginUser() {
-  await userStore.loginUser({ name: name.value, password: password.value });
+  await stateStore.loginUser({ name: name.value, password: password.value });
 }
 </script>

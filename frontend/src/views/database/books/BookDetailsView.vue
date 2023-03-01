@@ -1,14 +1,6 @@
 <template>
-  <Button class="backbutton" @click="router.push({ name: 'books' })"
-    ><i class="fa fa-chevron-left mr-2"></i> back to books</Button
-  >
   <div class="container mx-auto my-4">
-    <ProgressSpinner
-      v-if="loading"
-      aria-label="loading"
-      class="fixed top-1/2 left-1/2"
-    ></ProgressSpinner>
-    <Card class="p-4" v-else>
+    <Card class="p-4" v-if="bookStore.getBook">
       <template #title>
         <div class="text-5xl">
           {{ bookStore.getBook.name }}
@@ -22,18 +14,24 @@
 <script setup>
 import { onMounted, ref } from "vue";
 import { useRouter } from "vue-router";
+import { useStateStore } from "@/stores/state";
 import { useBookStore } from "@/stores/database/book";
-import ProgressSpinner from "primevue/progressspinner";
 import Card from "primevue/card";
-import Button from "primevue/button";
 
 const router = useRouter();
+const stateStore = useStateStore();
 const bookStore = useBookStore();
-const loading = ref(true);
 
 onMounted(async () => {
-  await bookStore.fetchBook(router.currentRoute.value.params.id);
-  loading.value = false;
+  stateStore.setLoading(true);
+  const params = router.currentRoute.value.params;
+  await bookStore.fetchBook(params.id);
+  stateStore.getBreadcrumbs.push({
+    name: "book",
+    label: bookStore.getBook.name,
+    params: params,
+  });
+  stateStore.setLoading(false);
 });
 </script>
 

@@ -1,14 +1,6 @@
 <template>
-  <Button class="backbutton" @click="router.push({ name: 'ancestries' })"
-    ><i class="fa fa-chevron-left mr-2"></i> back to ancestries</Button
-  >
   <div class="container mx-auto my-4">
-    <ProgressSpinner
-      v-if="loading"
-      aria-label="loading"
-      class="fixed top-1/2 left-1/2"
-    ></ProgressSpinner>
-    <Card class="p-4" v-else>
+    <Card class="p-4" v-if="ancestryStore.getAncestry">
       <template #title>
         <div class="text-5xl text-center">
           {{ ancestryStore.getAncestry.name }}
@@ -241,11 +233,12 @@
                 :key="
                   ancestryStore.getAncestry.knownLanguages.indexOf(language)
                 "
-              ><router-link
+              >
+                <router-link
                   :to="'/database/language/' + language.id"
                   class="p-link"
-              >{{ language.name }}</router-link
-              >
+                  >{{ language.name }}</router-link
+                >
               </div>
               <div>
                 Additional languages equal to
@@ -264,9 +257,9 @@
                 :key="trait.id"
               >
                 <router-link
-                    :to="'/database/trait/' + trait.id"
-                    class="p-link"
-                >{{ trait.name }}</router-link
+                  :to="'/database/trait/' + trait.id"
+                  class="p-link"
+                  >{{ trait.name }}</router-link
                 >
               </div>
             </div>
@@ -279,7 +272,7 @@
                   ancestryStore.getAncestry.page
                 }}
               </div>
-              </div>
+            </div>
           </div>
         </div>
       </template>
@@ -290,20 +283,26 @@
 <script setup>
 import { onMounted, ref } from "vue";
 import { useRouter } from "vue-router";
+import { useStateStore } from "@/stores/state";
 import { useAncestryStore } from "@/stores/database/ancestry";
-import { formatAbilityScore } from "@/utils/utils";
-import ProgressSpinner from "primevue/progressspinner";
+import { formatAbilityScore } from "@/utils/util";
 import Card from "primevue/card";
 import Divider from "primevue/divider";
-import Button from "primevue/button";
 
 const router = useRouter();
+const stateStore = useStateStore();
 const ancestryStore = useAncestryStore();
-const loading = ref(true);
 
 onMounted(async () => {
-  await ancestryStore.fetchAncestry(router.currentRoute.value.params.id);
-  loading.value = false;
+  stateStore.setLoading(true);
+  const params = router.currentRoute.value.params;
+  await ancestryStore.fetchAncestry(params.id);
+  stateStore.getBreadcrumbs.push({
+    name: "ancestry",
+    label: ancestryStore.getAncestry.name,
+    params: params,
+  });
+  stateStore.setLoading(false);
 });
 </script>
 

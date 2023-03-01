@@ -1,14 +1,6 @@
 <template>
-  <Button class="backbutton" @click="router.push({ name: 'languages' })"
-    ><i class="fa fa-chevron-left mr-2"></i> back to languages</Button
-  >
   <div class="container mx-auto my-4">
-    <ProgressSpinner
-      v-if="loading"
-      aria-label="loading"
-      class="fixed top-1/2 left-1/2"
-    ></ProgressSpinner>
-    <Card class="p-4" v-else>
+    <Card class="p-4" v-if="languageStore.getLanguage">
       <template #title>
         <div class="text-5xl">
           {{ languageStore.getLanguage.name }}
@@ -81,18 +73,25 @@
 <script setup>
 import { onMounted, ref } from "vue";
 import { useRouter } from "vue-router";
+import { useStateStore } from "@/stores/state";
 import { useLanguageStore } from "@/stores/database/language";
-import ProgressSpinner from "primevue/progressspinner";
 import Card from "primevue/card";
 import Button from "primevue/button";
 
 const router = useRouter();
+const stateStore = useStateStore();
 const languageStore = useLanguageStore();
-const loading = ref(true);
 
 onMounted(async () => {
-  await languageStore.fetchLanguage(router.currentRoute.value.params.id);
-  loading.value = false;
+  stateStore.setLoading(true);
+  const params = router.currentRoute.value.params;
+  await languageStore.fetchLanguage(params.id);
+  stateStore.getBreadcrumbs.push({
+    name: "language",
+    label: languageStore.getLanguage.name,
+    params: params,
+  });
+  stateStore.setLoading(false);
 });
 </script>
 

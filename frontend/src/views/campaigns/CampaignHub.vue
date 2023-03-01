@@ -1,11 +1,6 @@
 <template>
   <div class="container mx-auto my-4">
-    <ProgressSpinner
-      v-if="loading"
-      aria-label="loading"
-      class="fixed top-1/2 left-1/2"
-    ></ProgressSpinner>
-    <Card class="p-4" v-else>
+    <Card class="p-4" v-if="campaignStore.getCampaign">
       <template #title>
         <span class="text-5xl">{{ campaignStore.getCampaign.name }}</span>
       </template>
@@ -49,22 +44,29 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from "vue";
+import { onMounted } from "vue";
 import { useRouter } from "vue-router";
+import { useStateStore } from "@/stores/state";
 import { useCampaignStore } from "@/stores/campaign";
-import ProgressSpinner from "primevue/progressspinner";
 import Card from "primevue/card";
 import Panel from "primevue/panel";
 import DataTable from "primevue/datatable";
 import Column from "primevue/column";
 
 const router = useRouter();
+const stateStore = useStateStore();
 const campaignStore = useCampaignStore();
-const loading = ref(true);
 
 onMounted(async () => {
-  await campaignStore.fetchCampaign(router.currentRoute.value.params.id);
-  loading.value = false;
+  stateStore.setLoading(true);
+  const params = router.currentRoute.value.params;
+  await campaignStore.fetchCampaign(params.id);
+  stateStore.getBreadcrumbs.push({
+    name: "campaign hub",
+    label: campaignStore.getCampaign.name,
+    params: params,
+  });
+  stateStore.setLoading(false);
 });
 </script>
 

@@ -2,7 +2,7 @@
   <div class="container mx-auto my-4">
     <div class="grid grid-cols-2 lg:grid-cols-4">
       <div class="m-4">
-        <Button class="w-full" @click="router.push({name:'ancestries'})">
+        <Button class="w-full" @click="router.push({ name: 'ancestries' })">
           <Card class="w-full">
             <template #header>
               <span
@@ -17,112 +17,7 @@
         </Button>
       </div>
       <div class="m-4">
-        <Button class="w-full">
-          <Card class="w-full">
-            <template #header>
-              <span
-                class="fa fa-id-card text-center w-full my-8"
-                style="font-size: 10rem"
-              ></span>
-            </template>
-            <template #title>
-              <span class="text-5xl">backgrounds</span>
-            </template>
-          </Card>
-        </Button>
-      </div>
-      <div class="m-4">
-        <Button class="w-full" @click="router.push({name:'books'})">
-          <Card class="w-full">
-            <template #header>
-              <span
-                class="fa fa-book text-center w-full my-8"
-                style="font-size: 10rem"
-              ></span>
-            </template>
-            <template #title>
-              <span class="text-5xl">source books</span>
-            </template>
-          </Card>
-        </Button>
-      </div>
-      <div class="m-4">
-        <Button class="w-full">
-          <Card class="w-full">
-            <template #header>
-              <span
-                class="fa fa-hat-wizard text-center w-full my-8"
-                style="font-size: 10rem"
-              ></span>
-            </template>
-            <template #title>
-              <span class="text-5xl">classes</span>
-            </template>
-          </Card>
-        </Button>
-      </div>
-      <div class="m-4">
-        <Button class="w-full">
-          <Card class="w-full">
-            <template #header>
-              <span
-                class="fa fa-face-dizzy text-center w-full my-8"
-                style="font-size: 10rem"
-              ></span>
-            </template>
-            <template #title>
-              <span class="text-5xl">conditions</span>
-            </template>
-          </Card>
-        </Button>
-      </div>
-      <div class="m-4">
-        <Button class="w-full">
-          <Card class="w-full">
-            <template #header>
-              <span
-                class="fa fa-spaghetti-monster-flying text-center w-full my-8"
-                style="font-size: 10rem"
-              ></span>
-            </template>
-            <template #title>
-              <span class="text-5xl">enemies</span>
-            </template>
-          </Card>
-        </Button>
-      </div>
-      <div class="m-4">
-        <Button class="w-full">
-          <Card class="w-full">
-            <template #header>
-              <span
-                class="fa fa-star text-center w-full my-8"
-                style="font-size: 10rem"
-              ></span>
-            </template>
-            <template #title>
-              <span class="text-5xl">feats</span>
-            </template>
-          </Card>
-        </Button>
-      </div>
-      <div class="m-4">
-        <Button class="w-full">
-          <Card class="w-full">
-            <template #header>
-              <span
-                class="fa fa-screwdriver-wrench text-center w-full my-8"
-                style="font-size: 10rem"
-              ></span>
-            </template>
-            <template #title>
-              <span class="text-5xl">items</span>
-            </template>
-          </Card>
-        </Button>
-      </div>
-      <div class="m-4">
-        <Button class="w-full" @click="router.push({name:'languages'})">
+        <Button class="w-full" @click="router.push({ name: 'languages' })">
           <Card class="w-full">
             <template #header>
               <span
@@ -137,22 +32,37 @@
         </Button>
       </div>
       <div class="m-4">
-        <Button class="w-full">
+        <Button class="w-full" @click="router.push({ name: 'skills' })">
           <Card class="w-full">
             <template #header>
               <span
-                class="fa fa-hand-sparkles text-center w-full my-8"
+                class="fa fa-hands text-center w-full my-8"
                 style="font-size: 10rem"
               ></span>
             </template>
             <template #title>
-              <span class="text-5xl">spells</span>
+              <span class="text-5xl">skills</span>
             </template>
           </Card>
         </Button>
       </div>
       <div class="m-4">
-        <Button class="w-full" @click="router.push({name:'traits'})">
+        <Button class="w-full" @click="router.push({ name: 'books' })">
+          <Card class="w-full">
+            <template #header>
+              <span
+                class="fa fa-book text-center w-full my-8"
+                style="font-size: 10rem"
+              ></span>
+            </template>
+            <template #title>
+              <span class="text-5xl">source books</span>
+            </template>
+          </Card>
+        </Button>
+      </div>
+      <div class="m-4">
+        <Button class="w-full" @click="router.push({ name: 'traits' })">
           <Card class="w-full">
             <template #header>
               <span

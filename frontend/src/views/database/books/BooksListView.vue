@@ -1,11 +1,6 @@
 <template>
   <div class="container mx-auto my-4">
-    <ProgressSpinner
-      v-if="loading"
-      aria-label="loading"
-      class="fixed top-1/2 left-1/2"
-    ></ProgressSpinner>
-    <Card class="p-4" v-else>
+    <Card class="p-4">
       <template #title>
         <span class="text-5xl">books</span>
       </template>
@@ -44,18 +39,19 @@
 
 <script setup>
 import { onMounted, ref } from "vue";
+import {useStateStore} from "@/stores/state";
 import { useBookStore } from "@/stores/database/book";
-import ProgressSpinner from "primevue/progressspinner";
 import Card from "primevue/card";
 import DataTable from "primevue/datatable";
 import Column from "primevue/column";
 
+const stateStore = useStateStore();
 const bookStore = useBookStore();
-const loading = ref(true);
 
 onMounted(async () => {
+  stateStore.setLoading(true);
   await bookStore.fetchBooks();
-  loading.value = false;
+  stateStore.setLoading(false);
 });
 </script>
 

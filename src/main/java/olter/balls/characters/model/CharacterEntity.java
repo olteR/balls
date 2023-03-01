@@ -8,6 +8,7 @@ import lombok.Setter;
 import olter.balls.common.BaseEntity;
 import olter.balls.connections.campaign_users.model.CampaignUserEntity;
 import olter.balls.database.ancestries.ancestry.model.AncestryEntity;
+import olter.balls.database.backgrounds.model.BackgroundEntity;
 import olter.balls.users.model.UserEntity;
 
 @Entity
@@ -23,9 +24,9 @@ public class CharacterEntity extends BaseEntity {
   @JoinColumn(name = "owner_id", nullable = false)
   private UserEntity owner;
 
-  //    @ManyToOne
-  //    @JoinColumn(name = "background_id")
-  //    private BackgroundEntity background;
+  @ManyToOne
+  @JoinColumn(name = "background_id")
+  private BackgroundEntity background;
 
   //    @ManyToOne
   //    @JoinColumn(name = "class_id")

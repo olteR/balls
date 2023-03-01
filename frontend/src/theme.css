@@ -4347,7 +4347,8 @@
 .p-breadcrumb {
     background: #1e1e1e;
     border: 1px solid rgba(255, 255, 255, 0.12);
-    border-radius: 4px;
+    border-top: 0;
+    border-radius: 0 0 4px 4px;
     padding: 0.75rem;
 }
 .p-breadcrumb .p-breadcrumb-list li .p-menuitem-link {
@@ -4728,7 +4729,8 @@
     background: #1e1e1e;
     color: rgba(255, 255, 255, 0.87);
     border: 1px solid rgba(255, 255, 255, 0.12);
-    border-radius: 4px;
+    border-bottom: 0;
+    border-radius: 4px 4px 0 0;
 }
 .p-menubar .p-menubar-root-list {
     outline: 0 none;

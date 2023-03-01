@@ -1,14 +1,6 @@
 <template>
-  <Button class="backbutton" @click="router.push({ name: 'traits' })"
-    ><i class="fa fa-chevron-left mr-2"></i> back to traits</Button
-  >
   <div class="container mx-auto my-4">
-    <ProgressSpinner
-      v-if="loading"
-      aria-label="loading"
-      class="fixed top-1/2 left-1/2"
-    ></ProgressSpinner>
-    <Card class="p-4" v-else>
+    <Card class="p-4" v-if="traitStore.getTrait">
       <template #title>
         <div class="text-5xl">
           {{ traitStore.getTrait.name }}
@@ -20,20 +12,26 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from "vue";
+import { onMounted } from "vue";
 import { useRouter } from "vue-router";
+import {useStateStore} from "@/stores/state";
 import { useTraitStore } from "@/stores/database/trait";
-import ProgressSpinner from "primevue/progressspinner";
 import Card from "primevue/card";
-import Button from "primevue/button";
 
 const router = useRouter();
+const stateStore = useStateStore();
 const traitStore = useTraitStore();
-const loading = ref(true);
 
 onMounted(async () => {
-  await traitStore.fetchTrait(router.currentRoute.value.params.id);
-  loading.value = false;
+  stateStore.setLoading(true);
+  const params = router.currentRoute.value.params;
+  await traitStore.fetchTrait(params.id);
+  stateStore.getBreadcrumbs.push({
+    name: "trait",
+    label: traitStore.getTrait.name,
+    params: params,
+  });
+  stateStore.setLoading(false);
 });
 </script>
 
