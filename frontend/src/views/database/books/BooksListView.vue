@@ -50,7 +50,7 @@ const bookStore = useBookStore();
 
 onMounted(async () => {
   stateStore.setLoading(true);
-  await bookStore.fetchBooks();
+  await bookStore.fetchList();
   stateStore.setLoading(false);
 });
 </script>

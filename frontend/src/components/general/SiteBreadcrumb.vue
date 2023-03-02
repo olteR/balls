@@ -4,8 +4,10 @@
       <div
         @click="router.push({ name: item.name, params: item.params })"
         class="p-link"
-      ><i v-if="item.icon" :class="item.icon" :title="item.name"></i><span v-else>{{ item.label ? item.label : item.name }}</span></div
       >
+        <i v-if="item.icon" :class="item.icon" :title="item.name"></i
+        ><span v-else>{{ item.label ? item.label : item.name }}</span>
+      </div>
     </template>
   </Breadcrumb>
 </template>

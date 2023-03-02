@@ -25,7 +25,7 @@ const bookStore = useBookStore();
 onMounted(async () => {
   stateStore.setLoading(true);
   const params = router.currentRoute.value.params;
-  await bookStore.fetchBook(params.id);
+  await bookStore.fetchOne(params.id);
   stateStore.getBreadcrumbs.push({
     name: "book",
     label: bookStore.getBook.name,

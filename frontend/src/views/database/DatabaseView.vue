@@ -90,14 +90,14 @@ const router = useRouter();
 
 <style scoped>
 .p-card .p-card-content {
-    padding: 0;
+  padding: 0;
 }
 .p-card .p-card-title {
-    text-align: center;
+  text-align: center;
 }
 .p-button .p-card {
-    background: transparent;
-    box-shadow: 0 0 #0000;
-    color: var(--primary-color-text);
+  background: transparent;
+  box-shadow: 0 0 #0000;
+  color: var(--primary-color-text);
 }
 </style>

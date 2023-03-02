@@ -7,6 +7,7 @@ import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
 public interface SkillMapper {
-    SkillListResponse entityToListResponse(SkillEntity entity);
-    SkillDetailsResposne entityToDetailsResponse(SkillEntity entity);
+  SkillListResponse entityToListResponse(SkillEntity entity);
+
+  SkillDetailsResposne entityToDetailsResponse(SkillEntity entity);
 }

@@ -50,7 +50,7 @@ const ancestryStore = useAncestryStore();
 
 onMounted(async () => {
   stateStore.setLoading(true);
-  await ancestryStore.fetchAncestries();
+  await ancestryStore.fetchList();
   stateStore.setLoading(false);
 });
 </script>

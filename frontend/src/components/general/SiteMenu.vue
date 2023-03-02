@@ -27,7 +27,7 @@
           class="menulabel"
           :class="{ active: router.currentRoute.value.name === item.label }"
         >
-        {{ item.label }}
+          {{ item.label }}
         </div></Button
       >
     </template>

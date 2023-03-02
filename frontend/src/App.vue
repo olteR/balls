@@ -22,7 +22,6 @@ import { useStateStore } from "@/stores/state";
 import Toast from "primevue/toast";
 import SiteMenu from "@/components/general/SiteMenu.vue";
 import ProgressSpinner from "primevue/progressspinner";
-import SiteBreadcrumb from "@/components/general/SiteBreadcrumb.vue";
 
 const router = useRouter();
 const toast = useToast();

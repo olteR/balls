@@ -58,8 +58,8 @@ const props = defineProps({
 
 <style scoped>
 .p-panel .p-panel-title {
-    font-size: 3rem;
-    margin-bottom: 1rem;
+  font-size: 3rem;
+  margin-bottom: 1rem;
 }
 
 .p-button {

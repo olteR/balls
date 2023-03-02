@@ -296,7 +296,7 @@ const ancestryStore = useAncestryStore();
 onMounted(async () => {
   stateStore.setLoading(true);
   const params = router.currentRoute.value.params;
-  await ancestryStore.fetchAncestry(params.id);
+  await ancestryStore.fetchOne(params.id);
   stateStore.getBreadcrumbs.push({
     name: "ancestry",
     label: ancestryStore.getAncestry.name,

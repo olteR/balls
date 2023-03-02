@@ -8,9 +8,9 @@ import lombok.Setter;
 @Setter
 @RequiredArgsConstructor
 public class SkillListResponse {
-    private Long id;
-    private String name;
-    private String source;
-    private Long page;
-    private String keyAbility;
+  private Long id;
+  private String name;
+  private String source;
+  private Long page;
+  private String keyAbility;
 }

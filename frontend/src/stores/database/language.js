@@ -17,7 +17,7 @@ export const useLanguageStore = defineStore("language", () => {
     languages: "http://localhost:3000/api/database/languages",
   };
 
-  async function fetchLanguage(id) {
+  async function fetchOne(id) {
     try {
       const response = await axios.get(urls.language(id));
       language.value = response.data;
@@ -31,7 +31,7 @@ export const useLanguageStore = defineStore("language", () => {
     }
   }
 
-  async function fetchLanguages() {
+  async function fetchList() {
     try {
       const response = await axios.get(urls.languages);
       languages.value = response.data;
@@ -48,7 +48,7 @@ export const useLanguageStore = defineStore("language", () => {
   return {
     getLanguage,
     getLanguages,
-    fetchLanguage,
-    fetchLanguages,
+    fetchOne,
+    fetchList,
   };
 });

@@ -50,7 +50,7 @@ const languageStore = useLanguageStore();
 
 onMounted(async () => {
   stateStore.setLoading(true);
-  await languageStore.fetchLanguages();
+  await languageStore.fetchList();
   stateStore.setLoading(false);
 });
 </script>

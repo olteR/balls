@@ -17,7 +17,7 @@ export const useBookStore = defineStore("book", () => {
     books: "http://localhost:3000/api/database/books",
   };
 
-  async function fetchBook(id) {
+  async function fetchOne(id) {
     try {
       const response = await axios.get(urls.book(id));
       book.value = response.data;
@@ -31,7 +31,7 @@ export const useBookStore = defineStore("book", () => {
     }
   }
 
-  async function fetchBooks() {
+  async function fetchList() {
     try {
       const response = await axios.get(urls.books);
       books.value = response.data;
@@ -48,7 +48,7 @@ export const useBookStore = defineStore("book", () => {
   return {
     getBook,
     getBooks,
-    fetchBook,
-    fetchBooks,
+    fetchOne,
+    fetchList,
   };
 });

@@ -11,7 +11,7 @@
           v-if="languageStore.getLanguage.description"
           v-html="languageStore.getLanguage.description"
         ></div>
-        <div v-if="languageStore.getLanguage.typicalSpeakers">
+        <div v-if="languageStore.getLanguage.typicalSpeakers.length > 0">
           <div class="text-3xl pt-4">typical speakers</div>
           <div>
             <span
@@ -33,36 +33,34 @@
               </span></span
             >
           </div>
-          <div v-if="languageStore.getLanguage.ancestriesKnowing.length > 0">
-            <div class="text-3xl pt-4">ancestries knowing</div>
-            <span
-              v-for="ancestry in languageStore.getLanguage.ancestriesKnowing"
-              :key="ancestry.id"
-              ><router-link
-                :to="'/database/ancestry/' + ancestry.id"
-                class="p-link"
-                >{{ ancestry.name }}</router-link
-              ><span
-                v-if="
-                  languageStore.getLanguage.ancestriesKnowing.indexOf(
-                    ancestry
-                  ) +
-                    1 !==
-                  languageStore.getLanguage.ancestriesKnowing.length
-                "
-                >,
-              </span></span
-            >
-          </div>
-          <div class="pt-4 text-right">
-            <div class="font-bold">source</div>
-            <div>
-              {{
-                languageStore.getLanguage.source +
-                " pg. " +
-                languageStore.getLanguage.page
-              }}
-            </div>
+        </div>
+        <div v-if="languageStore.getLanguage.ancestriesKnowing.length > 0">
+          <div class="text-3xl pt-4">ancestries knowing</div>
+          <span
+            v-for="ancestry in languageStore.getLanguage.ancestriesKnowing"
+            :key="ancestry.id"
+            ><router-link
+              :to="'/database/ancestry/' + ancestry.id"
+              class="p-link"
+              >{{ ancestry.name }}</router-link
+            ><span
+              v-if="
+                languageStore.getLanguage.ancestriesKnowing.indexOf(ancestry) +
+                  1 !==
+                languageStore.getLanguage.ancestriesKnowing.length
+              "
+              >,
+            </span></span
+          >
+        </div>
+        <div class="pt-4 text-right">
+          <div class="font-bold">source</div>
+          <div>
+            {{
+              languageStore.getLanguage.source +
+              " pg. " +
+              languageStore.getLanguage.page
+            }}
           </div>
         </div>
       </template>
@@ -84,7 +82,7 @@ const languageStore = useLanguageStore();
 onMounted(async () => {
   stateStore.setLoading(true);
   const params = router.currentRoute.value.params;
-  await languageStore.fetchLanguage(params.id);
+  await languageStore.fetchOne(params.id);
   stateStore.getBreadcrumbs.push({
     name: "language",
     label: languageStore.getLanguage.name,

@@ -2,20 +2,20 @@
   <div class="container mx-auto my-4">
     <Card class="p-4">
       <template #title>
-        <span class="text-5xl">languages</span>
+        <span class="text-5xl">skills</span>
       </template>
       <template #content>
         <div>
           <DataTable
-              :value="languageStore.getLanguages"
-              responsiveLayout="scroll"
-              sortMode="multiple"
-              removableSort
+            :value="skillStore.getSkills"
+            responsiveLayout="scroll"
+            sortMode="multiple"
+            removableSort
           >
             <Column field="name" header="name" :sortable="true"></Column>
-            <Column field="type" header="rarity" :sortable="true">
+            <Column field="keyAbility" header="key ability" :sortable="true">
               <template #body="slotProps">
-                {{ slotProps.data.type.toLowerCase() }}
+                {{ formatAbilityScore(slotProps.data.keyAbility) }}
               </template>
             </Column>
             <Column field="source" header="source">
@@ -25,8 +25,8 @@
             </Column>
             <Column>
               <template #body="slotProps">
-                <router-link :to="'/database/language/' + slotProps.data.id"
-                ><i class="fa fa-ellipsis"></i
+                <router-link :to="'/database/skill/' + slotProps.data.id"
+                  ><i class="fa fa-ellipsis"></i
                 ></router-link>
               </template>
             </Column>
@@ -40,17 +40,18 @@
 <script setup>
 import { onMounted } from "vue";
 import { useStateStore } from "@/stores/state";
-import { useLanguageStore } from "@/stores/database/language";
+import { useSkillStore } from "@/stores/database/skill";
+import { formatAbilityScore } from "@/utils/util";
 import Card from "primevue/card";
 import DataTable from "primevue/datatable";
 import Column from "primevue/column";
 
 const stateStore = useStateStore();
-const languageStore = useLanguageStore();
+const skillStore = useSkillStore();
 
 onMounted(async () => {
   stateStore.setLoading(true);
-  await languageStore.fetchLanguages();
+  await skillStore.fetchList();
   stateStore.setLoading(false);
 });
 </script>

@@ -17,7 +17,7 @@ export const useAncestryStore = defineStore("ancestry", () => {
     ancestries: "http://localhost:3000/api/database/ancestries",
   };
 
-  async function fetchAncestry(id) {
+  async function fetchOne(id) {
     try {
       const response = await axios.get(urls.ancestry(id));
       ancestry.value = response.data;
@@ -31,7 +31,7 @@ export const useAncestryStore = defineStore("ancestry", () => {
     }
   }
 
-  async function fetchAncestries() {
+  async function fetchList() {
     try {
       const response = await axios.get(urls.ancestries);
       ancestries.value = response.data;
@@ -49,7 +49,7 @@ export const useAncestryStore = defineStore("ancestry", () => {
     ancestries,
     getAncestry,
     getAncestries,
-    fetchAncestry,
-    fetchAncestries,
+    fetchOne,
+    fetchList,
   };
 });

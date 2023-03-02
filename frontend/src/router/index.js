@@ -18,6 +18,8 @@ import BooksListView from "@/views/database/books/BooksListView.vue";
 import BookDetailsView from "@/views/database/books/BookDetailsView.vue";
 import LanguagesListView from "@/views/database/languages/LanguagesListView.vue";
 import LanguageDetailsView from "@/views/database/languages/LanguageDetailsView.vue";
+import SkillsListView from "@/views/database/skills/SkillsListView.vue";
+import SkillDetailsView from "@/views/database/skills/SkillDetailsView.vue";
 import TraitsListView from "@/views/database/traits/TraitsListView.vue";
 import TraitDetailsView from "@/views/database/traits/TraitDetailsView.vue";
 
@@ -103,6 +105,18 @@ const router = createRouter({
       name: "language",
       component: LanguageDetailsView,
       props: { breadcrumbs: [BREADCRUMB.DATABASE, BREADCRUMB.LANGUAGES] },
+    },
+    {
+      path: "/database/skills",
+      name: "skills",
+      component: SkillsListView,
+      props: { breadcrumbs: [BREADCRUMB.DATABASE, BREADCRUMB.SKILLS] },
+    },
+    {
+      path: "/database/skill/:id?",
+      name: "skill",
+      component: SkillDetailsView,
+      props: { breadcrumbs: [BREADCRUMB.DATABASE, BREADCRUMB.SKILLS] },
     },
     {
       path: "/database/traits",

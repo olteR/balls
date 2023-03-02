@@ -65,7 +65,7 @@ const traitStore = useTraitStore();
 
 onMounted(async () => {
   stateStore.setLoading(true);
-  await traitStore.fetchTraits();
+  await traitStore.fetchList();
   stateStore.setLoading(false);
 });
 </script>

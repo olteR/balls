@@ -25,7 +25,7 @@ const traitStore = useTraitStore();
 onMounted(async () => {
   stateStore.setLoading(true);
   const params = router.currentRoute.value.params;
-  await traitStore.fetchTrait(params.id);
+  await traitStore.fetchOne(params.id);
   stateStore.getBreadcrumbs.push({
     name: "trait",
     label: traitStore.getTrait.name,

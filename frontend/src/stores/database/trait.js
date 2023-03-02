@@ -17,7 +17,7 @@ export const useTraitStore = defineStore("trait", () => {
     traits: "http://localhost:3000/api/database/traits",
   };
 
-  async function fetchTrait(id) {
+  async function fetchOne(id) {
     try {
       const response = await axios.get(urls.trait(id));
       trait.value = response.data;
@@ -31,7 +31,7 @@ export const useTraitStore = defineStore("trait", () => {
     }
   }
 
-  async function fetchTraits() {
+  async function fetchList() {
     try {
       const response = await axios.get(urls.traits);
       traits.value = response.data;
@@ -48,7 +48,7 @@ export const useTraitStore = defineStore("trait", () => {
   return {
     getTrait,
     getTraits,
-    fetchTrait,
-    fetchTraits,
+    fetchOne,
+    fetchList,
   };
 });
