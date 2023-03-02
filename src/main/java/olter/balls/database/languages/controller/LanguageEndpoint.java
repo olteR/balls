@@ -18,7 +18,7 @@ public class LanguageEndpoint {
   private final LanguageService languageService;
 
   @GetMapping("/language/{id}")
-  public ResponseEntity<LanguageDetailsResponse> getAncestry(@PathVariable Integer id) {
+  public ResponseEntity<LanguageDetailsResponse> getAncestry(@PathVariable Long id) {
     return ResponseEntity.ok().body(languageService.getLanguage(id));
   }
 

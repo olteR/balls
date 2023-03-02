@@ -18,7 +18,7 @@ public class AncestryEndpoint {
   private final AncestryService ancestryService;
 
   @GetMapping("/ancestry/{id}")
-  public ResponseEntity<AncestryDetailsResponse> getAncestry(@PathVariable Integer id) {
+  public ResponseEntity<AncestryDetailsResponse> getAncestry(@PathVariable Long id) {
     return ResponseEntity.ok().body(ancestryService.getAncestry(id));
   }
 

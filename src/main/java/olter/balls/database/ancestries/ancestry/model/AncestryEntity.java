@@ -24,8 +24,8 @@ public class AncestryEntity extends SourcedEntity {
   @Column(unique = true)
   private String name;
 
-  private Integer hp;
-  private Integer additionalLanguages;
+  private Long hp;
+  private Long additionalLanguages;
 
   @Enumerated(EnumType.STRING)
   private AncestryRarityEnum rarity;

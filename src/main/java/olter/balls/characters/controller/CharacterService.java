@@ -16,7 +16,7 @@ public class CharacterService {
   private final CharacterRepository characterRepository;
   private final CharacterMapper characterMapper;
 
-  public List<CharacterListResponse> getCharacters(Integer userId) {
+  public List<CharacterListResponse> getCharacters(Long userId) {
     log.info("Serving characters for user " + userId);
     return characterRepository.findAllByOwnerId(userId).stream()
         .map(characterMapper::entityToResponse)

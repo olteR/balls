@@ -16,7 +16,7 @@ public class BookEndpoint {
   private final BookService bookService;
 
   @GetMapping("/book/{id}")
-  public ResponseEntity<BookListResponse> getBook(@PathVariable Integer id) {
+  public ResponseEntity<BookListResponse> getBook(@PathVariable Long id) {
     return ResponseEntity.ok().body(bookService.getBook(id));
   }
 

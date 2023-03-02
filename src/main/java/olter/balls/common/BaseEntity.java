@@ -17,5 +17,5 @@ public class BaseEntity {
       sequenceName = "balls_id_seq",
       initialValue = 1000000,
       allocationSize = 1)
-  private Integer id;
+  private Long id;
 }

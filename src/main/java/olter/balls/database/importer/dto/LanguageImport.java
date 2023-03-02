@@ -14,7 +14,7 @@ public class LanguageImport {
   private String name;
   private String type;
   private String source;
-  private Integer page;
+  private Long page;
   private ArrayList<String> typicalSpeakers;
   private ArrayList<Object> entries;
 }

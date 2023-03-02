@@ -13,7 +13,7 @@ import lombok.Setter;
 public class TraitImport {
   private String name;
   private String source;
-  private Integer page;
+  private Long page;
   private List<String> categories;
   private List<Object> entries;
 }

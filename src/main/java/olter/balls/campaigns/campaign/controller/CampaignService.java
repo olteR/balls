@@ -22,14 +22,14 @@ public class CampaignService {
   private final CampaignUserRepository campaignUserRepository;
   private final CampaignMapper campaignMapper;
 
-  public List<CampaignListResponse> getRelatedCampaigns(Integer userId) {
+  public List<CampaignListResponse> getRelatedCampaigns(Long userId) {
     log.info("Serving campaigns for user " + userId);
     return campaignUserRepository.findAllByUserId(userId).stream()
         .map(cu -> campaignMapper.entityToListResponse(cu.getCampaign()))
         .toList();
   }
 
-  public CampaignDetailsResponse getCampaignDetails(Integer id) throws ResourceNotFoundException {
+  public CampaignDetailsResponse getCampaignDetails(Long id) throws ResourceNotFoundException {
     log.info("Serving campaign " + id);
     Optional<CampaignEntity> campaign = campaignRepository.findById(id);
     if (campaign.isPresent()) {

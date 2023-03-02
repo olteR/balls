@@ -18,7 +18,7 @@ import olter.balls.users.model.UserEntity;
 @Table(name = "characters")
 public class CharacterEntity extends BaseEntity {
   private String name;
-  private Integer level;
+  private Long level;
 
   @ManyToOne
   @JoinColumn(name = "owner_id", nullable = false)

@@ -15,14 +15,13 @@ public class CampaignEndpoint {
   private final CampaignService campaignService;
 
   @GetMapping("/campaign/{id}")
-  public ResponseEntity<CampaignDetailsResponse> getCampaignDetails(@PathVariable Integer id)
+  public ResponseEntity<CampaignDetailsResponse> getCampaignDetails(@PathVariable Long id)
       throws ResourceNotFoundException {
     return ResponseEntity.ok().body(campaignService.getCampaignDetails(id));
   }
 
   @GetMapping("/campaigns/{userId}")
-  public ResponseEntity<List<CampaignListResponse>> getRelatedCampaigns(
-      @PathVariable Integer userId) {
+  public ResponseEntity<List<CampaignListResponse>> getRelatedCampaigns(@PathVariable Long userId) {
     return ResponseEntity.ok().body(campaignService.getRelatedCampaigns(userId));
   }
 }

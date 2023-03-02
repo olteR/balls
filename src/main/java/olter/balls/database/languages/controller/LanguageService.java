@@ -29,7 +29,7 @@ public class LanguageService {
 
   private final AncestryRepository ancestryRepository;
 
-  public LanguageDetailsResponse getLanguage(Integer id) {
+  public LanguageDetailsResponse getLanguage(Long id) {
     Optional<LanguageEntity> entity = languageRepository.findById(id);
     if (entity.isPresent()) {
       return languageMapper.entityToDetailsResponse(entity.get());

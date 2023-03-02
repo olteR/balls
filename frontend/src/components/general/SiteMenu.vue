@@ -27,7 +27,7 @@
           class="menulabel"
           :class="{ active: router.currentRoute.value.name === item.label }"
         >
-          {{ item.label }}
+        {{ item.label }}
         </div></Button
       >
     </template>
@@ -58,14 +58,17 @@ const menuItems = ref([
   {
     label: "campaigns",
     to: "/campaigns",
+    icon: "fa fa-flag",
   },
   {
     label: "characters",
     to: "/characters",
+    icon: "fa fa-user-group",
   },
   {
     label: "database",
     to: "/database",
+    icon: "fa fa-database",
     subpages: [
       {
         label: "ancestries",
@@ -121,10 +124,10 @@ const menuItems = ref([
   margin: auto;
 }
 .p-menubar-start {
-  width: 25vw;
+  width: 30vw;
 }
 .p-menubar-end {
-  width: 25vw;
+  width: 30vw;
   text-align: right;
   margin-left: 0 !important;
 }

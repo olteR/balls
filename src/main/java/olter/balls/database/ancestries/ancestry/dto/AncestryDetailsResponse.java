@@ -14,12 +14,12 @@ import olter.balls.database.core.enums.CreatureSizeEnum;
 @Setter
 @RequiredArgsConstructor
 public class AncestryDetailsResponse extends AncestryListResponse {
-  private Integer hp;
+  private Long hp;
   private SpeedEmbeddable speed;
   private List<FeatureEmbeddable> description;
   private List<CreatureSizeEnum> sizes;
   private List<AbilityBoostEmbeddable> abilityBoosts;
   private List<NameResponse> knownLanguages;
-  private Integer additionalLanguages;
+  private Long additionalLanguages;
   private List<NameResponse> traits;
 }

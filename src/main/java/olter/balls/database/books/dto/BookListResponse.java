@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 @RequiredArgsConstructor
 public class BookListResponse {
-  private Integer id;
+  private Long id;
   private String name;
   private String shortName;
   private LocalDate published;

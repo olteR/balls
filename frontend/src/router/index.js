@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import { useStateStore } from "@/stores/state";
+import { BREADCRUMB } from "@/utils/const";
 // GENERAL
 import LoginView from "../views/LoginView.vue";
 import ProfileView from "../views/ProfileView.vue";
@@ -45,75 +46,75 @@ const router = createRouter({
       path: "/campaigns",
       name: "campaigns",
       component: CampaignsView,
-      props: { breadcrumbs: [{ name: "campaigns" }] },
+      props: { breadcrumbs: [BREADCRUMB.CAMPAIGNS] },
     },
     {
       path: "/campaigns/:id?/hub",
       name: "campaign hub",
       component: CampaignHub,
-      props: { breadcrumbs: [{ name: "campaigns" }] },
+      props: { breadcrumbs: [BREADCRUMB.CAMPAIGNS] },
     },
     // CHARACTERS
     {
       path: "/characters",
       name: "characters",
       component: CharactersView,
-      props: { breadcrumbs: [{ name: "characters" }] },
+      props: { breadcrumbs: [BREADCRUMB.CHARACTERS] },
     },
     // DATABASE
     {
       path: "/database",
       name: "database",
       component: DatabaseView,
-      props: { breadcrumbs: [{ name: "database" }] },
+      props: { breadcrumbs: [BREADCRUMB.DATABASE] },
     },
     {
       path: "/database/ancestries",
       name: "ancestries",
       component: AncestriesListView,
-      props: { breadcrumbs: [{ name: "database" }, { name: "ancestries" }] },
+      props: { breadcrumbs: [BREADCRUMB.DATABASE, BREADCRUMB.ANCESTRIES] },
     },
     {
       path: "/database/ancestry/:id?",
       name: "ancestry",
       component: AncestryDetailsView,
-      props: { breadcrumbs: [{ name: "database" }, { name: "ancestries" }] },
+      props: { breadcrumbs: [BREADCRUMB.DATABASE, BREADCRUMB.ANCESTRIES] },
     },
     {
       path: "/database/books",
       name: "books",
       component: BooksListView,
-      props: { breadcrumbs: [{ name: "database" }, { name: "books" }] },
+      props: { breadcrumbs: [BREADCRUMB.DATABASE, BREADCRUMB.BOOKS] },
     },
     {
       path: "/database/book/:id?",
       name: "book",
       component: BookDetailsView,
-      props: { breadcrumbs: [{ name: "database" }, { name: "books" }] },
+      props: { breadcrumbs: [BREADCRUMB.DATABASE, BREADCRUMB.BOOKS] },
     },
     {
       path: "/database/languages",
       name: "languages",
       component: LanguagesListView,
-      props: { breadcrumbs: [{ name: "database" }, { name: "languages" }] },
+      props: { breadcrumbs: [BREADCRUMB.DATABASE, BREADCRUMB.LANGUAGES] },
     },
     {
       path: "/database/language/:id?",
       name: "language",
       component: LanguageDetailsView,
-      props: { breadcrumbs: [{ name: "database" }, { name: "languages" }] },
+      props: { breadcrumbs: [BREADCRUMB.DATABASE, BREADCRUMB.LANGUAGES] },
     },
     {
       path: "/database/traits",
       name: "traits",
       component: TraitsListView,
-      props: { breadcrumbs: [{ name: "database" }, { name: "traits" }] },
+      props: { breadcrumbs: [BREADCRUMB.DATABASE, BREADCRUMB.TRAITS] },
     },
     {
       path: "/database/trait/:id?",
       name: "trait",
       component: TraitDetailsView,
-      props: { breadcrumbs: [{ name: "database" }, { name: "traits" }] },
+      props: { breadcrumbs: [BREADCRUMB.DATABASE, BREADCRUMB.TRAITS] },
     },
 
     {

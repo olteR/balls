@@ -22,7 +22,7 @@ public class BookService {
   private final BookRepository bookRepository;
   private final BookMapper bookMapper;
 
-  public BookListResponse getBook(Integer id) {
+  public BookListResponse getBook(Long id) {
     Optional<BookEntity> entity = bookRepository.findById(id);
     if (entity.isPresent()) {
       return bookMapper.entityToListResponse(entity.get());

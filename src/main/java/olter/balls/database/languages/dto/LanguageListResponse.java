@@ -9,9 +9,9 @@ import olter.balls.database.languages.model.LanguageTypeEnum;
 @Setter
 @RequiredArgsConstructor
 public class LanguageListResponse {
-  private Integer id;
+  private Long id;
   private String source;
-  private Integer page;
+  private Long page;
   private String name;
   private LanguageTypeEnum type;
 }

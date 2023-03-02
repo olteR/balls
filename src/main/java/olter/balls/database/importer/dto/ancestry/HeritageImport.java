@@ -14,6 +14,6 @@ public class HeritageImport {
   private String name;
   private String shortName;
   private String source;
-  private Integer page;
+  private Long page;
   private List<Object> entries;
 }

@@ -1,6 +1,6 @@
 <template>
   <div class="container mx-auto my-4">
-    <div class="grid grid-cols-2 lg:grid-cols-4">
+    <div class="grid grid-cols-2 xl:grid-cols-4">
       <div class="m-4">
         <Button class="w-full" @click="router.push({ name: 'ancestries' })">
           <Card class="w-full">
@@ -56,7 +56,7 @@
               ></span>
             </template>
             <template #title>
-              <span class="text-5xl">source books</span>
+              <span class="text-5xl">sources</span>
             </template>
           </Card>
         </Button>

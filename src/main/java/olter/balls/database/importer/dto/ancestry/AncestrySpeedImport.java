@@ -8,6 +8,6 @@ import lombok.Setter;
 @Setter
 @RequiredArgsConstructor
 public class AncestrySpeedImport {
-  private Integer walk;
-  private Integer swim;
+  private Long walk;
+  private Long swim;
 }

@@ -18,7 +18,7 @@ public class CharacterEndpoint {
 
   @GetMapping("/characters/{userId}")
   public ResponseEntity<List<CharacterListResponse>> getRelatedCampaigns(
-      @PathVariable Integer userId) {
+      @PathVariable Long userId) {
     return ResponseEntity.ok().body(characterService.getCharacters(userId));
   }
 }

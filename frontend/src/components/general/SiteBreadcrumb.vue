@@ -1,10 +1,10 @@
 <template>
   <Breadcrumb :home="home" :model="stateStore.getBreadcrumbs">
     <template #item="{ item }">
-      <span
+      <div
         @click="router.push({ name: item.name, params: item.params })"
         class="p-link"
-        >{{ item.label ? item.label : item.name }}</span
+      ><i v-if="item.icon" :class="item.icon" :title="item.name"></i><span v-else>{{ item.label ? item.label : item.name }}</span></div
       >
     </template>
   </Breadcrumb>

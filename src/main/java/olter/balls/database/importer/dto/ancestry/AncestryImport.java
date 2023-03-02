@@ -14,9 +14,9 @@ import lombok.Setter;
 public class AncestryImport {
   private String name;
   private String source;
-  private Integer page;
+  private Long page;
   private String rarity;
-  private Integer hp;
+  private Long hp;
 
   @JsonProperty("size")
   private List<String> sizes;

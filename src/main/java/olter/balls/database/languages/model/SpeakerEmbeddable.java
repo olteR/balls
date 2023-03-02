@@ -13,5 +13,5 @@ import lombok.Setter;
 @Embeddable
 public class SpeakerEmbeddable {
   private String name;
-  private Integer id;
+  private Long id;
 }

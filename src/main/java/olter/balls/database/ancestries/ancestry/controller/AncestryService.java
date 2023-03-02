@@ -38,7 +38,7 @@ public class AncestryService {
 
   private final HeritageService heritageService;
 
-  public AncestryDetailsResponse getAncestry(Integer id) {
+  public AncestryDetailsResponse getAncestry(Long id) {
     Optional<AncestryEntity> entity = ancestryRepository.findById(id);
     if (entity.isPresent()) {
       return ancestryMapper.entityToDetailsResponse(entity.get());
@@ -138,9 +138,9 @@ public class AncestryService {
                 } else {
                   try {
                     entity.setAdditionalLanguages(
-                        Integer.parseInt(l.substring(0, l.indexOf('.')).replaceAll("[^0-9]", "")));
+                        Long.valueOf(l.substring(0, l.indexOf('.')).replaceAll("[^0-9]", "")));
                   } catch (NumberFormatException e) {
-                    entity.setAdditionalLanguages(0);
+                    entity.setAdditionalLanguages(0L);
                   }
                 }
               });

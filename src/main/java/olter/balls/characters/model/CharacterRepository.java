@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface CharacterRepository extends JpaRepository<CharacterEntity, Integer> {
+public interface CharacterRepository extends JpaRepository<CharacterEntity, Long> {
   @Query("SELECT ce FROM CharacterEntity ce WHERE ce.owner.id = ?1")
-  List<CharacterEntity> findAllByOwnerId(Integer userId);
+  List<CharacterEntity> findAllByOwnerId(Long userId);
 }

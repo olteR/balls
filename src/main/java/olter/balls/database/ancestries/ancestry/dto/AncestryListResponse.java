@@ -8,9 +8,9 @@ import lombok.Setter;
 @Setter
 @RequiredArgsConstructor
 public class AncestryListResponse {
-  private Integer id;
+  private Long id;
   private String name;
   private String rarity;
   private String source;
-  private Integer page;
+  private Long page;
 }

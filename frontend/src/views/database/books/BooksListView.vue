@@ -2,7 +2,7 @@
   <div class="container mx-auto my-4">
     <Card class="p-4">
       <template #title>
-        <span class="text-5xl">books</span>
+        <span class="text-5xl">source books</span>
       </template>
       <template #content>
         <div>
