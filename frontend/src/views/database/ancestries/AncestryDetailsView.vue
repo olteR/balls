@@ -316,7 +316,4 @@ onMounted(async () => {
   background-color: #e2e2e2;
   height: 1px;
 }
-.backbutton {
-  margin-left: 1rem;
-}
 </style>

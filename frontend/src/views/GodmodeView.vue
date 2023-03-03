@@ -27,10 +27,10 @@
       </div>
       <div>
         <Button
-            label="import sources"
-            @click="importEntity('SOURCES')"
-            :loading="loading.SOURCES"
-            class="w-full"
+          label="import sources"
+          @click="importEntity('SOURCES')"
+          :loading="loading.SOURCES"
+          class="w-full"
         ></Button>
       </div>
       <div>
@@ -65,5 +65,3 @@ async function importEntity(entity) {
   loading.value[entity] = false;
 }
 </script>
-
-<style scoped></style>

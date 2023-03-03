@@ -69,5 +69,3 @@ onMounted(async () => {
   stateStore.setLoading(false);
 });
 </script>
-
-<style scoped></style>

@@ -91,9 +91,3 @@ onMounted(async () => {
   stateStore.setLoading(false);
 });
 </script>
-
-<style scoped>
-.backbutton {
-  margin-left: 1rem;
-}
-</style>

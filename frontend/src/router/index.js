@@ -5,6 +5,7 @@ import { BREADCRUMB } from "@/utils/const";
 import LoginView from "../views/LoginView.vue";
 import ProfileView from "../views/ProfileView.vue";
 import GodmodeView from "../views/GodmodeView.vue";
+import PageNotFound from "@/views/PageNotFound.vue";
 // CAMPAIGNS
 import CampaignsView from "../views/campaigns/CampaignsView.vue";
 import CampaignHub from "@/views/campaigns/CampaignHub.vue";
@@ -138,6 +139,11 @@ const router = createRouter({
       redirect: () => {
         return "campaigns";
       },
+    },
+    {
+      path: "/:pathMatch(.*)*",
+      name: "404",
+      component: PageNotFound,
     },
   ],
 });
