@@ -5,16 +5,16 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import olter.balls.database.core.enums.ActivityUnitEnum;
+import olter.balls.database.core.enums.FrequencyUnitEnum;
 
 @Getter
 @Setter
 @RequiredArgsConstructor
 @AllArgsConstructor
 @Embeddable
-public class ActivityEmbeddable {
-  private Long min;
-  private Long max;
-  private ActivityUnitEnum units;
-  private boolean varies;
+public class FrequencyEmbeddable {
+    private Long count;
+    private Long interval;
+    private FrequencyUnitEnum timespan;
+    private String special;
 }

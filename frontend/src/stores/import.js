@@ -14,10 +14,12 @@ export const useImportStore = defineStore("import", () => {
   };
 
   const importEntity = {
-    ACTIONS: async () => {},
+    ACTIONS: async () => {
+      await importGeneric("actions");
+    },
     ANCESTRIES: async () => {
       try {
-        const response = await axios.get(urls.ANCESTRIES);
+        const response = await axios.get(urls.ancestries);
         if (response.data.importedAncestries.length) {
           toast.add({
             severity: "success",

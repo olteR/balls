@@ -5,8 +5,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import olter.balls.database.actions.controller.ActionService;
 import olter.balls.database.ancestries.ancestry.controller.AncestryService;
 import olter.balls.database.importer.dto.SourceImport;
+import olter.balls.database.importer.dto.action.ActionImport;
 import olter.balls.database.sources.controller.SourceService;
 import olter.balls.database.importer.dto.ImportResponse;
 import olter.balls.database.importer.dto.LanguageImport;
@@ -28,10 +30,19 @@ public class ImporterService {
   @Value("${import.url}")
   private String IMPORT_URL;
 
+  private final ActionService actionService;
   private final AncestryService ancestryService;
   private final SourceService sourceService;
   private final LanguageService languageService;
   private final TraitService traitService;
+
+  public ImportResponse importAbilities() throws JsonProcessingException {
+    return new ImportResponse();
+  }
+
+  public ImportResponse importActions() throws JsonProcessingException {
+    return actionService.processImports(fetchData("actions.json", ActionImport[].class));
+  }
 
   public AncestryImportResponse importAncestries() throws JsonProcessingException {
     RestTemplate restTemplate = new RestTemplate();
@@ -53,12 +64,32 @@ public class ImporterService {
     return ancestryService.processImports(imports);
   }
 
-  public ImportResponse importSources() throws JsonProcessingException {
-    return sourceService.processImports(fetchData("sources.json", SourceImport[].class));
+  public ImportResponse importBackgrounds() throws JsonProcessingException {
+    return new ImportResponse();
+  }
+
+  public ImportResponse importClasses() throws JsonProcessingException {
+    return new ImportResponse();
+  }
+
+  public ImportResponse importFeats() throws JsonProcessingException {
+    return new ImportResponse();
+  }
+
+  public ImportResponse importItems() throws JsonProcessingException {
+    return new ImportResponse();
+  }
+
+  public ImportResponse importSpells() throws JsonProcessingException {
+    return new ImportResponse();
   }
 
   public ImportResponse importLanguages() throws JsonProcessingException {
     return languageService.processImports(fetchData("languages.json", LanguageImport[].class));
+  }
+
+  public ImportResponse importSources() throws JsonProcessingException {
+    return sourceService.processImports(fetchData("sources.json", SourceImport[].class));
   }
 
   public ImportResponse importTraits() throws JsonProcessingException {

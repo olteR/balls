@@ -16,9 +16,44 @@ public class ImporterEndpoint {
 
   private final ImporterService importerService;
 
+  @GetMapping("/import/abilities")
+  public ResponseEntity<ImportResponse> importAbilities() throws JsonProcessingException {
+    return ResponseEntity.ok().body(importerService.importActions());
+  }
+
+  @GetMapping("/import/actions")
+  public ResponseEntity<ImportResponse> importActions() throws JsonProcessingException {
+    return ResponseEntity.ok().body(importerService.importActions());
+  }
+
   @GetMapping("/import/ancestries")
   public ResponseEntity<AncestryImportResponse> importAncestries() throws JsonProcessingException {
     return ResponseEntity.ok().body(importerService.importAncestries());
+  }
+
+  @GetMapping("/import/backgrounds")
+  public ResponseEntity<ImportResponse> importBackgrounds() throws JsonProcessingException {
+    return ResponseEntity.ok().body(importerService.importBackgrounds());
+  }
+
+  @GetMapping("/import/classes")
+  public ResponseEntity<ImportResponse> importClasses() throws JsonProcessingException {
+    return ResponseEntity.ok().body(importerService.importClasses());
+  }
+
+  @GetMapping("/import/feats")
+  public ResponseEntity<ImportResponse> importFeats() throws JsonProcessingException {
+    return ResponseEntity.ok().body(importerService.importFeats());
+  }
+
+  @GetMapping("/import/items")
+  public ResponseEntity<ImportResponse> importItems() throws JsonProcessingException {
+    return ResponseEntity.ok().body(importerService.importItems());
+  }
+
+  @GetMapping("/import/languages")
+  public ResponseEntity<ImportResponse> importLanguages() throws JsonProcessingException {
+    return ResponseEntity.ok().body(importerService.importLanguages());
   }
 
   @GetMapping("/import/sources")
@@ -26,9 +61,9 @@ public class ImporterEndpoint {
     return ResponseEntity.ok().body(importerService.importSources());
   }
 
-  @GetMapping("/import/languages")
-  public ResponseEntity<ImportResponse> importLanguages() throws JsonProcessingException {
-    return ResponseEntity.ok().body(importerService.importLanguages());
+  @GetMapping("/import/spells")
+  public ResponseEntity<ImportResponse> importSpells() throws JsonProcessingException {
+    return ResponseEntity.ok().body(importerService.importSpells());
   }
 
   @GetMapping("/import/traits")

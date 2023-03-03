@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import olter.balls.database.actions.model.ActionEntity;
 import olter.balls.database.ancestries.ancestry.model.AncestryEntity;
 import olter.balls.database.core.SourcedEntity;
 
@@ -20,6 +21,10 @@ public class HeritageEntity extends SourcedEntity {
 
   @Column(columnDefinition = "TEXT")
   private String description;
+
+  @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  @JoinColumn(name = "related_action", referencedColumnName = "id")
+  private ActionEntity relatedAction;
 
   @ManyToOne
   @JoinColumn(name = "ancestry_id")
