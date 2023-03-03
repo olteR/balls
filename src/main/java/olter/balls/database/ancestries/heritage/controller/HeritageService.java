@@ -3,7 +3,6 @@ package olter.balls.database.ancestries.heritage.controller;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import olter.balls.common.NameResponse;
@@ -11,6 +10,7 @@ import olter.balls.database.ancestries.ancestry.model.AncestryEntity;
 import olter.balls.database.ancestries.heritage.HeritageMapper;
 import olter.balls.database.ancestries.heritage.model.HeritageEntity;
 import olter.balls.database.ancestries.heritage.model.HeritageRepository;
+import olter.balls.database.importer.ImporterUtils;
 import olter.balls.database.importer.dto.ImportResponse;
 import olter.balls.database.importer.dto.ancestry.HeritageImport;
 import org.springframework.stereotype.Service;
@@ -23,6 +23,8 @@ public class HeritageService {
   private final HeritageRepository heritageRepository;
   private final HeritageMapper heritageMapper;
 
+  private final ImporterUtils importerUtils;
+
   public ImportResponse processImports(List<HeritageImport> imports, AncestryEntity ancestry) {
     List<NameResponse> importedHeritages = new ArrayList<>();
     List<NameResponse> updatedHeritages = new ArrayList<>();
@@ -34,14 +36,7 @@ public class HeritageService {
               : "Importing " + heritageImport.getName() + "...");
       HeritageEntity entity = oEntity.orElseGet(HeritageEntity::new);
       heritageMapper.map(heritageImport, entity);
-      entity.setDescription(
-          "<p>"
-              .concat(
-                  heritageImport.getEntries().stream()
-                      .filter(e -> e.getClass() == String.class)
-                      .map(Object::toString)
-                      .collect(Collectors.joining("<p></p>"))
-                      .concat("</p>")));
+      entity.setDescription(importerUtils.toHtmlParagraphs(heritageImport.getEntries(), true));
       entity.setAncestry(ancestry);
       heritageRepository.save(entity);
       if (oEntity.isPresent()) updatedHeritages.add(heritageMapper.entityToNameResponse(entity));

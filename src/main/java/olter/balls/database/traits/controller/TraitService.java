@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import olter.balls.common.NameResponse;
 import olter.balls.common.exception.ResourceNotFoundException;
+import olter.balls.database.importer.ImporterUtils;
 import olter.balls.database.importer.dto.ImportResponse;
 import olter.balls.database.importer.dto.TraitImport;
 import olter.balls.database.traits.TraitMapper;
@@ -28,6 +29,8 @@ public class TraitService {
 
   private final TraitRepository traitRepository;
   private final TraitMapper traitMapper;
+
+  private final ImporterUtils importerUtils;
 
   public TraitListResponse getTrait(Integer id) {
     Optional<TraitEntity> entity = traitRepository.findById(id);
@@ -55,14 +58,7 @@ public class TraitService {
                 : "Importing " + trait.getName() + "...");
         TraitEntity entity = oEntity.orElseGet(TraitEntity::new);
         traitMapper.map(trait, entity);
-        entity.setDescription(
-            "<p>"
-                .concat(
-                    trait.getEntries().stream()
-                        .filter(t -> t.getClass() == String.class)
-                        .map(Object::toString)
-                        .collect(Collectors.joining("<p></p>"))
-                        .concat("</p>")));
+        entity.setDescription(importerUtils.toHtmlParagraphs(trait.getEntries(), true));
         if (ABILITIES.contains(entity.getName())) {
           entity
               .getCategories()

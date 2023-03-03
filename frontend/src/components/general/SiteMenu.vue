@@ -89,6 +89,12 @@ const menuItems = ref([
         },
       },
       {
+        label: "skills",
+        command: () => {
+          router.push({ name: "skills" });
+        },
+      },
+      {
         label: "traits",
         command: () => {
           router.push({ name: "traits" });

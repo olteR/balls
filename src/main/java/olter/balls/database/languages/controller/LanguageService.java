@@ -9,6 +9,7 @@ import olter.balls.common.NameResponse;
 import olter.balls.common.exception.ResourceNotFoundException;
 import olter.balls.database.ancestries.ancestry.model.AncestryEntity;
 import olter.balls.database.ancestries.ancestry.model.AncestryRepository;
+import olter.balls.database.importer.ImporterUtils;
 import olter.balls.database.importer.dto.ImportResponse;
 import olter.balls.database.importer.dto.LanguageImport;
 import olter.balls.database.languages.LanguageMapper;
@@ -28,6 +29,8 @@ public class LanguageService {
   private final LanguageMapper languageMapper;
 
   private final AncestryRepository ancestryRepository;
+
+  private final ImporterUtils importerUtils;
 
   public LanguageDetailsResponse getLanguage(Long id) {
     Optional<LanguageEntity> entity = languageRepository.findById(id);
@@ -52,16 +55,7 @@ public class LanguageService {
       LanguageEntity entity = oEntity.orElseGet(LanguageEntity::new);
       languageMapper.map(lang, entity);
       if (lang.getEntries() != null) {
-        entity.setDescription(
-            "<p>"
-                .concat(
-                    String.join(
-                        "</p><p>",
-                        lang.getEntries().stream()
-                            .filter(l -> l.getClass() == String.class)
-                            .map(Object::toString)
-                            .toList()))
-                .concat("</p>"));
+        entity.setDescription(importerUtils.toHtmlParagraphs(lang.getEntries(), true));
       }
       if (lang.getTypicalSpeakers() != null) {
         List<SpeakerEmbeddable> speakers = new ArrayList<>();

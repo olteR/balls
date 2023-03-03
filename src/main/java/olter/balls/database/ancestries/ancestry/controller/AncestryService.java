@@ -17,6 +17,7 @@ import olter.balls.database.ancestries.heritage.controller.HeritageService;
 import olter.balls.database.core.embeddables.AbilityBoostEmbeddable;
 import olter.balls.database.core.embeddables.FeatureEmbeddable;
 import olter.balls.database.core.enums.AbilityScoreEnum;
+import olter.balls.database.importer.ImporterUtils;
 import olter.balls.database.importer.dto.ImportResponse;
 import olter.balls.database.importer.dto.ancestry.AncestryImport;
 import olter.balls.database.importer.dto.ancestry.AncestryImportResponse;
@@ -37,6 +38,8 @@ public class AncestryService {
   private final TraitRepository traitRepository;
 
   private final HeritageService heritageService;
+
+  private final ImporterUtils importerUtils;
 
   public AncestryDetailsResponse getAncestry(Long id) {
     Optional<AncestryEntity> entity = ancestryRepository.findById(id);
@@ -75,20 +78,10 @@ public class AncestryService {
       List<FeatureEmbeddable> features = new ArrayList<>();
       features.add(
           new FeatureEmbeddable(
-              "Flavor",
-              "<p>".concat(String.join("</p><p>", ancestryImport.getFlavor())).concat("</p>")));
+              "Flavor", importerUtils.toHtmlParagraphs(ancestryImport.getFlavor(), false)));
       features.add(
           new FeatureEmbeddable(
-              "Info",
-              "<p>"
-                  .concat(
-                      String.join(
-                          "</p><p>",
-                          ancestryImport.getInfo().stream()
-                              .filter(i -> i.getClass() == String.class)
-                              .map(Object::toString)
-                              .toList()))
-                  .concat("</p>")));
+              "Info", importerUtils.toHtmlParagraphs(ancestryImport.getInfo(), true)));
       ancestryImport.getInfo().stream()
           .filter(i -> i.getClass() != String.class)
           .forEach(
