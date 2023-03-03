@@ -1,4 +1,4 @@
-package olter.balls.database.books.model;
+package olter.balls.database.sources.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -13,8 +13,8 @@ import olter.balls.common.BaseEntity;
 @Getter
 @Setter
 @RequiredArgsConstructor
-@Table(name = "books")
-public class BookEntity extends BaseEntity {
+@Table(name = "sources")
+public class SourceEntity extends BaseEntity {
   @Column(unique = true)
   private String name;
 

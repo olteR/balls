@@ -47,7 +47,7 @@
         </Button>
       </div>
       <div class="m-4">
-        <Button class="w-full" @click="router.push({ name: 'books' })">
+        <Button class="w-full" @click="router.push({ name: 'sources' })">
           <Card class="w-full">
             <template #header>
               <span

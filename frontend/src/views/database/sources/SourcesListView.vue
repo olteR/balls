@@ -2,12 +2,12 @@
   <div class="container mx-auto my-4">
     <Card class="p-4">
       <template #title>
-        <span class="text-5xl">source books</span>
+        <span class="text-5xl">sources</span>
       </template>
       <template #content>
         <div>
           <DataTable
-            :value="bookStore.getBooks"
+            :value="sourceStore.getSources"
             responsiveLayout="scroll"
             sortMode="multiple"
             removableSort
@@ -25,7 +25,7 @@
             ></Column>
             <Column>
               <template #body="slotProps">
-                <router-link :to="'/database/book/' + slotProps.data.id"
+                <router-link :to="'/database/source/' + slotProps.data.id"
                   ><i class="fa fa-ellipsis"></i
                 ></router-link>
               </template>
@@ -40,17 +40,17 @@
 <script setup>
 import { onMounted } from "vue";
 import { useStateStore } from "@/stores/state";
-import { useBookStore } from "@/stores/database/book";
+import { useSourceStore } from "@/stores/database/source";
 import Card from "primevue/card";
 import DataTable from "primevue/datatable";
 import Column from "primevue/column";
 
 const stateStore = useStateStore();
-const bookStore = useBookStore();
+const sourceStore = useSourceStore();
 
 onMounted(async () => {
   stateStore.setLoading(true);
-  await bookStore.fetchList();
+  await sourceStore.fetchList();
   stateStore.setLoading(false);
 });
 </script>

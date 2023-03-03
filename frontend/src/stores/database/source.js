@@ -3,24 +3,24 @@ import { defineStore } from "pinia";
 import axios from "axios";
 import { useToast } from "primevue/usetoast";
 
-export const useBookStore = defineStore("book", () => {
+export const useSourceStore = defineStore("source", () => {
   const toast = useToast();
 
-  const book = ref();
-  const books = ref([]);
+  const source = ref();
+  const sources = ref([]);
 
-  const getBook = computed(() => book.value);
-  const getBooks = computed(() => books.value);
+  const getSource = computed(() => source.value);
+  const getSources = computed(() => sources.value);
 
   const urls = {
-    book: (id) => `http://localhost:3000/api/database/book/${id}`,
-    books: "http://localhost:3000/api/database/books",
+    source: (id) => `http://localhost:3000/api/database/source/${id}`,
+    sources: "http://localhost:3000/api/database/sources",
   };
 
   async function fetchOne(id) {
     try {
-      const response = await axios.get(urls.book(id));
-      book.value = response.data;
+      const response = await axios.get(urls.source(id));
+      source.value = response.data;
     } catch (error) {
       toast.add({
         severity: "error",
@@ -33,8 +33,8 @@ export const useBookStore = defineStore("book", () => {
 
   async function fetchList() {
     try {
-      const response = await axios.get(urls.books);
-      books.value = response.data;
+      const response = await axios.get(urls.sources);
+      sources.value = response.data;
     } catch (error) {
       toast.add({
         severity: "error",
@@ -46,8 +46,8 @@ export const useBookStore = defineStore("book", () => {
   }
 
   return {
-    getBook,
-    getBooks,
+    getSource,
+    getSources,
     fetchOne,
     fetchList,
   };

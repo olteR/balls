@@ -14,8 +14,8 @@ import CharactersView from "../views/characters/CharactersView.vue";
 import DatabaseView from "../views/database/DatabaseView.vue";
 import AncestriesListView from "../views/database/ancestries/AncestriesListView.vue";
 import AncestryDetailsView from "@/views/database/ancestries/AncestryDetailsView.vue";
-import BooksListView from "@/views/database/books/BooksListView.vue";
-import BookDetailsView from "@/views/database/books/BookDetailsView.vue";
+import SourcesListView from "@/views/database/sources/SourcesListView.vue";
+import SourceDetailsView from "@/views/database/sources/SourceDetailsView.vue";
 import LanguagesListView from "@/views/database/languages/LanguagesListView.vue";
 import LanguageDetailsView from "@/views/database/languages/LanguageDetailsView.vue";
 import SkillsListView from "@/views/database/skills/SkillsListView.vue";
@@ -85,16 +85,16 @@ const router = createRouter({
       props: { breadcrumbs: [BREADCRUMB.DATABASE, BREADCRUMB.ANCESTRIES] },
     },
     {
-      path: "/database/books",
-      name: "books",
-      component: BooksListView,
-      props: { breadcrumbs: [BREADCRUMB.DATABASE, BREADCRUMB.BOOKS] },
+      path: "/database/sources",
+      name: "sources",
+      component: SourcesListView,
+      props: { breadcrumbs: [BREADCRUMB.DATABASE, BREADCRUMB.SOURCES] },
     },
     {
-      path: "/database/book/:id?",
-      name: "book",
-      component: BookDetailsView,
-      props: { breadcrumbs: [BREADCRUMB.DATABASE, BREADCRUMB.BOOKS] },
+      path: "/database/source/:id?",
+      name: "source",
+      component: SourceDetailsView,
+      props: { breadcrumbs: [BREADCRUMB.DATABASE, BREADCRUMB.SOURCES] },
     },
     {
       path: "/database/languages",

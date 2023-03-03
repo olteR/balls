@@ -77,12 +77,6 @@ const menuItems = ref([
         },
       },
       {
-        label: "books",
-        command: () => {
-          router.push({ name: "books" });
-        },
-      },
-      {
         label: "languages",
         command: () => {
           router.push({ name: "languages" });
@@ -92,6 +86,12 @@ const menuItems = ref([
         label: "skills",
         command: () => {
           router.push({ name: "skills" });
+        },
+      },
+      {
+        label: "sources",
+        command: () => {
+          router.push({ name: "sources" });
         },
       },
       {

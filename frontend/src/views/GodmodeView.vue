@@ -19,18 +19,18 @@
       </div>
       <div>
         <Button
-          label="import books"
-          @click="importEntity('BOOKS')"
-          :loading="loading.BOOKS"
+          label="import languages"
+          @click="importEntity('LANGUAGES')"
+          :loading="loading.LANGUAGES"
           class="w-full"
         ></Button>
       </div>
       <div>
         <Button
-          label="import languages"
-          @click="importEntity('LANGUAGES')"
-          :loading="loading.LANGUAGES"
-          class="w-full"
+            label="import sources"
+            @click="importEntity('SOURCES')"
+            :loading="loading.SOURCES"
+            class="w-full"
         ></Button>
       </div>
       <div>
@@ -54,8 +54,8 @@ const importStore = useImportStore();
 const loading = ref({
   ACTIONS: false,
   ANCESTRIES: false,
-  BOOKS: false,
   LANGUAGES: false,
+  SOURCES: false,
   TRAITS: false,
 });
 

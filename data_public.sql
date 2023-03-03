@@ -15,7 +15,7 @@ INSERT INTO campaign_users (id, role, campaign_id, user_id) VALUES (13000, 'GAME
 INSERT INTO campaign_characters (campaign_users_id, character_id) VALUES (13001, 12003), (13002, 12002), (13003, 12000), (13004, 12001),
                                                                         (13006, 12006), (13007, 12004), (13008, 12006), (13009, 12005),
                                                                         (13011, 12009), (13012, 12008), (13013, 12007), (13014, 12010);
-INSERT INTO books (id, name, published, short_name) VALUES (14000, 'Core Rulebook', '2019-08-01', 'CRB'), (14001, 'Bestiary', '2019-08-01', 'B1'),
+INSERT INTO sources (id, name, published, short_name) VALUES (14000, 'Core Rulebook', '2019-08-01', 'CRB'), (14001, 'Bestiary', '2019-08-01', 'B1'),
                                                            (14002, 'Gamemastery Guide', '2020-02-26', 'GMG'), (14003, 'Bestiary 2', '2020-05-27', 'B2'),
                                                            (14004, 'Advanced Player''s Guide', '2020-07-30', 'APG'), (14005, 'Bestiary 3', '2021-04-07', 'B3'),
                                                            (14006, 'Secrets of Magic', '2021-09-01', 'SoM'), (14007, 'Guns & Gears', '2021-10-13', 'G&G'),

@@ -21,9 +21,9 @@ public class ImporterEndpoint {
     return ResponseEntity.ok().body(importerService.importAncestries());
   }
 
-  @GetMapping("/import/books")
-  public ResponseEntity<ImportResponse> importBooks() throws JsonProcessingException {
-    return ResponseEntity.ok().body(importerService.importBooks());
+  @GetMapping("/import/sources")
+  public ResponseEntity<ImportResponse> importSources() throws JsonProcessingException {
+    return ResponseEntity.ok().body(importerService.importSources());
   }
 
   @GetMapping("/import/languages")

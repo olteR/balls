@@ -15,8 +15,8 @@ export const BREADCRUMB = {
     name: "ancestries",
     icon: "fa fa-people-group",
   },
-  BOOKS: {
-    name: "books",
+  SOURCES: {
+    name: "sources",
     icon: "fa fa-book",
   },
   LANGUAGES: {

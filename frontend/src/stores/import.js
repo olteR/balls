@@ -8,9 +8,9 @@ export const useImportStore = defineStore("import", () => {
   const urls = {
     actions: "http://localhost:3000/api/import/actions",
     ancestries: "http://localhost:3000/api/import/ancestries",
-    books: "http://localhost:3000/api/import/books",
+    sources: "http://localhost:3000/api/import/sources",
     languages: "http://localhost:3000/api/import/languages",
-    trais: "http://localhost:3000/api/import/traits",
+    traits: "http://localhost:3000/api/import/traits",
   };
 
   const importEntity = {
@@ -71,11 +71,11 @@ export const useImportStore = defineStore("import", () => {
         });
       }
     },
-    BOOKS: async () => {
-      await importGeneric("books");
-    },
     LANGUAGES: async () => {
       await importGeneric("languages");
+    },
+    SOURCES: async () => {
+      await importGeneric("sources");
     },
     TRAITS: async () => {
       await importGeneric("traits");

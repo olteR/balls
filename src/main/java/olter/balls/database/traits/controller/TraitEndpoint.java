@@ -16,12 +16,12 @@ public class TraitEndpoint {
   private final TraitService traitService;
 
   @GetMapping("/trait/{id}")
-  public ResponseEntity<TraitListResponse> getBook(@PathVariable Integer id) {
+  public ResponseEntity<TraitListResponse> getTrait(@PathVariable Integer id) {
     return ResponseEntity.ok().body(traitService.getTrait(id));
   }
 
   @GetMapping("/traits")
-  public ResponseEntity<List<TraitListResponse>> getBook() {
+  public ResponseEntity<List<TraitListResponse>> getTraits() {
     return ResponseEntity.ok().body(traitService.getTraits());
   }
 }
