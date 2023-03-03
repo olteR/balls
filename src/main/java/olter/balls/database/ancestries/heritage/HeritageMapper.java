@@ -11,6 +11,8 @@ import org.mapstruct.MappingTarget;
 public interface HeritageMapper {
   NameResponse entityToNameResponse(HeritageEntity entity);
 
+  @Mapping(target = "id", ignore = true)
   @Mapping(target = "description", ignore = true)
+  @Mapping(target = "ancestry", ignore = true)
   HeritageEntity map(HeritageImport source, @MappingTarget HeritageEntity target);
 }

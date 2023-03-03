@@ -30,8 +30,6 @@ public class LanguageService {
 
   private final AncestryRepository ancestryRepository;
 
-  private final ImporterUtils importerUtils;
-
   public LanguageDetailsResponse getLanguage(Long id) {
     Optional<LanguageEntity> entity = languageRepository.findById(id);
     if (entity.isPresent()) {
@@ -55,7 +53,7 @@ public class LanguageService {
       LanguageEntity entity = oEntity.orElseGet(LanguageEntity::new);
       languageMapper.map(lang, entity);
       if (lang.getEntries() != null) {
-        entity.setDescription(importerUtils.toHtmlParagraphs(lang.getEntries(), true));
+        entity.setDescription(ImporterUtils.toHtmlParagraphs(lang.getEntries(), true));
       }
       if (lang.getTypicalSpeakers() != null) {
         List<SpeakerEmbeddable> speakers = new ArrayList<>();

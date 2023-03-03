@@ -23,8 +23,6 @@ public class HeritageService {
   private final HeritageRepository heritageRepository;
   private final HeritageMapper heritageMapper;
 
-  private final ImporterUtils importerUtils;
-
   public ImportResponse processImports(List<HeritageImport> imports, AncestryEntity ancestry) {
     List<NameResponse> importedHeritages = new ArrayList<>();
     List<NameResponse> updatedHeritages = new ArrayList<>();
@@ -36,7 +34,7 @@ public class HeritageService {
               : "Importing " + heritageImport.getName() + "...");
       HeritageEntity entity = oEntity.orElseGet(HeritageEntity::new);
       heritageMapper.map(heritageImport, entity);
-      entity.setDescription(importerUtils.toHtmlParagraphs(heritageImport.getEntries(), true));
+      entity.setDescription(ImporterUtils.toHtmlParagraphs(heritageImport.getEntries(), true));
       entity.setAncestry(ancestry);
       heritageRepository.save(entity);
       if (oEntity.isPresent()) updatedHeritages.add(heritageMapper.entityToNameResponse(entity));

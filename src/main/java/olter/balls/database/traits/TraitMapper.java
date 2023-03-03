@@ -15,6 +15,7 @@ public interface TraitMapper {
 
   @Mapping(target = "id", ignore = true)
   @Mapping(target = "description", ignore = true)
+  @Mapping(target = "relatedActions", ignore = true)
   @Mapping(target = "relatedAncestries", ignore = true)
   TraitEntity map(TraitImport source, @MappingTarget TraitEntity target);
 

@@ -7,10 +7,7 @@ import olter.balls.database.ancestries.ancestry.model.AncestryEntity;
 import olter.balls.database.ancestries.ancestry.model.AncestryRarityEnum;
 import olter.balls.database.core.enums.CreatureSizeEnum;
 import olter.balls.database.importer.dto.ancestry.AncestryImport;
-import org.mapstruct.EnumMapping;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.MappingTarget;
+import org.mapstruct.*;
 
 @Mapper(componentModel = "spring")
 public interface AncestryMapper {
@@ -33,8 +30,10 @@ public interface AncestryMapper {
   AncestryEntity map(AncestryImport source, @MappingTarget AncestryEntity target);
 
   @EnumMapping(nameTransformationStrategy = "case", configuration = "lower")
+  @ValueMapping(source = MappingConstants.ANY_REMAINING, target = "MEDIUM")
   CreatureSizeEnum sizeToEnum(String size);
 
   @EnumMapping(nameTransformationStrategy = "case", configuration = "lower")
+  @ValueMapping(source = MappingConstants.ANY_REMAINING, target = "COMMON")
   AncestryRarityEnum rarityToEnum(String size);
 }

@@ -39,8 +39,6 @@ public class AncestryService {
 
   private final HeritageService heritageService;
 
-  private final ImporterUtils importerUtils;
-
   public AncestryDetailsResponse getAncestry(Long id) {
     Optional<AncestryEntity> entity = ancestryRepository.findById(id);
     if (entity.isPresent()) {
@@ -66,7 +64,10 @@ public class AncestryService {
       ancestryMapper.map(ancestryImport, entity);
 
       // RARITY
-      if (entity.getRarity() == null) entity.setRarity(AncestryRarityEnum.COMMON);
+      if (entity.getRarity() == null) {
+        entity.setRarity(AncestryRarityEnum.COMMON);
+        log.info("null");
+      };
 
       // ABILITY BOOSTS AND FLAWS
       List<AbilityBoostEmbeddable> abilityBoosts = new ArrayList<>();
@@ -78,10 +79,10 @@ public class AncestryService {
       List<FeatureEmbeddable> features = new ArrayList<>();
       features.add(
           new FeatureEmbeddable(
-              "Flavor", importerUtils.toHtmlParagraphs(ancestryImport.getFlavor(), false)));
+              "Flavor", ImporterUtils.toHtmlParagraphs(ancestryImport.getFlavor(), false)));
       features.add(
           new FeatureEmbeddable(
-              "Info", importerUtils.toHtmlParagraphs(ancestryImport.getInfo(), true)));
+              "Info", ImporterUtils.toHtmlParagraphs(ancestryImport.getInfo(), true)));
       ancestryImport.getInfo().stream()
           .filter(i -> i.getClass() != String.class)
           .forEach(
@@ -103,7 +104,7 @@ public class AncestryService {
                     features.add(new FeatureEmbeddable(name, entries));
                   } else if (!entries.contains("{type=")) {
                     entries =
-                        importerUtils.wrapParagraph(
+                        ImporterUtils.wrapParagraph(
                             entries.substring(0, entries.indexOf("]")).replace(".,", ".</p><p>"));
                     features.add(new FeatureEmbeddable(name, entries));
                   }

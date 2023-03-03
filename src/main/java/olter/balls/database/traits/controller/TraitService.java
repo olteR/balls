@@ -29,8 +29,6 @@ public class TraitService {
   private final TraitRepository traitRepository;
   private final TraitMapper traitMapper;
 
-  private final ImporterUtils importerUtils;
-
   public TraitListResponse getTrait(Integer id) {
     Optional<TraitEntity> entity = traitRepository.findById(id);
     if (entity.isPresent()) {
@@ -57,7 +55,7 @@ public class TraitService {
                 : "Importing " + trait.getName() + "...");
         TraitEntity entity = oEntity.orElseGet(TraitEntity::new);
         traitMapper.map(trait, entity);
-        entity.setDescription(importerUtils.toHtmlParagraphs(trait.getEntries(), true));
+        entity.setDescription(ImporterUtils.toHtmlParagraphs(trait.getEntries(), true));
         if (ABILITIES.contains(entity.getName())) {
           entity
               .getCategories()
