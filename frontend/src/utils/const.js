@@ -31,4 +31,12 @@ export const BREADCRUMB = {
     name: "traits",
     icon: "fa fa-tag",
   },
+  PROFILE: {
+    name: "profile",
+    icon: "fa fa-user",
+  },
+  GODMODE: {
+    name: "godmode",
+    icon: "fa fa-hands-holding-circle",
+  },
 };

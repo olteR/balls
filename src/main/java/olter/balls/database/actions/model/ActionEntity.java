@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import olter.balls.database.core.SourcedEntity;
+import olter.balls.database.core.embeddables.ActivityEmbeddable;
 import olter.balls.database.skills.model.SkillEntity;
 import olter.balls.database.traits.model.TraitEntity;
 
@@ -17,6 +18,8 @@ import olter.balls.database.traits.model.TraitEntity;
 public class ActionEntity extends SourcedEntity {
   @Column(unique = true)
   private String name;
+
+  @Embedded private ActivityEmbeddable activity;
 
   @ManyToMany(mappedBy = "trainedActions", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   private List<SkillEntity> relatedTrainedSkills;

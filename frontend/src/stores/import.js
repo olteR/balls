@@ -6,103 +6,85 @@ export const useImportStore = defineStore("import", () => {
   const toast = useToast();
 
   const urls = {
+    actions: "http://localhost:3000/api/import/actions",
     ancestries: "http://localhost:3000/api/import/ancestries",
     books: "http://localhost:3000/api/import/books",
     languages: "http://localhost:3000/api/import/languages",
-    traits: "http://localhost:3000/api/import/traits",
+    trais: "http://localhost:3000/api/import/traits",
   };
 
-  async function importAncestries() {
-    try {
-      const response = await axios.get(urls.ancestries);
-      if (response.data.importedAncestries.length) {
+  const importEntity = {
+    ACTIONS: async () => {},
+    ANCESTRIES: async () => {
+      try {
+        const response = await axios.get(urls.ANCESTRIES);
+        if (response.data.importedAncestries.length) {
+          toast.add({
+            severity: "success",
+            summary: "success",
+            detail:
+              "successfully imported " +
+              response.data.importedAncestries.length +
+              " ancestries",
+            life: 3000,
+          });
+        }
+        if (response.data.updatedAncestries.length) {
+          toast.add({
+            severity: "success",
+            summary: "success",
+            detail:
+              "successfully updated " +
+              response.data.updatedAncestries.length +
+              " ancestries",
+            life: 3000,
+          });
+        }
+        if (response.data.heritages.imported.length) {
+          toast.add({
+            severity: "success",
+            summary: "success",
+            detail:
+              "successfully imported " +
+              response.data.heritages.imported.length +
+              " heritages",
+            life: 3000,
+          });
+        }
+        if (response.data.heritages.updated.length) {
+          toast.add({
+            severity: "success",
+            summary: "success",
+            detail:
+              "successfully updated " +
+              response.data.heritages.updated.length +
+              " heritages",
+            life: 3000,
+          });
+        }
+      } catch (error) {
         toast.add({
-          severity: "success",
-          summary: "success",
-          detail:
-            "successfully imported " +
-            response.data.importedAncestries.length +
-            " ancestries",
+          severity: "error",
+          summary: "error.",
+          detail: error,
           life: 3000,
         });
       }
-      if (response.data.updatedAncestries.length) {
-        toast.add({
-          severity: "success",
-          summary: "success",
-          detail:
-            "successfully updated " +
-            response.data.updatedAncestries.length +
-            " ancestries",
-          life: 3000,
-        });
-      }
-      if (response.data.heritages.imported.length) {
-        toast.add({
-          severity: "success",
-          summary: "success",
-          detail:
-            "successfully imported " +
-            response.data.heritages.imported.length +
-            " heritages",
-          life: 3000,
-        });
-      }
-      if (response.data.heritages.updated.length) {
-        toast.add({
-          severity: "success",
-          summary: "success",
-          detail:
-            "successfully updated " +
-            response.data.heritages.updated.length +
-            " heritages",
-          life: 3000,
-        });
-      }
-    } catch (error) {
-      toast.add({
-        severity: "error",
-        summary: "error.",
-        detail: error,
-        life: 3000,
-      });
-    }
-  }
+    },
+    BOOKS: async () => {
+      await importGeneric("books");
+    },
+    LANGUAGES: async () => {
+      await importGeneric("languages");
+    },
+    TRAITS: async () => {
+      await importGeneric("traits");
+    },
+  };
 
-  async function importBooks() {
+  async function importGeneric(entity) {
     try {
-      const response = await axios.get(urls.books);
-      if (response.data.imported.length) {
-        toast.add({
-          severity: "success",
-          summary: "success",
-          detail:
-            "successfully imported " + response.data.imported.length + " books",
-          life: 3000,
-        });
-      }
-      if (response.data.updated.length) {
-        toast.add({
-          severity: "success",
-          summary: "success",
-          detail:
-            "successfully updated " + response.data.updated.length + " books",
-          life: 3000,
-        });
-      }
-    } catch (error) {
-      toast.add({
-        severity: "error",
-        summary: "error.",
-        detail: error,
-        life: 3000,
-      });
-    }
-  }
-
-  async function importLanguages() {
-    try {
-      const response = await axios.get(urls.languages);
+      const response = await axios.get(urls[entity]);
       if (response.data.imported.length) {
         toast.add({
           severity: "success",
@@ -110,7 +92,8 @@ export const useImportStore = defineStore("import", () => {
           detail:
             "successfully imported " +
             response.data.imported.length +
-            " languages",
+            " " +
+            entity,
           life: 3000,
         });
       }
@@ -121,7 +104,8 @@ export const useImportStore = defineStore("import", () => {
           detail:
             "successfully updated " +
             response.data.updated.length +
-            " languages",
+            " " +
+            entity,
           life: 3000,
         });
       }
@@ -135,38 +119,5 @@ export const useImportStore = defineStore("import", () => {
     }
   }
 
-  async function importTraits() {
-    try {
-      const response = await axios.get(urls.traits);
-      if (response.data.imported.length) {
-        toast.add({
-          severity: "success",
-          summary: "success",
-          detail:
-            "successfully imported " +
-            response.data.imported.length +
-            " traits",
-          life: 3000,
-        });
-      }
-      if (response.data.updated.length) {
-        toast.add({
-          severity: "success",
-          summary: "success",
-          detail:
-            "successfully updated " + response.data.updated.length + " traits",
-          life: 3000,
-        });
-      }
-    } catch (error) {
-      toast.add({
-        severity: "error",
-        summary: "error.",
-        detail: error,
-        life: 3000,
-      });
-    }
-  }
-
-  return { importAncestries, importBooks, importLanguages, importTraits };
+  return { importEntity };
 });

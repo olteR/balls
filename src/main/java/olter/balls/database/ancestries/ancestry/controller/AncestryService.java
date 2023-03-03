@@ -103,12 +103,8 @@ public class AncestryService {
                     features.add(new FeatureEmbeddable(name, entries));
                   } else if (!entries.contains("{type=")) {
                     entries =
-                        "<p>"
-                            .concat(
-                                entries
-                                    .substring(0, entries.indexOf("]"))
-                                    .replace(".,", ".</p><p>"))
-                            .concat("</p>");
+                        importerUtils.wrapParagraph(
+                            entries.substring(0, entries.indexOf("]")).replace(".,", ".</p><p>"));
                     features.add(new FeatureEmbeddable(name, entries));
                   }
                 }

@@ -31,6 +31,7 @@ const router = createRouter({
       path: "/login",
       name: "login",
       component: LoginView,
+      props: { breadcrumbs: [] },
     },
     {
       path: "/profile",
@@ -42,6 +43,7 @@ const router = createRouter({
       path: "/godmode",
       name: "godmode",
       component: GodmodeView,
+      props: { breadcrumbs: [BREADCRUMB.GODMODE] },
     },
     // CAMPAIGNS
     {

@@ -1,35 +1,43 @@
 <template>
   <div class="container mx-auto my-4">
-    <div class="grid grid-cols-4 gap-4">
+    <div class="grid grid-cols-2 xl:grid-cols-4 gap-4">
+      <div>
+        <Button
+          label="import actions"
+          @click="importEntity('ACTIONS')"
+          :loading="loading.ACTIONS"
+          class="w-full"
+        ></Button>
+      </div>
       <div>
         <Button
           label="import ancestries & heritages"
-          @click="importAncestries()"
-          :loading="loadingAncestries"
+          @click="importEntity('ANCESTRIES')"
+          :loading="loading.ANCESTRIES"
           class="w-full"
         ></Button>
       </div>
       <div>
         <Button
           label="import books"
-          @click="importBooks()"
-          :loading="loadingBooks"
+          @click="importEntity('BOOKS')"
+          :loading="loading.BOOKS"
           class="w-full"
         ></Button>
       </div>
       <div>
         <Button
           label="import languages"
-          @click="importLanguages()"
-          :loading="loadingLanguages"
+          @click="importEntity('LANGUAGES')"
+          :loading="loading.LANGUAGES"
           class="w-full"
         ></Button>
       </div>
       <div>
         <Button
           label="import traits"
-          @click="importTraits()"
-          :loading="loadingTraits"
+          @click="importEntity('TRAITS')"
+          :loading="loading.TRAITS"
           class="w-full"
         ></Button>
       </div>
@@ -43,30 +51,18 @@ import { useImportStore } from "@/stores/import";
 import Button from "primevue/button";
 
 const importStore = useImportStore();
-const loadingAncestries = ref(false);
-const loadingBooks = ref(false);
-const loadingLanguages = ref(false);
-const loadingTraits = ref(false);
+const loading = ref({
+  ACTIONS: false,
+  ANCESTRIES: false,
+  BOOKS: false,
+  LANGUAGES: false,
+  TRAITS: false,
+});
 
-async function importAncestries() {
-  loadingAncestries.value = true;
-  await importStore.importAncestries();
-  loadingAncestries.value = false;
-}
-async function importBooks() {
-  loadingBooks.value = true;
-  await importStore.importBooks();
-  loadingBooks.value = false;
-}
-async function importLanguages() {
-  loadingLanguages.value = true;
-  await importStore.importLanguages();
-  loadingLanguages.value = false;
-}
-async function importTraits() {
-  loadingTraits.value = true;
-  await importStore.importTraits();
-  loadingTraits.value = false;
+async function importEntity(entity) {
+  loading.value[entity] = true;
+  await importStore.importEntity[entity]();
+  loading.value[entity] = false;
 }
 </script>
 
