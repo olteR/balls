@@ -11,7 +11,7 @@ import olter.balls.database.sources.SourceMapper;
 import olter.balls.database.sources.dto.SourceListResponse;
 import olter.balls.database.sources.model.SourceEntity;
 import olter.balls.database.sources.model.SourceRepository;
-import olter.balls.database.importer.dto.BookImport;
+import olter.balls.database.importer.dto.SourceImport;
 import olter.balls.database.importer.dto.ImportResponse;
 import org.springframework.stereotype.Service;
 
@@ -33,20 +33,22 @@ public class SourceService {
     return sourceRepository.findAll().stream().map(sourceMapper::entityToListResponse).toList();
   }
 
-  public ImportResponse processImports(BookImport[] imports) {
+  public ImportResponse processImports(SourceImport[] imports) {
     List<NameResponse> importedSources = new ArrayList<>();
     List<NameResponse> updatedSources = new ArrayList<>();
-    for (BookImport book : imports) {
-      Optional<SourceEntity> oEntity = sourceRepository.findByShortName(book.getShortName());
-      log.info(
-          oEntity.isPresent()
-              ? "Updating " + book.getName() + "..."
-              : "Importing " + book.getName() + "...");
-      SourceEntity entity = oEntity.orElseGet(SourceEntity::new);
-      sourceMapper.map(book, entity);
-      sourceRepository.save(entity);
-      if (oEntity.isPresent()) updatedSources.add(sourceMapper.entityToNameResponse(entity));
-      else importedSources.add(sourceMapper.entityToNameResponse(entity));
+    for (SourceImport source : imports) {
+      if (source.isVanilla()) {
+        Optional<SourceEntity> oEntity = sourceRepository.findByShortName(source.getShortName());
+        log.info(
+                oEntity.isPresent()
+                        ? "Updating " + source.getName() + "..."
+                        : "Importing " + source.getName() + "...");
+        SourceEntity entity = oEntity.orElseGet(SourceEntity::new);
+        sourceMapper.map(source, entity);
+        sourceRepository.save(entity);
+        if (oEntity.isPresent()) updatedSources.add(sourceMapper.entityToNameResponse(entity));
+        else importedSources.add(sourceMapper.entityToNameResponse(entity));
+      }
     }
     log.info("Imported " + importedSources.size() + " books");
     log.info("Updated " + updatedSources.size() + " books");

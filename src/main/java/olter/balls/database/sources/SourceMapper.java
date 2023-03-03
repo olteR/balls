@@ -3,7 +3,7 @@ package olter.balls.database.sources;
 import olter.balls.common.NameResponse;
 import olter.balls.database.sources.dto.SourceListResponse;
 import olter.balls.database.sources.model.SourceEntity;
-import olter.balls.database.importer.dto.BookImport;
+import olter.balls.database.importer.dto.SourceImport;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
@@ -15,5 +15,5 @@ public interface SourceMapper {
   SourceListResponse entityToListResponse(SourceEntity entity);
 
   @Mapping(target = "id", ignore = true)
-  SourceEntity map(BookImport source, @MappingTarget SourceEntity target);
+  SourceEntity map(SourceImport source, @MappingTarget SourceEntity target);
 }

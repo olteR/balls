@@ -15,11 +15,6 @@ INSERT INTO campaign_users (id, role, campaign_id, user_id) VALUES (13000, 'GAME
 INSERT INTO campaign_characters (campaign_users_id, character_id) VALUES (13001, 12003), (13002, 12002), (13003, 12000), (13004, 12001),
                                                                         (13006, 12006), (13007, 12004), (13008, 12006), (13009, 12005),
                                                                         (13011, 12009), (13012, 12008), (13013, 12007), (13014, 12010);
-INSERT INTO sources (id, name, published, short_name) VALUES (14000, 'Core Rulebook', '2019-08-01', 'CRB'), (14001, 'Bestiary', '2019-08-01', 'B1'),
-                                                           (14002, 'Gamemastery Guide', '2020-02-26', 'GMG'), (14003, 'Bestiary 2', '2020-05-27', 'B2'),
-                                                           (14004, 'Advanced Player''s Guide', '2020-07-30', 'APG'), (14005, 'Bestiary 3', '2021-04-07', 'B3'),
-                                                           (14006, 'Secrets of Magic', '2021-09-01', 'SoM'), (14007, 'Guns & Gears', '2021-10-13', 'G&G'),
-                                                           (14008, 'Book of the Dead', '2022-04-27', 'BotD'), (14009, 'Dark Archive', '2021-07-27', 'DA');
 INSERT INTO skills (id, source, page, name, key_ability, description) VALUES (15000, 'CRB', 240, 'Acrobatics', 'DEX', '<p>Acrobatics measures your ability to perform tasks requiring coordination and grace. When you use the {@action Escape} basic action, you can use your Acrobatics modifier instead of your unarmed attack modifier.</p>'),
                                                                              (15001, 'CRB', 241, 'Arcana', 'INT', '<p>Arcana measures how much you know about arcane magic and creatures. Even if you''re untrained, you can {@action Recall Knowledge}.</p>'),
                                                                              (15002, 'CRB', 241, 'Athletics', 'STR', '<p>Athletics allows you to perform deeds of physical prowess. When you use the {@action Escape} basic action, you can use your {@skill Athletics} modifier instead of your unarmed attack modifier.</p>'),

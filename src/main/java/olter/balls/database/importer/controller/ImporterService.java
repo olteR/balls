@@ -6,8 +6,8 @@ import java.util.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import olter.balls.database.ancestries.ancestry.controller.AncestryService;
+import olter.balls.database.importer.dto.SourceImport;
 import olter.balls.database.sources.controller.SourceService;
-import olter.balls.database.importer.dto.BookImport;
 import olter.balls.database.importer.dto.ImportResponse;
 import olter.balls.database.importer.dto.LanguageImport;
 import olter.balls.database.importer.dto.TraitImport;
@@ -54,7 +54,7 @@ public class ImporterService {
   }
 
   public ImportResponse importSources() throws JsonProcessingException {
-    return sourceService.processImports(fetchData("books.json", BookImport[].class));
+    return sourceService.processImports(fetchData("sources.json", SourceImport[].class));
   }
 
   public ImportResponse importLanguages() throws JsonProcessingException {
