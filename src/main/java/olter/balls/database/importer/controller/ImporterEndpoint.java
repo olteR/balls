@@ -41,6 +41,11 @@ public class ImporterEndpoint {
     return ResponseEntity.ok().body(importerService.importClasses());
   }
 
+  @GetMapping("/import/conditions")
+  public ResponseEntity<ImportResponse> importConditions() throws JsonProcessingException {
+    return ResponseEntity.ok().body(importerService.importConditions());
+  }
+
   @GetMapping("/import/feats")
   public ResponseEntity<ImportResponse> importFeats() throws JsonProcessingException {
     return ResponseEntity.ok().body(importerService.importFeats());

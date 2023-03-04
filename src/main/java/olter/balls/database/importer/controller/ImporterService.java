@@ -72,6 +72,10 @@ public class ImporterService {
     return new ImportResponse();
   }
 
+  public ImportResponse importConditions() throws JsonProcessingException {
+    return new ImportResponse();
+  }
+
   public ImportResponse importFeats() throws JsonProcessingException {
     return new ImportResponse();
   }
