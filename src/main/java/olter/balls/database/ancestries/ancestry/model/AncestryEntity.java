@@ -54,8 +54,7 @@ public class AncestryEntity extends SourcedEntity {
   @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "ancestry")
   private List<HeritageEntity> heritages;
 
-  @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-  @JoinColumn(name = "related_action", referencedColumnName = "id")
+  @OneToOne(mappedBy = "relatedAncestry")
   private ActionEntity relatedAction;
 
   @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)

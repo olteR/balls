@@ -67,7 +67,8 @@ public class AncestryService {
       if (entity.getRarity() == null) {
         entity.setRarity(AncestryRarityEnum.COMMON);
         log.info("null");
-      };
+      }
+      ;
 
       // ABILITY BOOSTS AND FLAWS
       List<AbilityBoostEmbeddable> abilityBoosts = new ArrayList<>();
@@ -126,12 +127,7 @@ public class AncestryService {
                               l.contains("|") ? l.indexOf('|') : l.indexOf('}')));
                   language.ifPresent(languages::add);
                 } else {
-                  try {
-                    entity.setAdditionalLanguages(
-                        Long.valueOf(l.substring(0, l.indexOf('.')).replaceAll("[^0-9]", "")));
-                  } catch (NumberFormatException e) {
-                    entity.setAdditionalLanguages(0L);
-                  }
+                  entity.setAdditionalLanguages(ImporterUtils.getLongFromString(l, 0L));
                 }
               });
       entity.setKnownLanguages(languages);

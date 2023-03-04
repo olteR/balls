@@ -18,5 +18,6 @@ public class SourceImport {
 
   @JsonProperty("date")
   private String published;
+
   private boolean vanilla;
 }

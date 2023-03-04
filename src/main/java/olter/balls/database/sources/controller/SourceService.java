@@ -7,12 +7,12 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import olter.balls.common.NameResponse;
 import olter.balls.common.exception.ResourceNotFoundException;
+import olter.balls.database.importer.dto.ImportResponse;
+import olter.balls.database.importer.dto.SourceImport;
 import olter.balls.database.sources.SourceMapper;
 import olter.balls.database.sources.dto.SourceListResponse;
 import olter.balls.database.sources.model.SourceEntity;
 import olter.balls.database.sources.model.SourceRepository;
-import olter.balls.database.importer.dto.SourceImport;
-import olter.balls.database.importer.dto.ImportResponse;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -40,9 +40,9 @@ public class SourceService {
       if (source.isVanilla()) {
         Optional<SourceEntity> oEntity = sourceRepository.findByShortName(source.getShortName());
         log.info(
-                oEntity.isPresent()
-                        ? "Updating " + source.getName() + "..."
-                        : "Importing " + source.getName() + "...");
+            oEntity.isPresent()
+                ? "Updating " + source.getName() + "..."
+                : "Importing " + source.getName() + "...");
         SourceEntity entity = oEntity.orElseGet(SourceEntity::new);
         sourceMapper.map(source, entity);
         sourceRepository.save(entity);

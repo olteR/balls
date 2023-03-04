@@ -8,7 +8,7 @@ import lombok.Setter;
 @Setter
 @RequiredArgsConstructor
 public class ActivityImport {
-    private Long number;
-    private String unit;
-    private String entry;
+  private Long number;
+  private String unit;
+  private String entry;
 }

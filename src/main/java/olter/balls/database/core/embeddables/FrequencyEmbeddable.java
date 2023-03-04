@@ -1,6 +1,9 @@
 package olter.balls.database.core.embeddables;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -13,8 +16,14 @@ import olter.balls.database.core.enums.FrequencyUnitEnum;
 @AllArgsConstructor
 @Embeddable
 public class FrequencyEmbeddable {
-    private Long count;
-    private Long interval;
-    private FrequencyUnitEnum timespan;
-    private String special;
+  private Long frequency;
+
+  @Column(name = "timespanCount")
+  private Long interval;
+
+  @Enumerated(EnumType.STRING)
+  private FrequencyUnitEnum timespan;
+
+  @Column(name = "specialFrequency")
+  private String special;
 }

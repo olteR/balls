@@ -22,8 +22,7 @@ public class HeritageEntity extends SourcedEntity {
   @Column(columnDefinition = "TEXT")
   private String description;
 
-  @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-  @JoinColumn(name = "related_action", referencedColumnName = "id")
+  @OneToOne(mappedBy = "relatedHeritage")
   private ActionEntity relatedAction;
 
   @ManyToOne

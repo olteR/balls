@@ -8,8 +8,8 @@ import lombok.Setter;
 @Setter
 @RequiredArgsConstructor
 public class FrequencyImport {
-    private Long freq;
-    private Long interval;
-    private String unit;
-    private String special;
+  private Long freq;
+  private Long interval;
+  private String unit;
+  private String special;
 }

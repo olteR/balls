@@ -4,6 +4,7 @@ public enum ActivityUnitEnum {
   FREE("free"),
   ACTION("action"),
   REACTION("reaction"),
+  ROUND("round"),
   MINUTE("minute"),
   HOUR("hour"),
   DAY("day"),
