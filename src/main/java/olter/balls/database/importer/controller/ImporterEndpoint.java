@@ -18,7 +18,7 @@ public class ImporterEndpoint {
 
   @GetMapping("/import/abilities")
   public ResponseEntity<ImportResponse> importAbilities() throws JsonProcessingException {
-    return ResponseEntity.ok().body(importerService.importActions());
+    return ResponseEntity.ok().body(importerService.importAbilities());
   }
 
   @GetMapping("/import/actions")

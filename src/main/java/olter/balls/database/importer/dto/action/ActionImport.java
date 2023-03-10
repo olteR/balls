@@ -22,7 +22,7 @@ public class ActionImport {
   private String trigger;
   private List<Object> entries;
   private List<String> special;
-  private Object actionType;
+  private ActionTypeImport actionType;
   private List<Object> info;
   private String cost;
   private String add_hash;

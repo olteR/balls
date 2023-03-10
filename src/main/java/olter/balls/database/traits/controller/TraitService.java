@@ -33,7 +33,7 @@ public class TraitService {
     Optional<TraitEntity> entity = traitRepository.findById(id);
     if (entity.isPresent()) {
       return traitMapper.entityToListResponse(entity.get());
-    } else throw new ResourceNotFoundException("no trait with such id");
+    } else throw new ResourceNotFoundException(TraitEntity.class.getName(), id);
   }
 
   public List<TraitListResponse> getTraits() {
@@ -77,5 +77,18 @@ public class TraitService {
     log.info("Imported " + importedTraits.size() + " traits");
     log.info("Updated " + updatedTraits.size() + " traits");
     return new ImportResponse(importedTraits, updatedTraits);
+  }
+
+  public List<TraitEntity> getTraitsFromStrings(List<String> input) {
+    if (input != null) {
+      List<TraitEntity> traits = new ArrayList<>();
+      input.forEach(
+              t -> {
+                Optional<TraitEntity> trait = traitRepository.findByName(t);
+                trait.ifPresent(traits::add);
+              });
+      return traits;
+    }
+    return null;
   }
 }

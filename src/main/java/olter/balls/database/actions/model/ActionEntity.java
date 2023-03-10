@@ -22,12 +22,14 @@ public class ActionEntity extends SourcedEntity {
   @Column(unique = true)
   private String name;
 
-  @Embedded
-  private ActivityEmbeddable activity;
+  private boolean basic;
+
+  @Embedded private ActivityEmbeddable activity;
   @Embedded private FrequencyEmbeddable frequency;
 
   @Column(columnDefinition = "TEXT")
   private String prerequisites;
+
   @Column(columnDefinition = "TEXT")
   private String requirements;
 

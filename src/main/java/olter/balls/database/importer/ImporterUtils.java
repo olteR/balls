@@ -33,13 +33,13 @@ public class ImporterUtils {
         embeddable.setMinCast(getLongFromString(castTimes[0], null));
         embeddable.setMaxCast(getLongFromString(castTimes[1], null));
         embeddable.setMinCastUnits(
-                castTimes[0].contains("{@as")
-                        ? ActivityUnitEnum.ACTION
-                        : ActivityUnitEnum.valueOf(getLettersFromString(castTimes[0].toUpperCase())));
+            castTimes[0].contains("{@as")
+                ? ActivityUnitEnum.ACTION
+                : ActivityUnitEnum.valueOf(getLettersFromString(castTimes[0].toUpperCase())));
         embeddable.setMinCastUnits(
-                castTimes[1].contains("{@as")
-                        ? ActivityUnitEnum.ACTION
-                        : ActivityUnitEnum.valueOf(getLettersFromString(castTimes[1].toUpperCase())));
+            castTimes[1].contains("{@as")
+                ? ActivityUnitEnum.ACTION
+                : ActivityUnitEnum.valueOf(getLettersFromString(castTimes[1].toUpperCase())));
       } else {
         embeddable.setSpecial(activity.getEntry());
       }

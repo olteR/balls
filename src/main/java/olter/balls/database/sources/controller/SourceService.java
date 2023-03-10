@@ -26,7 +26,7 @@ public class SourceService {
     Optional<SourceEntity> entity = sourceRepository.findById(id);
     if (entity.isPresent()) {
       return sourceMapper.entityToListResponse(entity.get());
-    } else throw new ResourceNotFoundException("no source with such id");
+    } else throw new ResourceNotFoundException(SourceEntity.class.getName(), id);
   }
 
   public List<SourceListResponse> getSources() {

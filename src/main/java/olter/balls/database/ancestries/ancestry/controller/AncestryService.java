@@ -23,6 +23,7 @@ import olter.balls.database.importer.dto.ancestry.AncestryImport;
 import olter.balls.database.importer.dto.ancestry.AncestryImportResponse;
 import olter.balls.database.languages.model.LanguageEntity;
 import olter.balls.database.languages.model.LanguageRepository;
+import olter.balls.database.traits.controller.TraitService;
 import olter.balls.database.traits.model.TraitEntity;
 import olter.balls.database.traits.model.TraitRepository;
 import org.springframework.stereotype.Service;
@@ -35,7 +36,7 @@ public class AncestryService {
   private final AncestryMapper ancestryMapper;
 
   private final LanguageRepository languageRepository;
-  private final TraitRepository traitRepository;
+  private final TraitService traitService;
 
   private final HeritageService heritageService;
 
@@ -43,7 +44,7 @@ public class AncestryService {
     Optional<AncestryEntity> entity = ancestryRepository.findById(id);
     if (entity.isPresent()) {
       return ancestryMapper.entityToDetailsResponse(entity.get());
-    } else throw new ResourceNotFoundException("no ancestry with such id");
+    } else throw new ResourceNotFoundException(AncestryEntity.class.getName(), id);
   }
 
   public List<AncestryListResponse> getAncestries() {
@@ -133,15 +134,7 @@ public class AncestryService {
       entity.setKnownLanguages(languages);
 
       // TRAITS
-      List<TraitEntity> traits = new ArrayList<>();
-      ancestryImport
-          .getTraits()
-          .forEach(
-              t -> {
-                Optional<TraitEntity> trait = traitRepository.findByName(t);
-                trait.ifPresent(traits::add);
-              });
-      entity.setTraits(traits);
+      entity.setTraits(traitService.getTraitsFromStrings(ancestryImport.getTraits()));
 
       ancestryRepository.save(entity);
 

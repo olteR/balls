@@ -35,7 +35,7 @@ public class CampaignService {
     if (campaign.isPresent()) {
       return campaignMapper.entityToDetailsResponse(campaign.get());
     } else {
-      throw new ResourceNotFoundException("No such campaign");
+      throw new ResourceNotFoundException(CampaignEntity.class.getName(), id);
     }
   }
 }

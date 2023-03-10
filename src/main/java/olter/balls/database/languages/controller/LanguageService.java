@@ -34,7 +34,7 @@ public class LanguageService {
     Optional<LanguageEntity> entity = languageRepository.findById(id);
     if (entity.isPresent()) {
       return languageMapper.entityToDetailsResponse(entity.get());
-    } else throw new ResourceNotFoundException("no language with such id");
+    } else throw new ResourceNotFoundException(LanguageEntity.class.getName(), id);
   }
 
   public List<LanguageListResponse> getLanguages() {

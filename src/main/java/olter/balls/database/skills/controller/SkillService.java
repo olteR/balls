@@ -23,7 +23,7 @@ public class SkillService {
     Optional<SkillEntity> entity = skillRepository.findById(id);
     if (entity.isPresent()) {
       return skillMapper.entityToDetailsResponse(entity.get());
-    } else throw new ResourceNotFoundException("no ancestry with such id");
+    } else throw new ResourceNotFoundException(SkillEntity.class.getName(), id);
   }
 
   public List<SkillListResponse> getSkills() {
