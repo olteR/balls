@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Objects;
 import olter.balls.database.core.embeddables.ActivityEmbeddable;
 import olter.balls.database.core.enums.ActivityUnitEnum;
-import olter.balls.database.importer.dto.action.ActivityImport;
+import olter.balls.database.importer.dto.ActivityImport;
 
 public class ImporterUtils {
 

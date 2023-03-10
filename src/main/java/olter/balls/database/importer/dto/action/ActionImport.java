@@ -5,6 +5,7 @@ import java.util.List;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import olter.balls.database.importer.dto.ActivityImport;
 
 @Getter
 @Setter

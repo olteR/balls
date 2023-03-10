@@ -1,4 +1,4 @@
-package olter.balls.database.importer.dto.action;
+package olter.balls.database.importer.dto;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

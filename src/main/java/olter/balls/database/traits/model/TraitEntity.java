@@ -8,6 +8,7 @@ import lombok.Setter;
 import olter.balls.database.actions.model.ActionEntity;
 import olter.balls.database.ancestries.ancestry.model.AncestryEntity;
 import olter.balls.database.core.SourcedEntity;
+import olter.balls.database.spells.model.SpellEntity;
 
 @Entity
 @Getter
@@ -30,4 +31,7 @@ public class TraitEntity extends SourcedEntity {
 
   @ManyToMany(mappedBy = "traits", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   private List<AncestryEntity> relatedAncestries;
+
+  @ManyToMany(mappedBy = "traits", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  private List<SpellEntity> relatedSpells;
 }
