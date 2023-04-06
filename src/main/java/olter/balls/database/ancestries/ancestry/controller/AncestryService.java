@@ -24,8 +24,6 @@ import olter.balls.database.importer.dto.ancestry.AncestryImportResponse;
 import olter.balls.database.languages.model.LanguageEntity;
 import olter.balls.database.languages.model.LanguageRepository;
 import olter.balls.database.traits.controller.TraitService;
-import olter.balls.database.traits.model.TraitEntity;
-import olter.balls.database.traits.model.TraitRepository;
 import org.springframework.stereotype.Service;
 
 @Service

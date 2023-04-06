@@ -7,15 +7,14 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import olter.balls.database.actions.controller.ActionService;
 import olter.balls.database.ancestries.ancestry.controller.AncestryService;
-import olter.balls.database.importer.dto.ImportResponse;
-import olter.balls.database.importer.dto.LanguageImport;
-import olter.balls.database.importer.dto.SourceImport;
-import olter.balls.database.importer.dto.TraitImport;
+import olter.balls.database.importer.dto.*;
 import olter.balls.database.importer.dto.action.ActionImport;
 import olter.balls.database.importer.dto.ancestry.AncestryImport;
 import olter.balls.database.importer.dto.ancestry.AncestryImportResponse;
+import olter.balls.database.importer.dto.spell.SpellImport;
 import olter.balls.database.languages.controller.LanguageService;
 import olter.balls.database.sources.controller.SourceService;
+import olter.balls.database.spells.controller.SpellService;
 import olter.balls.database.traits.controller.TraitService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
@@ -33,6 +32,7 @@ public class ImporterService {
   private final ActionService actionService;
   private final AncestryService ancestryService;
   private final SourceService sourceService;
+  private final SpellService spellService;
   private final LanguageService languageService;
   private final TraitService traitService;
 
@@ -85,7 +85,22 @@ public class ImporterService {
   }
 
   public ImportResponse importSpells() throws JsonProcessingException {
-    return new ImportResponse();
+    RestTemplate restTemplate = new RestTemplate();
+
+    ResponseEntity<String> responseJson =
+        restTemplate.exchange(
+            IMPORT_URL.concat("spells/index.json"),
+            HttpMethod.GET,
+            generateHttpEntity(),
+            String.class);
+    String[] sources = Objects.requireNonNull(responseJson.getBody()).split(",");
+    List<SpellImport> imports = new ArrayList<>();
+    for (String source : sources) {
+      source = source.substring(source.indexOf(':') + 3, source.lastIndexOf('"'));
+      log.info("importing source: " + source);
+      imports.add(fetchData("spells/".concat(source), SpellImport.class));
+    }
+    return spellService.processImports(imports);
   }
 
   public ImportResponse importLanguages() throws JsonProcessingException {

@@ -18,8 +18,6 @@ import olter.balls.database.importer.ImporterUtils;
 import olter.balls.database.importer.dto.ImportResponse;
 import olter.balls.database.importer.dto.action.ActionImport;
 import olter.balls.database.traits.controller.TraitService;
-import olter.balls.database.traits.model.TraitEntity;
-import olter.balls.database.traits.model.TraitRepository;
 import org.springframework.stereotype.Service;
 
 @Service

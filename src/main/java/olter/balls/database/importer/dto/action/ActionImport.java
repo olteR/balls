@@ -5,7 +5,7 @@ import java.util.List;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import olter.balls.database.importer.dto.ActivityImport;
+import olter.balls.database.importer.dto.ValueWithUnitImport;
 
 @Getter
 @Setter
@@ -13,7 +13,7 @@ import olter.balls.database.importer.dto.ActivityImport;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ActionImport {
   private String name;
-  private ActivityImport activity;
+  private ValueWithUnitImport activity;
   private FrequencyImport frequency;
   private String source;
   private Long page;

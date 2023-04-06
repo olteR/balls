@@ -83,10 +83,10 @@ public class TraitService {
     if (input != null) {
       List<TraitEntity> traits = new ArrayList<>();
       input.forEach(
-              t -> {
-                Optional<TraitEntity> trait = traitRepository.findByName(t);
-                trait.ifPresent(traits::add);
-              });
+          t -> {
+            Optional<TraitEntity> trait = traitRepository.findByName(t);
+            trait.ifPresent(traits::add);
+          });
       return traits;
     }
     return null;

@@ -93,7 +93,6 @@
             @click="importEntity('SPELLS')"
             :loading="loading.SPELLS"
             class="w-full"
-            disabled
         ></Button>
       </div>
       <div>

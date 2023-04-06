@@ -1,13 +1,15 @@
 package olter.balls.database.core.enums;
 
-public enum SpellComponentEnum {
-  SOMATIC("somatic"),
-  VERBAL("verbal"),
-  MATERIAL("material");
+public enum AreaTypeEnum {
+  BURST("burst"),
+  CONE("cone"),
+  EMANATION("emanation"),
+  LINE("line"),
+  MISC("misc");
 
   private final String value;
 
-  SpellComponentEnum(String value) {
+  AreaTypeEnum(String value) {
     this.value = value;
   }
 

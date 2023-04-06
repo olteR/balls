@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Objects;
 import olter.balls.database.core.embeddables.ActivityEmbeddable;
 import olter.balls.database.core.enums.ActivityUnitEnum;
-import olter.balls.database.importer.dto.ActivityImport;
+import olter.balls.database.importer.dto.ValueWithUnitImport;
 
 public class ImporterUtils {
 
@@ -20,7 +20,7 @@ public class ImporterUtils {
             : String.join("</p><p>", list.stream().map(Object::toString).toList()));
   }
 
-  public static ActivityEmbeddable mapActivity(ActivityImport activity) {
+  public static ActivityEmbeddable mapActivity(ValueWithUnitImport activity) {
     if (activity != null) {
       ActivityEmbeddable embeddable = new ActivityEmbeddable();
       if (!Objects.equals(activity.getUnit(), "varies")) {

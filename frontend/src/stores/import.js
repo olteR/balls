@@ -9,6 +9,7 @@ export const useImportStore = defineStore("import", () => {
     actions: "http://localhost:3000/api/import/actions",
     ancestries: "http://localhost:3000/api/import/ancestries",
     sources: "http://localhost:3000/api/import/sources",
+    spells: "http://localhost:3000/api/import/spells",
     languages: "http://localhost:3000/api/import/languages",
     traits: "http://localhost:3000/api/import/traits",
   };
@@ -78,6 +79,9 @@ export const useImportStore = defineStore("import", () => {
     },
     SOURCES: async () => {
       await importGeneric("sources");
+    },
+    SPELLS: async () => {
+      await importGeneric("spells");
     },
     TRAITS: async () => {
       await importGeneric("traits");
