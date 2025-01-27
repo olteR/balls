@@ -98,7 +98,7 @@ public class ImporterService {
     for (String source : sources) {
       source = source.substring(source.indexOf(':') + 3, source.lastIndexOf('"'));
       log.info("importing source: " + source);
-      imports.add(fetchData("spells/".concat(source), SpellImport.class));
+      imports.addAll(List.of(fetchData("spells/".concat(source), SpellImport[].class)));
     }
     return spellService.processImports(imports);
   }

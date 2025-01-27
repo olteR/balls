@@ -23,7 +23,6 @@ public class SpellService {
   public ImportResponse processImports(List<SpellImport> imports) {
     List<NameResponse> importedSpells = new ArrayList<>();
     List<NameResponse> updatedSpells = new ArrayList<>();
-    ImportResponse heritages = new ImportResponse();
     for (SpellImport spellImport : imports) {
       Optional<SpellEntity> oEntity = spellRepository.findByName(spellImport.getName());
       log.info(

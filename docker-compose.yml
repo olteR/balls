@@ -8,14 +8,14 @@ services:
     restart: always
     command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
     volumes:
-      - space-sql-data:/var/lib/mysql
+      - balls-sql-data:/var/lib/mysql
     ports:
       - "33060:3306"
     container_name: balls-sql
     environment:
       MYSQL_ROOT_PASSWORD: "Sitius4Lyfe"
       MYSQL_DATABASE: "balls_db"
-
+      
 volumes:
-  space-sql-data:
+  balls-sql-data:
     name: balls-sql-data
