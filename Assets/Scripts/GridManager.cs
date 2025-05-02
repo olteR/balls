@@ -23,6 +23,7 @@ public class GridManager : MonoBehaviour
             for (int j = 0; j < _rows; j++) {
                 GameObject spawnedTile = Instantiate(_tilePrefab);
                 spawnedTile.name = $"Tile {i} {j}";
+                spawnedTile.transform.parent = gameObject.transform;
                 spawnedTile.transform.position = new Vector3(_tilePrefab.transform.position.x + i * GRID_SIZE, _tilePrefab.transform.position.y - j * GRID_SIZE, -1);
                 _tiles[new Vector2(i, j)] = spawnedTile;
             }
