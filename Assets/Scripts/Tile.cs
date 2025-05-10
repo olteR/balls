@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class Tile : MonoBehaviour
+public class Tile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     private SpriteRenderer _spriteRenderer;
 
@@ -11,11 +12,11 @@ public class Tile : MonoBehaviour
         _spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
-    void OnMouseEnter() {
+    public void OnPointerEnter(PointerEventData pointerEventData) {
         _spriteRenderer.color = new Color(1f, 1f, 1f, 0.5f);
     }
  
-    void OnMouseExit() {
+    public void OnPointerExit(PointerEventData pointerEventData) {
         _spriteRenderer.color = new Color(1f, 1f, 1f, 0f);
     }
 }
